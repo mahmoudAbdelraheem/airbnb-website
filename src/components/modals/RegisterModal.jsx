@@ -5,6 +5,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import useRegisterModal from "../../hooks/useRegisterModal";
+import useLoginModal from "../../hooks/useLoginModal";
+
 import Heading from "../Heading";
 import Input from "../inputs/Input";
 import toast from "react-hot-toast";
@@ -16,6 +18,8 @@ import { loginWithGitHub } from "../../data/auth/authWithGithubAccount";
 
 function RegisterModal() {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
+
   const [isLoading, setIsLoading] = useState(false);
   const navigator = useNavigate();
 
@@ -70,6 +74,11 @@ function RegisterModal() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const toggleModal = () => {
+    loginModal.onOpen();
+    registerModal.onClose();
   };
 
   const bodyContent = (
@@ -129,7 +138,7 @@ function RegisterModal() {
         <div className="justify-center flex flex-row items-center gap-2">
           <div>Already have an account?</div>
           <div
-            onClick={registerModal.onClose}
+            onClick={toggleModal}
             className="
           text-neutral-800 
           cursor-pointer 
