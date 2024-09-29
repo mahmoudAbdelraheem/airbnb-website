@@ -212,7 +212,8 @@ function Modal({
                       label={actionLabel}
                       onClick={handleSubmit}
                     />
-                  </div>
+                  </div> 
+                  {footer}
                 </div>
               </div>
             </div>
