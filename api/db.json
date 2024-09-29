@@ -1,7 +1,7 @@
 {
   "homes": [
     {
-      "id": 1,
+      "id": "1",
       "title": "title 1",
       "description": "description 1",
       "imageSrc": "https://picsum.photos/id/237/400/400",
@@ -15,7 +15,7 @@
       "userId": null
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "title 2",
       "description": "description 2",
       "imageSrc": "https://picsum.photos/id/238/400/400",
@@ -29,7 +29,7 @@
       "userId": null
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "title 3",
       "description": "description 3",
       "imageSrc": "https://picsum.photos/id/240/400/400",
@@ -46,8 +46,8 @@
   "users": [
     {
       "favoritesIds": [
-        3,
-        1
+        "2",
+        "3"
       ],
       "id": "t9KZIB40cAUYneccg7fdOX6n2R32"
     }
