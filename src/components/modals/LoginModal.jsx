@@ -4,18 +4,20 @@ import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import useRegisterModal from "../../hooks/useRegisterModal";
+import useLoginModal from "../../hooks/useLoginModal";
+import userRegisterModal from "../../hooks/useRegisterModal";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
 import toast from "react-hot-toast";
 import Button from "../Button";
-import { registerWithEmailAndPassword } from "../../data/auth/authWithEmailAndPassword";
+import { loginWithEmailAndPassword } from "../../data/auth/authWithEmailAndPassword";
 import { useNavigate } from "react-router-dom";
 import { loginWithGoogle } from "../../data/auth/authWithGoogleAccount";
 import { loginWithGitHub } from "../../data/auth/authWithGithubAccount";
 
-function RegisterModal() {
-  const registerModal = useRegisterModal();
+function LoginModal() {
+  const loginModal = useLoginModal();
+  const registerModal = userRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
   const navigator = useNavigate();
 
@@ -25,7 +27,6 @@ function RegisterModal() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
@@ -34,7 +35,7 @@ function RegisterModal() {
   const registerWithGitHub = async () => {
     try {
       await loginWithGitHub();
-      registerModal.onClose();
+      loginModal.onClose();
       navigator("/");
     } catch (error) {
       console.log(error);
@@ -44,7 +45,7 @@ function RegisterModal() {
   const registerWithGoogle = async () => {
     try {
       await loginWithGoogle();
-      registerModal.onClose();
+      loginModal.onClose();
       navigator("/");
     } catch (error) {
       console.log(error);
@@ -56,10 +57,9 @@ function RegisterModal() {
 
     try {
       // create user with name, email, and password
-      await registerWithEmailAndPassword(data.name, data.email, data.password);
-
+      await loginWithEmailAndPassword(data.email, data.password);
       // close modal
-      registerModal.onClose();
+      loginModal.onClose();
       // to refresh the page
       navigator("/");
 
@@ -74,7 +74,7 @@ function RegisterModal() {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title={"Welcome to Airbnb"} subtitle={"Create an account"} />
+      <Heading title={"Welcome back"} subtitle={"Login to your account!"} />
       <Input
         id={"email"}
         label={"Email"}
@@ -83,14 +83,7 @@ function RegisterModal() {
         errors={errors}
         required
       />
-      <Input
-        id={"name"}
-        label={"Name"}
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-      />
+
       <Input
         id={"password"}
         label={"Password"}
@@ -145,10 +138,10 @@ function RegisterModal() {
   return (
     <Modal
       disable={isLoading}
-      isOpen={registerModal.isOpen}
-      title={"Register"}
+      isOpen={loginModal.isOpen}
+      title={"Login"}
       actionLabel={"Continue"}
-      onClose={registerModal.onClose}
+      onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}
@@ -156,4 +149,4 @@ function RegisterModal() {
   );
 }
 
-export default RegisterModal;
+export default LoginModal;

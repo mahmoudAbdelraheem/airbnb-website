@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import Container from "../Container";
 import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
 
-function Navbar() {
+function Navbar({ user }) {
   return (
     <div className=" fixed w-full bg-white z-10 shadow-sm">
       <div
@@ -13,8 +14,7 @@ function Navbar() {
         "
       >
         <Container>
-
-            <div
+          <div
             className="
                 flex
                 flex-row
@@ -23,14 +23,13 @@ function Navbar() {
                 gap-3
                 md:gap-0
             "
-            >
-                <Logo/>
+          >
+            <Logo />
 
-                <Search/>
+            <Search />
 
-                <UserMenu/>
-            </div>
-
+            <UserMenu user={user} />
+          </div>
         </Container>
       </div>
     </div>
