@@ -1,44 +1,55 @@
 {
-   "homes":[
+  "homes": [
     {
-        "id":1,
-        "title":"title 1",
-        "description": "description 1",
-        "image Src": "https://picsum.photos/id/237/400/400",
-        "category":"category 1",
-        "roomCount" : 4,
-        "bathroomCount": 2,
-        "guestCount": 5,
-        "location":"location 1",
-        "price": 500,
-        "userId":"wqw1"
-
+      "id": 1,
+      "title": "title 1",
+      "description": "description 1",
+      "imageSrc": "https://picsum.photos/id/237/400/400",
+      "createAt": "2022-01-01",
+      "category": "category 1",
+      "roomCount": 4,
+      "bathroomCount": 2,
+      "guestCount": 5,
+      "location": "location 1",
+      "price": 500,
+      "userId": null
     },
     {
-        "id":2,
-        "title":"title 2",
-        "description": "description 2",
-        "image Src": "https://picsum.photos/id/238/400/400",
-        "category":"category 2",
-        "roomCount" : 4,
-        "bathroomCount": 2,
-        "guestCount": 5,
-        "location":"location 2",
-        "price": 500,
-        "userId":"wqw1"
+      "id": 2,
+      "title": "title 2",
+      "description": "description 2",
+      "imageSrc": "https://picsum.photos/id/238/400/400",
+      "createAt": "2022-02-01",
+      "category": "category 2",
+      "roomCount": 4,
+      "bathroomCount": 2,
+      "guestCount": 5,
+      "location": "location 2",
+      "price": 500,
+      "userId": null
     },
     {
-        "id":3,
-        "title":"title 3",
-        "description": "description 3",
-        "image Src": "https://picsum.photos/id/240/400/400",
-        "category":"category 3",
-        "roomCount" : 4,
-        "bathroomCount": 2,
-        "guestCount": 5,
-        "location":"location 3",
-        "price": 500,
-        "userId":"wqw1"
+      "id": 3,
+      "title": "title 3",
+      "description": "description 3",
+      "imageSrc": "https://picsum.photos/id/240/400/400",
+      "createAt": "2022-04-01",
+      "category": "category 3",
+      "roomCount": 4,
+      "bathroomCount": 2,
+      "guestCount": 5,
+      "location": "location 3",
+      "price": 500,
+      "userId": null
     }
-   ]
+  ],
+  "users": [
+    {
+      "favoritesIds": [
+        3,
+        1
+      ],
+      "id": "t9KZIB40cAUYneccg7fdOX6n2R32"
+    }
+  ]
 }
