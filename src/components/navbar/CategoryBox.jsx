@@ -1,7 +1,8 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import qs from "query-string";
 
+// eslint-disable-next-line react/prop-types
 export default function CategoryBox({ icon: Icon, label, selected }) {
   const navigate = useNavigate();
   const [params] = useSearchParams();
