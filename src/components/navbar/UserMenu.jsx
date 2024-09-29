@@ -6,11 +6,13 @@ import MenuItem from "./MenuItem";
 import useRegisterModal from "../../hooks/useRegisterModal";
 import useLoginModal from "../../hooks/useLoginModal";
 import { handleSignOut } from "../../data/auth/authSignOut";
+import { useNavigate } from "react-router-dom";
 
 function UserMenu({ user }) {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [isOpen, setIsOpen] = useState(false);
+  const nav = useNavigate();
 
   const toggleOpen = () => {
     setIsOpen((value) => !value);
@@ -89,7 +91,12 @@ function UserMenu({ user }) {
             {user ? (
               <>
                 <MenuItem onClick={() => {}} label="My trips" />
-                <MenuItem onClick={() => {}} label="My favorites" />
+                <MenuItem
+                  onClick={() => {
+                    nav("/favorite");
+                  }}
+                  label="My favorites"
+                />
                 <MenuItem onClick={() => {}} label="My reservations" />
                 <MenuItem onClick={() => {}} label="My Account" />
                 <MenuItem onClick={() => {}} label={"Airbnb my home"} />
