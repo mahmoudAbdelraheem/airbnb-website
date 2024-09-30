@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import getFavirteListings from "../data/listings/getFavorite";
+// import getFavirteListings from "../data/favorites/getFavorite";
+import getFavoriteListingsFromFirebase from "../data/favorites/getFavoritesFromFirebase";
 import EmptyState from "../components/EmptyState";
 import FavoritesClient from "../components/FavoritesClient";
 import { onAuthStateChanged } from "firebase/auth";
@@ -13,20 +14,18 @@ const Favorite = () => {
   const [favList, setFavList] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const fetchFav = async () => {
-    const fav = await getFavirteListings();
-    console.log(fav);
+  const fetchFavorites = async () => {
+    const fav = await getFavoriteListingsFromFirebase();
+    console.log("favorites data list", fav);
     setFavList(fav);
-    // console.log(fav);
   };
   useEffect(() => {
+    setLoading(true);
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
-      // Set the current user when auth state changes
       setCurrentUser(user);
-      console.log("current user data from home", user);
-      setLoading(false);
     });
-    fetchFav();
+    fetchFavorites();
+    setLoading(false);
     return () => unsubscribe();
   }, []);
   return (
@@ -35,6 +34,16 @@ const Favorite = () => {
       <RegisterModal />
       <LoginModal />
       <Navbar user={currentUser} />
+
+      {loading ? (
+        <div className="flex justify-center items-center h-screen">
+          <EmptyState
+            title="Loading..."
+            subtitle="Please wait while we load your favorite listings."
+          />
+        </div>
+      ) : null}
+
       {favList.length == 0 ? (
         <div className="flex justify-center items-center h-screen">
           <EmptyState

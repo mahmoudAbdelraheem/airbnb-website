@@ -1,20 +1,25 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import useLoginModel from "./useLoginModal";
-import { Delete, Post } from "../data/favorites/addFavorite";
+import { Delete, Post } from "../data/favorites/addFavoriteToFirebase";
 import toast from "react-hot-toast";
-import axios from "axios";
+import { firebaseFirestore } from "../data/firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
 
-export default function useFavorites({ listingId, currentUser }) {
+export default function useFavoritesFirebase({ listingId, currentUser }) {
   const loginModel = useLoginModel();
   const [current, setCurrent] = useState();
 
-  // Fetch the current user data
+  // Fetch the current user data from Firestore
   const fetchUser = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:3000/users/${currentUser.uid}`
-      );
-      setCurrent(res.data);
+      const userRef = doc(firebaseFirestore, "users", currentUser.uid);
+      const userDoc = await getDoc(userRef);
+
+      if (userDoc.exists()) {
+        setCurrent(userDoc.data());
+      } else {
+        console.error("User not found.");
+      }
     } catch (err) {
       console.error("Error fetching user:", err);
     }
