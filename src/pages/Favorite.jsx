@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import getFavirteListings from "../data/listings/getFavorite";
+import getFavirteListings from "../data/favorites/getFavorite";
 import EmptyState from "../components/EmptyState";
 import FavoritesClient from "../components/FavoritesClient";
 import { onAuthStateChanged } from "firebase/auth";

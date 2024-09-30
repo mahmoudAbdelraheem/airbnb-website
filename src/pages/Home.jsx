@@ -10,20 +10,26 @@ import ToasterProvider from "../providers/ToasterProvider";
 import Logo from "../components/navbar/Logo";
 import Container from "../components/Container";
 import EmptyState from "../components/EmptyState";
-import getListings from "../data/listings/getListing";
 import ListingsCard from "../components/listings/ListingsCard";
+import Map from "../components/Map";
+import { getListingFromFirebase } from "../data/listings/getListingFromFirebase";
+// import getListings from "../data/listings/getListing";
+// import { insertListings } from "../data/listings/insertListing";
 
 function Home() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState([]);
   const fetchData = async () => {
-    const res = await getListings();
-    setListings(res.data);
+    // const res = await getListings();
+    const listingData = await getListingFromFirebase();
+    console.log("listing data from firebase", listingData);
+
+    // await insertListings(); // Insert listings into the database just for test
+    setListings(listingData);
   };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
-      // Set the current user when auth state changes
       setCurrentUser(user);
       console.log("current user data from home", user);
       setLoading(false);
@@ -50,7 +56,6 @@ function Home() {
       </div>
     );
   }
-  console.log(listings);
   return (
     <>
       <ToasterProvider />
@@ -64,7 +69,7 @@ function Home() {
       ) : (
         <div className="py-[100px] ">
           <Container>
-            <div className="pt-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+            <div className="pt-24  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
               {listings &&
                 listings.map((listing) => (
                   <ListingsCard
@@ -77,6 +82,12 @@ function Home() {
           </Container>
         </div>
       )}
+      {/*//! test map components */}
+      <Container>
+        {/* <Map center={[26.8206, 30.8025]} /> get error */}
+        <Map />
+      </Container>
+      <div className="h-[100px]"></div>
     </>
   );
 }

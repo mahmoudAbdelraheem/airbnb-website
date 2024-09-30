@@ -4,6 +4,14 @@
 
 html,
 body,
-:root{
+:root {
   height: 100%;
+}
+
+/* for leaflet map package */
+.leaflet-bottom,
+.leaflet-control,
+.leaflet-pane,
+.leaflet-top {
+  z-index: 0 !important;
 }
