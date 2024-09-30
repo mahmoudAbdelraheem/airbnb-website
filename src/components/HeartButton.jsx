@@ -1,46 +1,48 @@
 import { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import useFavorites from "../hooks/useFavorites";
+import useFavoritesFirebase from "../hooks/useFavoritesFirebase";
+import toast from "react-hot-toast"; // Import toast for error handling
 
 const HeartButton = ({ listingId, currentUser }) => {
-  const { isFavorite, toggleFavorite } = useFavorites({
+  const { isFavorite, toggleFavorite } = useFavoritesFirebase({
     listingId,
     currentUser,
   });
 
-  const [loading, setLoading] = useState(false); // Add loading state to prevent multiple clicks
+  const [loading, setLoading] = useState(false);
 
   const handleClick = async (e) => {
-    if (loading) return; // Prevent click if already loading
-    setLoading(true); // Set loading to true while the API call is made
+    if (loading) return;
+    setLoading(true);
 
     try {
-      await toggleFavorite(e); // Call the toggleFavorite function
+      await toggleFavorite(e);
     } catch (err) {
       console.error("Failed to toggle favorite:", err);
+      toast.error("Failed to update favorite."); // Notify user of the error
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false);
     }
   };
 
   return (
     <div
-      onClick={handleClick} // Attach the local handleClick method
+      onClick={handleClick}
       className={`relative hover:opacity-80 transition cursor-pointer ${
         loading ? "opacity-50" : ""
       }`}
+      role="button" // Added role for accessibility
+      tabIndex={0} // Allow keyboard navigation
     >
-      {/* Display the outline heart icon */}
       <AiOutlineHeart
         size={28}
         className="fill-white absolute -top-[2px] -right-[2px]"
       />
-
-      {/* Display the filled heart based on the isFavorite state */}
       <AiFillHeart
-        size={28}
+        size={24}
         className={isFavorite ? "fill-rose-500" : "fill-neutral-500/70"}
       />
+      {loading && <span className="loader" />} {/* Optional loading spinner */}
     </div>
   );
 };
