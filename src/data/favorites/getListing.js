@@ -8,3 +8,12 @@ export default async function getListings() {
     throw new Error(error);
   }
 }
+
+export async function getListingById(id) {
+  try {
+    const listing = await axios.get(`http://localhost:3000/homes/${id}`);
+    return listing;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
