@@ -13,6 +13,7 @@ import EmptyState from "../components/EmptyState";
 import ListingsCard from "../components/listings/ListingsCard";
 import Map from "../components/Map";
 import { getListingFromFirebase } from "../data/listings/getListingFromFirebase";
+import Loading from "../components/Loading";
 // import getListings from "../data/listings/getListing";
 // import { insertListings } from "../data/listings/insertListing";
 
@@ -42,19 +43,7 @@ function Home() {
   }, []);
 
   if (loading) {
-    return (
-      <div
-        className="
-      h-screen
-      w-screen
-      flex 
-      items-center 
-      justify-center
-      "
-      >
-        <Logo />
-      </div>
-    );
+    return <Loading />;
   }
   return (
     <>
