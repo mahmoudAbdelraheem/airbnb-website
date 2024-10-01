@@ -4,6 +4,8 @@ import Container from "../Container";
 import ListingHead from "./ListingHead";
 import Loading from "../Loading";
 import { getListingById } from "../../data/favorites/getListing";
+import ListingInfo from "./ListingInfo";
+import Map from "../Map";
 
 export default function ListingDetail() {
   const { id } = useParams();
@@ -34,12 +36,23 @@ export default function ListingDetail() {
         <div className="flex flex-col gap-6">
           <ListingHead
             title={listing.title}
-            imageSrc={listing.imageSrc[0]}
+            imageSrc={listing.imageSrc}
             location={listing.location}
             id={listing.id}
           />
+          <div className="grid grid-cols-1 md:grid-cols-7 md:gap-10 mt-6">
+            <ListingInfo
+              description={listing.description}
+              location={listing.location}
+              guestCount={listing.guestCount}
+              roomCount={listing.roomCount}
+              category={listing.category}
+              id={listing.userId}
+            />
+          </div>
         </div>
       </div>
+      <Map />
     </Container>
   );
 }
