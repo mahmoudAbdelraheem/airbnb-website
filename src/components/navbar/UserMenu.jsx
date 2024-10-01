@@ -98,7 +98,12 @@ function UserMenu({ user }) {
                   label="My favorites"
                 />
                 <MenuItem onClick={() => {}} label="My reservations" />
-                <MenuItem onClick={() => {}} label="My Account" />
+                <MenuItem
+                  onClick={() => {
+                    nav("/account");
+                  }}
+                  label="My Account"
+                />
                 <MenuItem onClick={() => {}} label={"Airbnb my home"} />
                 <MenuItem
                   onClick={registerModal.onOpen}
