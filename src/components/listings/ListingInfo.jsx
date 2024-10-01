@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Avatar from "../../components/Avatar";
 import getHostById from "../../data/details/getHostById";
 import Loading from "../Loading";
@@ -10,6 +10,7 @@ export default function ListingInfo({
   guestCount,
   category,
   id,
+  price,
 }) {
   const [host, setHost] = useState(null);
 
@@ -42,8 +43,19 @@ export default function ListingInfo({
           <div>{guestCount} guests</div>
           <div>{roomCount} rooms</div>
         </div>
+        <div className="font-light text-2xl  text-neutral-500">{location}</div>
+        <div className="flex flex-row items-center gap-4 text-2xl text-neutral-500">
+          <div>{category}</div>
+        </div>
+        <hr />
+        <div className="flex flex-row items-center ">
+          <div className="text-2xl font-semibold">$ {price} </div>
+          <div className="font-light text-neutral-500 ml-3 text-sm">
+            per night
+          </div>
+        </div>
+        <hr />
       </div>
-      <hr />
       <div className="flex flex-col gap-6 py-7">
         <div className="flex flex-col">
           <div className="text-lg text-neutral-500 font-semibold">
