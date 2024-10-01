@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import Heading from "../Heading";
 import HeartButton from "../HeartButton";
 import getCurrentUser from "../../data/auth/getCurrentUser";
+import ImageListing from "./ImageListing";
+import Map from "../Map";
 
-export default function ListingHead({ title, location, id, imageSrc }) {
+export default function ListingHead({ title, location, imageSrc, id }) {
   const [currentUser, setCurrentUser] = useState(null);
 
   const fetchUser = async () => {
@@ -18,19 +20,7 @@ export default function ListingHead({ title, location, id, imageSrc }) {
   return (
     <>
       <Heading title={title} subtitle={location} />
-      <div
-        className="
-      w-full h-[60vh]
-      overflow-hidden
-      rounded-xl
-      relative
-      "
-      >
-        <img src={imageSrc} alt="Image" className="object-cover w-full " />
-        <div className="absolute top-5 right-5">
-          <HeartButton listingId={id} currentUser={currentUser} />
-        </div>
-      </div>
+      <ImageListing imageSrc={imageSrc} id={id} />
     </>
   );
 }
