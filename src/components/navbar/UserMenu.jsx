@@ -12,7 +12,7 @@ function UserMenu({ user }) {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [isOpen, setIsOpen] = useState(false);
-  const nav = useNavigate();
+  const navigator = useNavigate();
 
   const toggleOpen = () => {
     setIsOpen((value) => !value);
@@ -93,14 +93,14 @@ function UserMenu({ user }) {
                 <MenuItem onClick={() => {}} label="My trips" />
                 <MenuItem
                   onClick={() => {
-                    nav("/favorite");
+                    navigator("/favorite");
                   }}
                   label="My favorites"
                 />
                 <MenuItem onClick={() => {}} label="My reservations" />
                 <MenuItem
                   onClick={() => {
-                    nav("/account");
+                    navigator("/account");
                   }}
                   label="My Account"
                 />
@@ -113,6 +113,7 @@ function UserMenu({ user }) {
                 <MenuItem
                   onClick={() => {
                     handleSignOut();
+                    navigator("/");
                   }}
                   label="Logout"
                 />
