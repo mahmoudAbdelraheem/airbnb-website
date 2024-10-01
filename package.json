@@ -12,11 +12,8 @@
   "dependencies": {
     "axios": "^1.7.7",
     "firebase": "^10.13.2",
-<<<<<<< HEAD
     "flowbite-react": "^0.10.2",
-=======
     "framer-motion": "^11.9.0",
->>>>>>> 7dc35ae4cf8d51d358d2d70c916827cfd33d3d4c
     "json-server": "^1.0.0-beta.3",
     "leaflet": "^1.9.4",
     "query-string": "^9.1.0",
