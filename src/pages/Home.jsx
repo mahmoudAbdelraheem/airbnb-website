@@ -7,7 +7,6 @@ import LoginModal from "../components/modals/LoginModal";
 import RegisterModal from "../components/modals/RegisterModal";
 import Navbar from "../components/navbar/Navbar";
 import ToasterProvider from "../providers/ToasterProvider";
-import Logo from "../components/navbar/Logo";
 import Container from "../components/Container";
 import EmptyState from "../components/EmptyState";
 import ListingsCard from "../components/listings/ListingsCard";
