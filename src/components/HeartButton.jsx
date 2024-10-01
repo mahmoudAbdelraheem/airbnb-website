@@ -12,6 +12,7 @@ const HeartButton = ({ listingId, currentUser }) => {
   const [loading, setLoading] = useState(false);
 
   const handleClick = async (e) => {
+  
     if (loading) return;
     setLoading(true);
 
