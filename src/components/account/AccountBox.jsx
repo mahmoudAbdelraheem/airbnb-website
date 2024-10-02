@@ -1,7 +1,13 @@
 /* eslint-disable react/prop-types */
-function AccountBox({ icon: Icon, title, description }) {
+function AccountBox({ icon: Icon, title, description, onClick }) {
   return (
-    <div className="p-4 bg-white shadow cursor-pointer drop-shadow-xl rounded-lg flex flex-col items-start">
+    <div
+      onClick={onClick}
+      className="p-4 bg-white 
+      shadow 
+      cursor-pointer
+      drop-shadow-xl rounded-lg flex flex-col items-start"
+    >
       <div className="text-2xl">
         <Icon size={34} />
       </div>

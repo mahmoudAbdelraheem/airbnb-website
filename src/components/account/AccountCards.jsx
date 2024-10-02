@@ -5,7 +5,9 @@ import { CiFileOn } from "react-icons/ci";
 import { AiOutlineNotification } from "react-icons/ai";
 import { FiEye } from "react-icons/fi";
 import AccountBox from "./AccountBox";
+import { useNavigate } from "react-router-dom";
 const AccountCards = () => {
+  const navigate = useNavigate();
   const cards = [
     {
       title: "Personal info",
@@ -53,7 +55,15 @@ const AccountCards = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {cards.map((card, index) => (
-          <AccountBox key={index} {...card} />
+          <AccountBox
+            key={index}
+            {...card}
+            onClick={() => {
+              if (card.title === "Personal info") {
+                navigate("/account/personal-info");
+              }
+            }}
+          />
         ))}
       </div>
     </Container>
