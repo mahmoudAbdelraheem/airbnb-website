@@ -55,7 +55,7 @@ function Home() {
           <EmptyState showReset={true} />
         </div>
       ) : (
-        <div className="py-[100px] ">
+        <div className="py-[120px] ">
           <Container>
             <div className="pt-24  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
               {listings &&
