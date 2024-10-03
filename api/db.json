@@ -67,6 +67,28 @@
       "startDate": "2024-10-08T21:00:00.000Z",
       "endDate": "2024-10-15T21:00:00.000Z",
       "listingId": "glLk2t8krY037CyoRZwd"
+    },
+    {
+      "id": "ea93",
+      "totalPrice": 1050,
+      "startDate": "2024-10-23T21:00:00.000Z",
+      "endDate": "2024-10-30T21:00:00.000Z",
+      "listingId": "glLk2t8krY037CyoRZwd"
+    },
+    {
+      "id": "22d1",
+      "totalPrice": 900,
+      "startDate": "2024-11-06T21:00:00.000Z",
+      "endDate": "2024-11-12T21:00:00.000Z",
+      "listingId": "glLk2t8krY037CyoRZwd"
+    },
+    {
+      "id": "f5db",
+      "totalPrice": 1050,
+      "startDate": "2024-11-13T21:00:00.000Z",
+      "endDate": "2024-11-20T21:00:00.000Z",
+      "listingId": "glLk2t8krY037CyoRZwd",
+      "userId": "t9KZIB40cAUYneccg7fdOX6n2R32"
     }
   ]
 }

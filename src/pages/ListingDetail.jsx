@@ -76,13 +76,14 @@ export default function ListingDetail() {
     }
     setLoading(true);
     // add logic to create reservation
-    console.log({ totalPrice, dateRange });
+    console.log({ totalPrice, dateRange, currentUser });
     axios
       .post("http://localhost:3000/reservations", {
         totalPrice,
         startDate: dateRange.startDate,
         endDate: dateRange.endDate,
         listingId: listing.id,
+        userId: currentUser.uid,
       })
       .then(() => {
         toast.success("Listing reserved successfully");
