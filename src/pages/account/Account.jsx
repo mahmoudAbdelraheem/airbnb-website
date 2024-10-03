@@ -4,6 +4,7 @@ import SimpleNavbar from "../../components/navbar/SimpleNavbar";
 import getCurrentUser from "../../data/auth/getCurrentUser";
 import Loading from "../../components/Loading";
 import { Outlet, useLocation } from "react-router-dom";
+import ToasterProvider from "../../providers/ToasterProvider";
 
 function Account() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -28,6 +29,8 @@ function Account() {
   // Conditionally render the account cards if not on a nested route
   return (
     <>
+      <ToasterProvider />
+
       <SimpleNavbar user={currentUser} />
       <div className="h-[20vh]" />
 
