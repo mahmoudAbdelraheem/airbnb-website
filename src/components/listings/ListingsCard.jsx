@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useNavigate } from "react-router-dom";
 import HeartButton from "../HeartButton";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ListingsCard = ({ data, currentUser }) => {
-  const nav = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const nav = useNavigate();
   const handleNextClick = (e) => {
     e.stopPropagation(); // Prevent navigation on click
     setCurrentIndex((prevIndex) => (prevIndex + 1) % data.imageSrc.length);
