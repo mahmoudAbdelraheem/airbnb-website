@@ -51,5 +51,22 @@
       ],
       "id": "t9KZIB40cAUYneccg7fdOX6n2R32"
     }
+  ],
+  "reservations": [
+    {
+      "id": "1",
+      "totalPrice": 150,
+      "startDate": "2024-10-01",
+      "endDate": "2024-10-05",
+      "listingId": "glLk2t8krY037CyoRZwd",
+      "userId": "t9KZIB40cAUYneccg7fdOX6n2R32"
+    },
+    {
+      "id": "2573",
+      "totalPrice": 1050,
+      "startDate": "2024-10-08T21:00:00.000Z",
+      "endDate": "2024-10-15T21:00:00.000Z",
+      "listingId": "glLk2t8krY037CyoRZwd"
+    }
   ]
 }
