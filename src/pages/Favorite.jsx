@@ -8,7 +8,7 @@ import { firebaseAuth } from "../data/firebaseConfig";
 import ToasterProvider from "../providers/ToasterProvider";
 import RegisterModal from "../components/modals/RegisterModal";
 import LoginModal from "../components/modals/LoginModal";
-import Navbar from "../components/navbar/Navbar";
+import SimpleNavbar from "../components/navbar/SimpleNavbar";
 
 const Favorite = () => {
   const [favList, setFavList] = useState([]);
@@ -33,7 +33,7 @@ const Favorite = () => {
       <ToasterProvider />
       <RegisterModal />
       <LoginModal />
-      <Navbar user={currentUser} />
+      <SimpleNavbar user={currentUser} />
 
       {loading ? (
         <div className="flex justify-center items-center h-screen">
