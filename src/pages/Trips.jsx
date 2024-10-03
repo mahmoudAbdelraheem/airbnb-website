@@ -2,30 +2,58 @@ import React, { useEffect, useState } from "react";
 import SimpleNavbar from "../components/navbar/SimpleNavbar";
 import getCurrentUser from "../data/auth/getCurrentUser";
 import EmptyState from "../components/EmptyState";
-import getReservation from "../data/listings/getReservation";
-import { Link } from "react-router-dom";
+import getReservationByUserId from "../data/listings/getReservationByUserId";
 import Container from "../components/Container";
 import Navbar from "../components/navbar/Navbar";
 import TripsClient from "../components/TripsClient";
+import Loading from "../components/Loading";
+import { getListingById } from "../data/favorites/getListingById";
 
 const Trips = () => {
   const [currentUser, setCurrentUser] = useState(null);
-  const [reservations, setreservations] = useState([]);
+  const [reservations, setReservations] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [listings, setListings] = useState([]);
 
-  const fetchReservations = async () => {
-    const data = await getReservation();
-    console.log(data);
-    setreservations(data);
-  };
+  // const fetchReservations = async () => {
+  //   if (currentUser) {
+  //      // Pass the userId
+  //     console.log(data);
+  //     setReservations(data);
+  //   }
+  // };
 
   const fetchCurrentUserData = async () => {
+    setLoading(true);
     const data = await getCurrentUser();
     setCurrentUser(data);
+
+    if (data && data.uid) {
+      // fetchReservations(data.userId);
+      const reservationData = await getReservationByUserId(data.uid);
+      setReservations(reservationData);
+      console.log(reservationData);
+      // Fetch reservations when user is set
+      reservationData.forEach(async (signleReservation) => {
+        const listingData = await getListingById(signleReservation.listingId);
+        setReservations((reservations[0].listing = listingData));
+        // setListings((value) => {
+        //   [...value, listingData];
+        // });
+      });
+    }
+    console.log(reservations);
+
+    setLoading(false);
   };
 
   useEffect(() => {
     fetchCurrentUserData();
-  }, []);
+  });
+
+  if (loading) {
+    return <Loading />;
+  }
 
   if (!currentUser) {
     return (
@@ -54,7 +82,11 @@ const Trips = () => {
   return (
     <>
       <Navbar user={currentUser} />
-      <TripsClient reservations={reservations} currentUser={currentUser} />
+      <TripsClient
+        listings={listings}
+        reservations={reservations}
+        currentUser={currentUser}
+      />
     </>
   );
 };
