@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState, useMemo, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import Container from "../components/Container";
@@ -10,12 +9,16 @@ import Map from "../components/Map";
 import SimpleNavbar from "../components/navbar/SimpleNavbar";
 import getCurrentUser from "../data/auth/getCurrentUser";
 import useLoginModal from "../hooks/useLoginModal";
+// import useRegisterModal from "../hooks/useRegisterModal";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import ListingReservation from "../components/listings/ListingReservation";
-import getReservation from "../data/listings/getReservation";
-const initalDateRange = {
+import getReservationByListingId from "../data/listings/getReservationByListingId";
+import ToasterProvider from "../providers/ToasterProvider";
+import LoginModal from "../components/modals/LoginModal";
+import { createNewReservation } from "../data/details/createNewReservation";
+const initialDateRange = {
   startDate: new Date(),
   endDate: new Date(),
   key: "selection",
@@ -27,15 +30,12 @@ export default function ListingDetail() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const loginModel = useLoginModal();
+  // const registerModel = useRegisterModal();
   const nav = useNavigate();
 
   const fetchCurrentUserData = async () => {
     const data = await getCurrentUser();
     setCurrentUser(data);
-  };
-  const fetchReservations = async () => {
-    const data = await getReservation();
-    setReservations(data);
   };
 
   const fetchListing = async () => {
@@ -49,6 +49,12 @@ export default function ListingDetail() {
     }
   };
 
+  const fetchReservations = async () => {
+    const data = await getReservationByListingId(id);
+    console.log("reservations fetch data", data);
+    setReservations(data);
+  };
+
   useEffect(() => {
     setLoading(true);
     fetchListing();
@@ -58,7 +64,7 @@ export default function ListingDetail() {
   }, [id]);
 
   const [totalPrice, setTotalPrice] = useState(listing?.price);
-  const [dateRange, setDateٌٌٌRange] = useState(initalDateRange);
+  const [dateRange, setDateRange] = useState(initialDateRange);
   const disableDates = useMemo(() => {
     let dates = [];
     reservations.forEach((item) => {
@@ -70,32 +76,37 @@ export default function ListingDetail() {
     });
     return dates;
   }, [reservations]);
-  const onCreateReservation = useCallback(() => {
+
+  const onCreateReservation = useCallback(async () => {
     if (!currentUser) {
       return loginModel.onOpen();
     }
+
     setLoading(true);
-    // add logic to create reservation
-    console.log({ totalPrice, dateRange, currentUser });
-    axios
-      .post("http://localhost:3000/reservations", {
-        totalPrice,
-        startDate: dateRange.startDate,
-        endDate: dateRange.endDate,
-        listingId: listing.id,
-        userId: currentUser.uid,
-      })
-      .then(() => {
-        toast.success("Listing reserved successfully");
-        setDateٌٌٌRange(initalDateRange);
-        nav(0);
-        setLoading(false);
-      })
-      .catch((err) => {
-        toast.error(err.toString());
-        setLoading(false);
-      });
+
+    // Call the Firebase function
+    const result = await createNewReservation({
+      totalPrice,
+      dateRange,
+      listingId: listing.id,
+      userId: currentUser.uid,
+    });
+
+    if (result.success) {
+      // Success feedback
+      toast.success("Listing reserved successfully");
+
+      // Reset date range and stop loading
+      setDateRange(initialDateRange);
+      nav(0);
+    } else {
+      // Handle errors
+      toast.error(result.message);
+    }
+
+    setLoading(false);
   }, [totalPrice, dateRange, listing?.id, nav, currentUser, loginModel]);
+
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {
       const dayCount = differenceInCalendarDays(
@@ -109,12 +120,15 @@ export default function ListingDetail() {
       }
     }
   }, [dateRange, listing?.price]);
+
   if (loading || !listing) {
     return <Loading />;
   }
 
   return (
     <>
+      <ToasterProvider />
+      <LoginModal />
       <SimpleNavbar user={currentUser} />
       <div className="h-[15vh]" />
       <Container>
@@ -140,7 +154,7 @@ export default function ListingDetail() {
                 <ListingReservation
                   price={listing.price}
                   totalPrice={totalPrice}
-                  onChangeDate={(value) => setDateٌٌٌRange(value)}
+                  onChangeDate={(value) => setDateRange(value)}
                   dateRange={dateRange}
                   onSubmit={onCreateReservation}
                   disabled={loading}

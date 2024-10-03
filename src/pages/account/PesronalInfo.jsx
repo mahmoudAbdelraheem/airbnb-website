@@ -5,6 +5,9 @@ import Container from "../../components/Container";
 import InfoSection from "../../components/account/personalInfo/InfoSection";
 import AccountBreadcrumb from "../../components/account/personalInfo/AccountBreadcrumb";
 import UserDataSection from "../../components/account/personalInfo/UserDataSection";
+import updateUserInfo from "../../data/account/updateUserInfo";
+import { toast } from "react-hot-toast";
+
 function PersonalInfo() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -20,6 +23,19 @@ function PersonalInfo() {
     fetchCurrentUserData();
   }, []);
 
+  const updatedUserData = async (uid, updatedData) => {
+    setLoading(true);
+    try {
+      await updateUserInfo(uid, updatedData);
+      toast.success("User data updated successfully");
+      await fetchCurrentUserData();
+    } catch (error) {
+      toast.error(error.message);
+    }
+
+    setLoading(false);
+  };
+
   if (loading) {
     return <Loading />;
   }
@@ -33,7 +49,10 @@ function PersonalInfo() {
         {/* Main Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Left Section (Personal Info) */}
-          <UserDataSection currentUser={currentUser} />
+          <UserDataSection
+            currentUser={currentUser}
+            updatedData={updatedUserData}
+          />
           {/* Right Section (Info Explanation) */}
           <InfoSection />
         </div>

@@ -6,8 +6,6 @@ const updateUserInfo = async (userID, updatedData) => {
     const userDocRef = doc(firebaseFirestore, "users", userID);
 
     await setDoc(userDocRef, updatedData, { merge: true });
-
-    console.log("User data updated successfully!");
   } catch (error) {
     console.error("Error updating user data:", error);
     throw new Error("Failed to update user data");
