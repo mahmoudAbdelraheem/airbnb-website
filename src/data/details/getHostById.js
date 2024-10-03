@@ -5,7 +5,6 @@ const getHostById = async (userId) => {
   try {
     const userRef = doc(firebaseFirestore, "users", userId);
     const userDoc = await getDoc(userRef);
-    console.log(userRef);
 
     if (userDoc.exists()) {
       const userData = userDoc.data();

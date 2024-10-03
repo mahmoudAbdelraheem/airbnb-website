@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import Container from "../Container";
-import Categories from "./Categories";
 import Logo from "./Logo";
 import UserMenu from "./UserMenu";
 
@@ -30,7 +29,6 @@ function SimpleNavbar({ user }) {
           </div>
         </Container>
       </div>
-      <Categories />
     </div>
   );
 }

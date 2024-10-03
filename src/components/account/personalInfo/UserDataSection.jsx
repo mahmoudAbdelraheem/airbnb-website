@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import updateUserInfo from "../../../data/account/updateUserInfo";
-import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-function UserDataSection({ currentUser }) {
-  const navigator = useNavigate();
+// import { useNavigate } from "react-router-dom";
+function UserDataSection({ currentUser, updatedData }) {
+  // const navigator = useNavigate();
   const { register, handleSubmit } = useForm({
     defaultValues: {
       displayName: currentUser?.displayName || "",
@@ -19,16 +17,6 @@ function UserDataSection({ currentUser }) {
   });
 
   const [editField, setEditField] = useState(null);
-
-  const updatedData = async (uid, updatedData) => {
-    try {
-      await updateUserInfo(uid, updatedData);
-      // navigator(0); // Refresh the page
-      toast.success("User data updated successfully");
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
 
   const onSubmit = async (data) => {
     console.log("Updated user data:", data);

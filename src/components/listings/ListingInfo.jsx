@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import Avatar from "../../components/Avatar";
 import getHostById from "../../data/details/getHostById";
@@ -18,7 +19,6 @@ export default function ListingInfo({
     const fetchListing = async () => {
       try {
         const res = await getHostById(id);
-        console.log(res, "data");
         setHost(res);
       } catch (error) {
         alert("Error: ", error);
