@@ -5,6 +5,7 @@ import Favorite from "./pages/Favorite";
 import ListingDetail from "./pages/ListingDetail";
 import Account from "./pages/account/Account";
 import PersonalInfo from "./pages/account/PesronalInfo";
+import Trips from "./pages/Trips";
 
 //TODO: add all new routes here
 const routers = createBrowserRouter([
@@ -30,6 +31,10 @@ const routers = createBrowserRouter([
         element: <PersonalInfo />,
       },
     ],
+  },
+  {
+    path: "/trips",
+    element: <Trips />,
   },
 ]);
 export default routers;

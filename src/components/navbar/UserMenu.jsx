@@ -90,7 +90,12 @@ function UserMenu({ user }) {
           >
             {user ? (
               <>
-                <MenuItem onClick={() => {}} label="My trips" />
+                <MenuItem
+                  onClick={() => {
+                    navigator("/trips");
+                  }}
+                  label="My trips"
+                />
                 <MenuItem
                   onClick={() => {
                     navigator("/favorite");
