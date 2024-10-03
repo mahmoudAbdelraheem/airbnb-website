@@ -1,37 +1,54 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-
+import updateUserInfo from "../../../data/account/updateUserInfo";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 function UserDataSection({ currentUser }) {
+  const navigator = useNavigate();
   const { register, handleSubmit } = useForm({
     defaultValues: {
       displayName: currentUser?.displayName || "",
-      preferredName: "",
+      preferredName: currentUser?.preferredName || "",
       email: currentUser?.email || "",
-      phoneNumbers: "",
-      governmentID: "",
-      address: "",
-      emergencyContact: "",
+      phoneNumbers: currentUser?.phoneNumbers || "",
+      governmentID: currentUser?.governmentID || "",
+      address: currentUser?.address || "",
+      emergencyContact: currentUser?.emergencyContact || "",
     },
   });
 
   const [editField, setEditField] = useState(null);
 
-  const onSubmit = (data) => {
+  const updatedData = async (uid, updatedData) => {
+    try {
+      await updateUserInfo(uid, updatedData);
+      // navigator(0); // Refresh the page
+      toast.success("User data updated successfully");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const onSubmit = async (data) => {
     console.log("Updated user data:", data);
-    //TODO: Update user data in Firestore
+    await updatedData(currentUser.uid, data);
     setEditField(null);
   };
 
   const handleEditClick = (field) => {
-    setEditField(field);
+    if (editField === field) {
+      handleSubmit(onSubmit)(); // If field is already in edit mode, submit it
+    } else {
+      setEditField(field); // Otherwise, set it to edit mode
+    }
   };
 
   return (
     <div className="lg:col-span-8">
       <div className="text-3xl font-semibold mb-6">Personal info</div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <form className="space-y-4">
         {/* Legal Name */}
         <div className="flex justify-between items-center border-b py-4">
           <div>
@@ -68,7 +85,9 @@ function UserDataSection({ currentUser }) {
                 className="text-lg border border-gray-300 rounded p-1 transition-all duration-300 ease-in-out"
               />
             ) : (
-              <div className="text-lg">Not provided</div>
+              <div className="text-lg">
+                {currentUser?.preferredName || "Not provided"}
+              </div>
             )}
           </div>
           <button
@@ -76,7 +95,7 @@ function UserDataSection({ currentUser }) {
             className="text-blue-500 hover:underline"
             onClick={() => handleEditClick("preferredName")}
           >
-            {editField === "preferredName" ? "Save" : "Add"}
+            {editField === "preferredName" ? "Save" : "Edit"}
           </button>
         </div>
 
@@ -120,7 +139,9 @@ function UserDataSection({ currentUser }) {
                 className="text-lg border border-gray-300 rounded p-1 transition-all duration-300 ease-in-out"
               />
             ) : (
-              <div className="text-lg">Not provided</div>
+              <div className="text-lg">
+                {currentUser?.phoneNumbers || "Not provided"}
+              </div>
             )}
           </div>
           <button
@@ -128,7 +149,7 @@ function UserDataSection({ currentUser }) {
             className="text-blue-500 hover:underline"
             onClick={() => handleEditClick("phoneNumbers")}
           >
-            {editField === "phoneNumbers" ? "Save" : "Add"}
+            {editField === "phoneNumbers" ? "Save" : "Edit"}
           </button>
         </div>
 
@@ -143,7 +164,9 @@ function UserDataSection({ currentUser }) {
                 className="text-lg border border-gray-300 rounded p-1 transition-all duration-300 ease-in-out"
               />
             ) : (
-              <div className="text-lg">Not provided</div>
+              <div className="text-lg">
+                {currentUser?.governmentID || "Not provided"}
+              </div>
             )}
           </div>
           <button
@@ -151,7 +174,7 @@ function UserDataSection({ currentUser }) {
             className="text-blue-500 hover:underline"
             onClick={() => handleEditClick("governmentID")}
           >
-            {editField === "governmentID" ? "Save" : "Add"}
+            {editField === "governmentID" ? "Save" : "Edit"}
           </button>
         </div>
 
@@ -166,7 +189,9 @@ function UserDataSection({ currentUser }) {
                 className="text-lg border border-gray-300 rounded p-1 transition-all duration-300 ease-in-out"
               />
             ) : (
-              <div className="text-lg">Not provided</div>
+              <div className="text-lg">
+                {currentUser?.address || "Not provided"}
+              </div>
             )}
           </div>
           <button
@@ -189,7 +214,9 @@ function UserDataSection({ currentUser }) {
                 className="text-lg border border-gray-300 rounded p-1 transition-all duration-300 ease-in-out"
               />
             ) : (
-              <div className="text-lg">Not provided</div>
+              <div className="text-lg">
+                {currentUser?.emergencyContact || "Not provided"}
+              </div>
             )}
           </div>
           <button
@@ -197,7 +224,7 @@ function UserDataSection({ currentUser }) {
             className="text-blue-500 hover:underline"
             onClick={() => handleEditClick("emergencyContact")}
           >
-            {editField === "emergencyContact" ? "Save" : "Add"}
+            {editField === "emergencyContact" ? "Save" : "Edit"}
           </button>
         </div>
       </form>

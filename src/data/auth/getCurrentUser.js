@@ -18,6 +18,13 @@ const getCurrentUser = async () => {
               // Merge Firestore data (favorites) with Auth user data
               const mergedUserData = {
                 ...user,
+                displayName: userData?.displayName || "",
+                preferredName: userData?.preferredName || "",
+                email: userData?.email || "",
+                phoneNumbers: userData?.phoneNumbers || "",
+                governmentID: userData?.governmentID || "",
+                address: userData?.address || "",
+                emergencyContact: userData?.emergencyContact || "",
                 // Add favorites list or empty array if not found
                 favoritesIds: userData.favoritesIds || [],
               };
