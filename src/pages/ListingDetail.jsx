@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Container from "../components/Container";
 import ListingHead from "../components/listings/ListingHead";
 import Loading from "../components/Loading";
-import { getListingById } from "../data/favorites/getListing";
+import { getListingById } from "../data/favorites/getListingById";
 import ListingInfo from "../components/listings/ListingInfo";
 import Map from "../components/Map";
 import SimpleNavbar from "../components/navbar/SimpleNavbar";

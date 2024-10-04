@@ -1,9 +1,19 @@
 /* eslint-disable react/prop-types */
 import HeartButton from "../HeartButton";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
+import Button from "../Button";
 
-const ListingsCard = ({ data, currentUser }) => {
+const ListingsCard = ({
+  data,
+  currentUser,
+  reservation,
+  onAction,
+  actionLabel,
+  actionId = "",
+  disabled,
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const nav = useNavigate();
   const handleNextClick = (e) => {
@@ -18,6 +28,38 @@ const ListingsCard = ({ data, currentUser }) => {
         (prevIndex - 1 + data.imageSrc.length) % data.imageSrc.length
     );
   };
+
+  const handleCancel = useCallback(
+    (e) => {
+      e.stopPropagation();
+      if (disabled) {
+        return;
+      }
+
+      onAction?.(actionId);
+    },
+    [onAction, actionId, disabled]
+  );
+
+  const price = useMemo(() => {
+    if (reservation) {
+      return reservation.totalPrice;
+    }
+
+    return data.price;
+  }, [reservation, data.price]);
+
+  const reservationDate = useMemo(() => {
+    if (!reservation) {
+      return null;
+    }
+
+    const start = new Date(reservation.startDate);
+    const end = new Date(reservation.endDate);
+
+    return `${format(start, "PP")} - ${format(end, "PP")}`;
+  }, [reservation]);
+
   return (
     <div
       onClick={() => nav(`/listings/${data.id}`)}
@@ -61,9 +103,17 @@ const ListingsCard = ({ data, currentUser }) => {
         <div className="font-semibold text-lg">{data.location}</div>
         <div className="font-light text-neutral-500">{data.category}</div>
         <div className="flex flex-row items-center gap-1">
-          <div className="font-semibold">$ {data.price}</div>
-          <div className="font-light">night</div>
+          <div className="font-semibold">{data.price}$</div>
+          {!reservation && <div className="font-light">night</div>}
         </div>
+        {onAction && actionLabel && (
+          <Button
+            disabled={disabled}
+            small
+            label={actionLabel}
+            onClick={handleCancel}
+          />
+        )}
       </div>
     </div>
   );
