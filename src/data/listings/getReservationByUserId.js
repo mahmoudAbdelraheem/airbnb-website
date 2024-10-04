@@ -1,5 +1,12 @@
-import { getDocs, collection, query, where } from "firebase/firestore";
-import { firebaseFirestore } from "../firebaseConfig"; // Adjust this import to match your config
+import {
+  getDocs,
+  collection,
+  query,
+  where,
+  doc,
+  getDoc,
+} from "firebase/firestore";
+import { firebaseFirestore } from "../firebaseConfig";
 
 export default async function getReservationByUserId(userId) {
   try {
@@ -15,25 +22,45 @@ export default async function getReservationByUserId(userId) {
     // Execute the query
     const querySnapshot = await getDocs(queryResult);
 
-    // Map through documents and format the data
-    const reservations = querySnapshot.docs.map((doc) => {
-      const data = doc.data();
+    // Map through documents and format the data, and also fetch listing details
+    const reservationsWithListings = await Promise.all(
+      querySnapshot.docs.map(async (docSnapshot) => {
+        const reservationData = docSnapshot.data();
 
-      // Convert Firestore Timestamps to formatted date strings (e.g., "2024-10-05")
-      const startDate = data.startDate.toDate().toISOString().split("T")[0];
-      const endDate = data.endDate.toDate().toISOString().split("T")[0];
+        // Convert Firestore Timestamps to formatted date strings (e.g., "2024-10-05")
+        const startDate = reservationData.startDate
+          .toDate()
+          .toISOString()
+          .split("T")[0];
+        const endDate = reservationData.endDate
+          .toDate()
+          .toISOString()
+          .split("T")[0];
 
-      return {
-        id: doc.id,
-        ...data,
-        startDate, // formatted startDate
-        endDate, // formatted endDate
-      };
-    });
+        // Fetch the listing data based on listingId
+        const listingRef = doc(
+          firebaseFirestore,
+          "listings",
+          reservationData.listingId
+        );
+        const listingSnapshot = await getDoc(listingRef);
+        const listingData = listingSnapshot.exists()
+          ? listingSnapshot.data()
+          : null;
 
-    return reservations;
+        return {
+          id: docSnapshot.id,
+          ...reservationData,
+          startDate, // formatted startDate
+          endDate, // formatted endDate
+          listing: listingData, // include listing data
+        };
+      })
+    );
+
+    return reservationsWithListings;
   } catch (err) {
-    console.log("Error fetching reservations:", err);
+    console.log("Error fetching reservations and listings:", err);
     return [];
   }
 }

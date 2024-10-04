@@ -1,28 +1,40 @@
 /* eslint-disable react/prop-types */
 
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import Container from "./Container";
 import Heading from "./Heading";
-import { useNavigation } from "react-router-dom";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import ListingsCard from "./listings/ListingsCard";
+import { deleteReservationById } from "../data/listings/deleteReservationById";
+import { toast } from "react-hot-toast";
+import ToasterProvider from "../providers/ToasterProvider";
 
 export default function TripsClient({ reservations, currentUser }) {
-  const navigation = useNavigation();
+  const navigate = useNavigate();
   const [deletingId, setDeletingId] = useState("");
 
   const onCancel = useCallback(
-    (id) => {
-      setDeletingId(id);
+    async (id) => {
+      try {
+        setDeletingId(id);
+        await deleteReservationById(id);
+        toast.success("Reservation cancelled successfully");
+        setDeletingId("");
+        console.log("Reservation cancelled successfully");
+        navigate(0);
+      } catch (error) {
+        console.error("Error cancelling reservation:", error);
+        toast.error("Failed to cancel the reservation");
 
-      // Will replace later with firebase
-      // axios.delete()
+        setDeletingId(null);
+      }
     },
-    [navigation]
+    [navigate] // Change to [navigate]
   );
 
   return (
     <Container>
+      <ToasterProvider />
       <Heading
         title="Trips"
         subtitle="Where you've been and where you're going"
