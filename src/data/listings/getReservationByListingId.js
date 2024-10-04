@@ -1,5 +1,5 @@
 import { getDocs, collection, query, where } from "firebase/firestore";
-import { firebaseFirestore } from "../firebaseConfig"; // Adjust this import to match your config
+import { firebaseFirestore } from "../firebaseConfig";
 
 export default async function getReservationByListingId(listingId) {
   try {
@@ -9,7 +9,6 @@ export default async function getReservationByListingId(listingId) {
 
     const reservationsRef = collection(firebaseFirestore, "reservations");
 
-    // Query Firestore to get reservations where listingId matches the provided id
     const queryResult = query(
       reservationsRef,
       where("listingId", "==", listingId)
@@ -21,16 +20,15 @@ export default async function getReservationByListingId(listingId) {
     // Map through documents and format the data
     const reservations = querySnapshot.docs.map((doc) => {
       const data = doc.data();
-
-      // Convert Firestore Timestamps to formatted date strings (e.g., "2024-10-05")
-      const startDate = data.startDate.toDate().toISOString().split("T")[0];
-      const endDate = data.endDate.toDate().toISOString().split("T")[0];
+      // en-CA format is "YYYY-MM-DD"
+      const startDate = data.startDate.toDate().toLocaleDateString("en-CA");
+      const endDate = data.endDate.toDate().toLocaleDateString("en-CA");
 
       return {
         id: doc.id,
         ...data,
-        startDate, // formatted startDate
-        endDate, // formatted endDate
+        startDate,
+        endDate,
       };
     });
 
