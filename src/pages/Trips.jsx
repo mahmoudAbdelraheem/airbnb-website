@@ -1,55 +1,28 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SimpleNavbar from "../components/navbar/SimpleNavbar";
 import getCurrentUser from "../data/auth/getCurrentUser";
 import EmptyState from "../components/EmptyState";
 import getReservationByUserId from "../data/listings/getReservationByUserId";
-import Container from "../components/Container";
-import Navbar from "../components/navbar/Navbar";
 import TripsClient from "../components/TripsClient";
 import Loading from "../components/Loading";
-import { getListingById } from "../data/favorites/getListingById";
 
 const Trips = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [listings, setListings] = useState([]);
 
-  // const fetchReservations = async () => {
-  //   if (currentUser) {
-  //      // Pass the userId
-  //     console.log(data);
-  //     setReservations(data);
-  //   }
-  // };
-
-  const fetchCurrentUserData = async () => {
+  const fetchCurrentUserDataAndReservations = async () => {
     setLoading(true);
-    const data = await getCurrentUser();
-    setCurrentUser(data);
-
-    if (data && data.uid) {
-      // fetchReservations(data.userId);
-      const reservationData = await getReservationByUserId(data.uid);
-      setReservations(reservationData);
-      console.log(reservationData);
-      // Fetch reservations when user is set
-      reservationData.forEach(async (signleReservation) => {
-        const listingData = await getListingById(signleReservation.listingId);
-        setReservations((reservations[0].listing = listingData));
-        // setListings((value) => {
-        //   [...value, listingData];
-        // });
-      });
-    }
-    console.log(reservations);
-
+    const userData = await getCurrentUser();
+    setCurrentUser(userData);
+    const reservationData = await getReservationByUserId(userData.uid);
+    setReservations(reservationData);
     setLoading(false);
   };
 
   useEffect(() => {
-    fetchCurrentUserData();
-  });
+    fetchCurrentUserDataAndReservations();
+  }, []);
 
   if (loading) {
     return <Loading />;
@@ -58,7 +31,7 @@ const Trips = () => {
   if (!currentUser) {
     return (
       <>
-        <Navbar user={currentUser} />
+        <SimpleNavbar user={currentUser} />
         <EmptyState
           title="Unauthorized access!"
           subtitle="Please login first!"
@@ -70,7 +43,7 @@ const Trips = () => {
   if (reservations.length === 0) {
     return (
       <>
-        <Navbar user={currentUser} />
+        <SimpleNavbar user={currentUser} />
         <EmptyState
           title="No trips found!"
           subtitle="Looks like you haven't booked any trips!"
@@ -81,12 +54,8 @@ const Trips = () => {
 
   return (
     <>
-      <Navbar user={currentUser} />
-      <TripsClient
-        listings={listings}
-        reservations={reservations}
-        currentUser={currentUser}
-      />
+      <SimpleNavbar user={currentUser} />
+      <TripsClient reservations={reservations} currentUser={currentUser} />
     </>
   );
 };
