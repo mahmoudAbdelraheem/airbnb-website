@@ -15,41 +15,33 @@ const Trips = () => {
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
 
-  // const fetchReservations = async () => {
-  //   if (currentUser) {
-  //      // Pass the userId
-  //     console.log(data);
-  //     setReservations(data);
-  //   }
-  // };
-
+  // Fetch current user and reservations
   const fetchCurrentUserData = async () => {
     setLoading(true);
     const data = await getCurrentUser();
     setCurrentUser(data);
 
     if (data && data.uid) {
-      // fetchReservations(data.userId);
       const reservationData = await getReservationByUserId(data.uid);
       setReservations(reservationData);
-      console.log(reservationData);
-      // Fetch reservations when user is set
-      reservationData.forEach(async (signleReservation) => {
-        const listingData = await getListingById(signleReservation.listingId);
-        setReservations((reservations[0].listing = listingData));
-        // setListings((value) => {
-        //   [...value, listingData];
-        // });
-      });
-    }
-    console.log(reservations);
 
+      // Fetch listings for each reservation
+      const listingsData = await Promise.all(
+        reservationData.map(async (singleReservation) => {
+          const listingData = await getListingById(singleReservation.listingId);
+          return listingData;
+        })
+      );
+
+      setListings(listingsData); // Set listings
+    }
     setLoading(false);
   };
 
+  // useEffect with dependency array to avoid infinite loop
   useEffect(() => {
     fetchCurrentUserData();
-  });
+  }, []); // Run once on component mount
 
   if (loading) {
     return <Loading />;

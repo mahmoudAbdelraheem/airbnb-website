@@ -41,13 +41,13 @@ const ListingsCard = ({
     [onAction, actionId, disabled]
   );
 
-  const price = useMemo(() => {
-    if (reservation) {
-      return reservation.totalPrice;
-    }
+  // const price = useMemo(() => {
+  //   if (reservation) {
+  //     return reservation.totalPrice;
+  //   }
 
-    return data.price;
-  }, [reservation, data.price]);
+  //   return data.price;
+  // }, [reservation, data.price]);
 
   const reservationDate = useMemo(() => {
     if (!reservation) {
