@@ -10,44 +10,19 @@ const Trips = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [listings, setListings] = useState([]);
 
-  // const fetchReservations = async () => {
-  //   if (currentUser) {
-  //      // Pass the userId
-  //     console.log(data);
-  //     setReservations(data);
-  //   }
-  // };
-
-  const fetchCurrentUserData = async () => {
+  const fetchCurrentUserDataAndReservations = async () => {
     setLoading(true);
-    const data = await getCurrentUser();
-    setCurrentUser(data);
-
-    if (data && data.uid) {
-      // fetchReservations(data.userId);
-      const reservationData = await getReservationByUserId(data.uid);
-      setReservations(reservationData);
-      console.log(reservationData);
-      // Fetch reservations when user is set
-      reservationData.forEach(async (signleReservation) => {
-        const listingData = await getListingById(signleReservation.listingId);
-        setReservations((reservations[0].listing = listingData));
-        // setListings((value) => {
-        //   [...value, listingData];
-        // });
-      });
-    }
-    console.log(reservations);
-
+    const userData = await getCurrentUser();
+    setCurrentUser(userData);
+    const reservationData = await getReservationByUserId(userData.uid);
+    setReservations(reservationData);
     setLoading(false);
   };
 
-  // useEffect with dependency array to avoid infinite loop
   useEffect(() => {
-    fetchCurrentUserData();
-  });
+    fetchCurrentUserDataAndReservations();
+  }, []);
 
   if (loading) {
     return <Loading />;
