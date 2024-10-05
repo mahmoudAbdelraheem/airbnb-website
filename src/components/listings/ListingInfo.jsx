@@ -50,7 +50,9 @@ export default function ListingInfo({
         
         "
         >
-          <div>Hosted by {host.name}</div>
+          <div>
+            {t("Hostedby")} {host.name}
+          </div>
           <Avatar imageSrc={host.image} />
         </div>
         <div className="flex flex-row items-center gap-4 font-light text-neutral-500">

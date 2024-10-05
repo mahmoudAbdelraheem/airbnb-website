@@ -15,6 +15,7 @@ import { registerWithEmailAndPassword } from "../../data/auth/authWithEmailAndPa
 import { useNavigate } from "react-router-dom";
 import { loginWithGoogle } from "../../data/auth/authWithGoogleAccount";
 import { loginWithGitHub } from "../../data/auth/authWithGithubAccount";
+import { useTranslation } from "react-i18next";
 
 function RegisterModal() {
   const registerModal = useRegisterModal();
@@ -22,6 +23,7 @@ function RegisterModal() {
 
   const [isLoading, setIsLoading] = useState(false);
   const navigator = useNavigate();
+  const { t } = useTranslation();
 
   const {
     register,
@@ -83,10 +85,10 @@ function RegisterModal() {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title={"Welcome to Airbnb"} subtitle={"Create an account"} />
+      <Heading title={t("WelcometoAirbnb")} subtitle={t("Createanaccount")} />
       <Input
         id={"email"}
-        label={"Email"}
+        label={t("Emailaddress")}
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -94,7 +96,7 @@ function RegisterModal() {
       />
       <Input
         id={"name"}
-        label={"Name"}
+        label={t("Name")}
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -102,7 +104,7 @@ function RegisterModal() {
       />
       <Input
         id={"password"}
-        label={"Password"}
+        label={t("Password")}
         type={"password"}
         disabled={isLoading}
         register={register}
@@ -117,13 +119,13 @@ function RegisterModal() {
       <hr />
       <Button
         outline
-        label={"Continue with Google"}
+        label={t("ContinuewithGoogle")}
         icon={FcGoogle}
         onClick={registerWithGoogle}
       />
       <Button
         outline
-        label={"Continue with Github"}
+        label={t("ContinuewithGithub")}
         icon={AiFillGithub}
         onClick={registerWithGitHub}
       />
@@ -136,7 +138,7 @@ function RegisterModal() {
       "
       >
         <div className="justify-center flex flex-row items-center gap-2">
-          <div>Already have an account?</div>
+          <div>{t("Alreadyhaveanaccount")}</div>
           <div
             onClick={toggleModal}
             className="
@@ -144,7 +146,7 @@ function RegisterModal() {
           cursor-pointer 
           hover:underline"
           >
-            Log in.
+            {t("login")}
           </div>
         </div>
       </div>
@@ -155,8 +157,8 @@ function RegisterModal() {
     <Modal
       disable={isLoading}
       isOpen={registerModal.isOpen}
-      title={"Register"}
-      actionLabel={"Continue"}
+      title={t("Register")}
+      actionLabel={t("Continue")}
       onClose={registerModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}

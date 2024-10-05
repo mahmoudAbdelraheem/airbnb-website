@@ -6,10 +6,13 @@ import { deleteReservationById } from "../../data/listings/deleteReservationById
 import toast from "react-hot-toast";
 import ListingsCard from "../listings/ListingsCard";
 import ToasterProvider from "../../providers/ToasterProvider";
+import { useTranslation } from "react-i18next";
 
 /* eslint-disable react/prop-types */
 function ReservationsClient({ reservations, currentUser }) {
   const navigator = useNavigate();
+  const { t } = useTranslation();
+
   const [deletingId, setDeletingId] = useState(null);
   const onCancel = useCallback(
     async (id) => {
@@ -33,7 +36,7 @@ function ReservationsClient({ reservations, currentUser }) {
     <Container>
       <div className="pt-24" />
       <ToasterProvider />
-      <Heading title="Reservations" subtitle="Bookings on your properties" />
+      <Heading title={t("Reservations")} subtitle={t("pReservations")} />
 
       <div
         className="
@@ -56,7 +59,7 @@ function ReservationsClient({ reservations, currentUser }) {
             reservation={reservation}
             onAction={onCancel}
             disabled={deletingId === reservation.id}
-            actionLabel="Cancel Guest Reservation"
+            actionLabel={t("CancelGuestReservation")}
             actionId={reservation.id}
           />
         ))}

@@ -5,8 +5,11 @@ import EmptyState from "../components/EmptyState";
 import getReservationByUserId from "../data/listings/getReservationByUserId";
 import TripsClient from "../components/TripsClient";
 import Loading from "../components/Loading";
+import { useTranslation } from "react-i18next";
 
 const Trips = () => {
+  const { t } = useTranslation();
+
   const [currentUser, setCurrentUser] = useState(null);
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -49,10 +52,7 @@ const Trips = () => {
     return (
       <>
         <SimpleNavbar user={currentUser} />
-        <EmptyState
-          title="No trips found!"
-          subtitle="Looks like you haven't booked any trips!"
-        />
+        <EmptyState title={t("hfound")} subtitle={t("pfound")} />
       </>
     );
   }

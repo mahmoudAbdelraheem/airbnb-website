@@ -1,9 +1,13 @@
+import { useTranslation } from "react-i18next";
+
 /* eslint-disable react/prop-types */
 function HostConfirmedInfo({ host }) {
+  const { t } = useTranslation();
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       <h3 className="text-xl font-semibold mb-4">
-        {host.name}&apos;s confirmed information
+        {host.name} {t("confirmedinformation")}
       </h3>
       <ul className="space-y-2">
         <li className="flex items-center">
@@ -21,7 +25,7 @@ function HostConfirmedInfo({ host }) {
               d="M5 13l4 4L19 7"
             />
           </svg>
-          <span>Identity</span>
+          <span>{t("Identity")}</span>
         </li>
         <li className="flex items-center">
           <svg
@@ -38,7 +42,7 @@ function HostConfirmedInfo({ host }) {
               d="M5 13l4 4L19 7"
             />
           </svg>
-          <span>Email address</span>
+          <span>{t("Emailaddress")}</span>
         </li>
         <li className="flex items-center">
           <svg
@@ -55,11 +59,11 @@ function HostConfirmedInfo({ host }) {
               d="M5 13l4 4L19 7"
             />
           </svg>
-          <span>Phone number</span>
+          <span>{t("Phonenumber")}</span>
         </li>
       </ul>
       <a href="#" className="text-blue-500 hover:underline text-sm mt-4 block">
-        Learn about identity verification
+        {t("Learnaboutidentityverification")}
       </a>
     </div>
   );

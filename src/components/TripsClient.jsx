@@ -8,8 +8,11 @@ import ListingsCard from "./listings/ListingsCard";
 import { deleteReservationById } from "../data/listings/deleteReservationById";
 import { toast } from "react-hot-toast";
 import ToasterProvider from "../providers/ToasterProvider";
+import { useTranslation } from "react-i18next";
 
 export default function TripsClient({ reservations, currentUser }) {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
   const [deletingId, setDeletingId] = useState("");
 
@@ -61,7 +64,7 @@ export default function TripsClient({ reservations, currentUser }) {
             actionId={reservation.id}
             onAction={onCancel}
             disabled={deletingId === reservation.id}
-            actionLabel="Cancel reservation"
+            actionLabel={t("Cancelreservation")}
             currentUser={currentUser}
           />
         ))}

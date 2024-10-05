@@ -14,12 +14,14 @@ import { loginWithEmailAndPassword } from "../../data/auth/authWithEmailAndPassw
 import { useNavigate } from "react-router-dom";
 import { loginWithGoogle } from "../../data/auth/authWithGoogleAccount";
 import { loginWithGitHub } from "../../data/auth/authWithGithubAccount";
+import { useTranslation } from "react-i18next";
 
 function LoginModal() {
   const loginModal = useLoginModal();
   const registerModal = userRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
   const navigator = useNavigate();
+  const { t } = useTranslation();
 
   const {
     register,
@@ -79,10 +81,10 @@ function LoginModal() {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title={"Welcome back"} subtitle={"Login to your account!"} />
+      <Heading title={t("Welcomeback")} subtitle={t("Logintoyouraccount")} />
       <Input
         id={"email"}
-        label={"Email"}
+        label={t("Emailaddress")}
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -91,7 +93,7 @@ function LoginModal() {
 
       <Input
         id={"password"}
-        label={"Password"}
+        label={t("Password")}
         type={"password"}
         disabled={isLoading}
         register={register}
@@ -106,13 +108,13 @@ function LoginModal() {
       <hr />
       <Button
         outline
-        label={"Continue with Google"}
+        label={t("ContinuewithGoogle")}
         icon={FcGoogle}
         onClick={registerWithGoogle}
       />
       <Button
         outline
-        label={"Continue with Github"}
+        label={t("ContinuewithGithub")}
         icon={AiFillGithub}
         onClick={registerWithGitHub}
       />
@@ -125,7 +127,7 @@ function LoginModal() {
       "
       >
         <div className="justify-center flex flex-row items-center gap-2">
-          <div>Frist time use airbnb ?</div>
+          <div>{t("Fristtimeuseairbnb")}</div>
           <div
             onClick={toggleModal}
             className="
@@ -133,7 +135,7 @@ function LoginModal() {
           cursor-pointer 
           hover:underline"
           >
-            Create an account.
+            {t("Createanaccount")}
           </div>
         </div>
       </div>
@@ -144,8 +146,8 @@ function LoginModal() {
     <Modal
       disable={isLoading}
       isOpen={loginModal.isOpen}
-      title={"Login"}
-      actionLabel={"Continue"}
+      title={t("login")}
+      actionLabel={t("Continue")}
       onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
