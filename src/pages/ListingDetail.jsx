@@ -89,6 +89,7 @@ export default function ListingDetail() {
       dateRange,
       listingId: listing.id,
       userId: currentUser.uid,
+      authorId: listing.userId,
     });
 
     if (result.success) {
