@@ -6,6 +6,7 @@ export const createNewReservation = async ({
   dateRange, // this is an object containing (start and end data)
   listingId,
   userId,
+  authorId,
 }) => {
   try {
     const reservationsRef = collection(firebaseFirestore, "reservations");
@@ -17,6 +18,7 @@ export const createNewReservation = async ({
       endDate: dateRange.endDate,
       listingId,
       userId,
+      authorId,
       createdAt: new Date().toISOString(),
     });
 

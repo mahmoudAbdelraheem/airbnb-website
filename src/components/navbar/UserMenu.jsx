@@ -102,7 +102,12 @@ function UserMenu({ user }) {
                   }}
                   label="My favorites"
                 />
-                <MenuItem onClick={() => {}} label="My reservations" />
+                <MenuItem
+                  onClick={() => {
+                    navigator("/reservations");
+                  }}
+                  label="My reservations"
+                />
                 <MenuItem
                   onClick={() => {
                     navigator("/account");
