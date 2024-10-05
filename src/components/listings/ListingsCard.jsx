@@ -101,10 +101,26 @@ const ListingsCard = ({
           </div>
         </div>
         <div className="font-semibold text-lg">{data.location}</div>
-        <div className="font-light text-neutral-500">{data.category}</div>
+        {!reservation && (
+          <div className="font-light text-neutral-500">{data.category}</div>
+        )}
+        {reservation && (
+          <div className="font-light text-neutral-500">
+            {reservation.startDate} - {reservation.endDate}
+          </div>
+        )}
         <div className="flex flex-row items-center gap-1">
-          <div className="font-semibold">{data.price}$</div>
-          {!reservation && <div className="font-light">night</div>}
+          {!reservation && (
+            <>
+              <div className="font-semibold">{data.price}$</div>
+              <div className="font-light">night</div>
+            </>
+          )}
+          {reservation && (
+            <div className="font-semibold">
+              Total price: {reservation.totalPrice}$
+            </div>
+          )}
         </div>
         {onAction && actionLabel && (
           <Button
