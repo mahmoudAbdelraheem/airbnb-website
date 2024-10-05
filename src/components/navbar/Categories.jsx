@@ -16,6 +16,7 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import { FaSkiing } from "react-icons/fa";
 import { BsSnow } from "react-icons/bs";
 import { IoDiamond } from "react-icons/io5";
+import { useTranslation } from "react-i18next";
 
 export const categories = [
   {
@@ -99,6 +100,7 @@ export default function Categories() {
   const [params] = useSearchParams();
   const category = params.get("category");
   const location = useLocation();
+  const { t } = useTranslation();
 
   const isMainPage = location.pathname === "/";
 
@@ -112,7 +114,7 @@ export default function Categories() {
         {categories.map((item) => (
           <CategoryBox
             key={item.label}
-            label={item.label}
+            label={t(item.label)}
             selected={category === item.label}
             icon={item.icon}
           />

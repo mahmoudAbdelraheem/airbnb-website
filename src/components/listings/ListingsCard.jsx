@@ -4,6 +4,7 @@ import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import Button from "../Button";
+import { useTranslation } from "react-i18next";
 
 const ListingsCard = ({
   data,
@@ -14,8 +15,10 @@ const ListingsCard = ({
   actionId = "",
   disabled,
 }) => {
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const nav = useNavigate();
+
   const handleNextClick = (e) => {
     e.stopPropagation(); // Prevent navigation on click
     setCurrentIndex((prevIndex) => (prevIndex + 1) % data.imageSrc.length);
@@ -101,10 +104,12 @@ const ListingsCard = ({
           </div>
         </div>
         <div className="font-semibold text-lg">{data.location}</div>
-        <div className="font-light text-neutral-500">{data.category}</div>
+        <div className="font-light text-neutral-500">{t(data.category)}</div>
         <div className="flex flex-row items-center gap-1">
-          <div className="font-semibold">{data.price}$</div>
-          {!reservation && <div className="font-light">night</div>}
+          <div className="font-semibold">
+            {data.price} {t("$")}
+          </div>
+          {!reservation && <div className="font-light">{t("night")}</div>}
         </div>
         {onAction && actionLabel && (
           <Button

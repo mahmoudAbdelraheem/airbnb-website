@@ -1,6 +1,7 @@
 import { BiSearch } from "react-icons/bi";
-
+import { useTranslation } from "react-i18next";
 function Search() {
+  const { t } = useTranslation();
   return (
     <div
       className="
@@ -23,18 +24,17 @@ function Search() {
                 justify-between
             "
       >
-
-
         <div
-        className="
+          className="
             text-sm
             font-semibold
             px-6
-        ">
-            Anywhere 
+        "
+        >
+          {t("anywhere")}
         </div>
         <div
-        className="
+          className="
         hidden
         sm:block
         text-sm
@@ -45,11 +45,11 @@ function Search() {
         text-center
         "
         >
-            Any Week
+          {t("anyweek")}
         </div>
 
         <div
-        className="
+          className="
         text-sm
         pl-6
         pr-2
@@ -60,20 +60,18 @@ function Search() {
         gap-3
         "
         >
-            <div className="hidden sm:block">Add Guests</div>
-            <div
+          <div className="hidden sm:block">{t("addguests")}</div>
+          <div
             className="
                 p-2
                 bg-rose-500
                 rounded-full
                 text-white
             "
-            >
-
-                <BiSearch size={18} /> 
-            </div>
+          >
+            <BiSearch size={18} />
+          </div>
         </div>
-
       </div>
     </div>
   );

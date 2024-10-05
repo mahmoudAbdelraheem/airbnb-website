@@ -6,50 +6,51 @@ import { AiOutlineNotification } from "react-icons/ai";
 import { FiEye } from "react-icons/fi";
 import AccountBox from "./AccountBox";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 const AccountCards = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const cards = [
     {
-      title: "Personal info",
-      description: "Provide personal details and how we can reach you",
+      title: t("personalinfo"),
+      description: t("ppersonalinfo"),
       icon: LiaAddressCardSolid,
     },
     {
-      title: "Login & security",
-      description: "Update your password and secure your account",
+      title: t("logser"),
+      description: t("plogser"),
       icon: MdOutlineSecurity,
     },
     {
-      title: "Payments & payouts",
-      description: "Review payments, payouts, coupons and gift cards",
+      title: t("payment"),
+      description: t("ppayment"),
       icon: MdPayments,
     },
     {
-      title: "Taxes",
-      description: "Manage taxpayer information and tax documents",
+      title: t("Taxes"),
+      description: t("pTaxes"),
       icon: CiFileOn,
     },
     {
-      title: "Notifications",
-      description:
-        "Choose notification preferences and how you want to be contacted",
+      title: t("Notifications"),
+      description: t("pNotifications"),
       icon: AiOutlineNotification,
     },
     {
-      title: "Privacy & sharing",
-      description:
-        "Manage your personal data, connected services and data sharing settings",
+      title: t("Privacysharing"),
+      description: t("pPrivacysharing"),
       icon: FiEye,
     },
   ];
 
   return (
     <Container>
-      <h1 className="text-3xl font-bold mb-6">Account</h1>
+      <h1 className="text-3xl font-bold mb-6">{t("Account")}</h1>
       <p className="text-gray-600 mb-4">
         Mah Moud, mmoud2031@gmail.com ·{" "}
         <a href="#" className="text-blue-500">
-          Go to profile
+          {t("Gotoprofile")}
         </a>
       </p>
 
@@ -59,7 +60,7 @@ const AccountCards = () => {
             key={index}
             {...card}
             onClick={() => {
-              if (card.title === "Personal info") {
+              if (card.title === t("personalinfo")) {
                 navigate("/account/personal-info");
               }
             }}
