@@ -121,8 +121,10 @@ function UserMenu({ user }) {
                 />
                 <MenuItem onClick={() => {}} label={t("airyourhome")} />
                 <MenuItem
-                  onClick={registerModal.onOpen}
-                  label={t("myprofile")}
+                  onClick={() => {
+                    navigator("/properties");
+                  }}
+                  label={t("myproperties")}
                 />
                 <hr />
                 <MenuItem

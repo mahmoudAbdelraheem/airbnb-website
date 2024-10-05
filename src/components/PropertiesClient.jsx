@@ -5,14 +5,11 @@ import Container from "./Container";
 import Heading from "./Heading";
 import { useNavigate } from "react-router-dom";
 import ListingsCard from "./listings/ListingsCard";
-import { deleteReservationById } from "../data/listings/deleteReservationById";
 import { toast } from "react-hot-toast";
 import ToasterProvider from "../providers/ToasterProvider";
-import { useTranslation } from "react-i18next";
+import { deleteListingById } from "../data/properites/deleteListingById";
 
-export default function TripsClient({ reservations, currentUser }) {
-  const { t } = useTranslation();
-
+export default function PropertiesClient({ listings, currentUser }) {
   const navigate = useNavigate();
   const [deletingId, setDeletingId] = useState("");
 
@@ -20,14 +17,14 @@ export default function TripsClient({ reservations, currentUser }) {
     async (id) => {
       try {
         setDeletingId(id);
-        await deleteReservationById(id);
-        toast.success("Reservation cancelled successfully");
+        await deleteListingById(id);
+        toast.success("Listing deteted successfully");
         setDeletingId("");
-        console.log("Reservation cancelled successfully");
+        console.log("Listing deteted successfully");
         navigate(0);
       } catch (error) {
-        console.error("Error cancelling reservation:", error);
-        toast.error("Failed to cancel the reservation");
+        console.error("Error deleteing listing:", error);
+        toast.error("Failed to delete the listing");
 
         setDeletingId(null);
       }
@@ -40,10 +37,7 @@ export default function TripsClient({ reservations, currentUser }) {
       <div className="pt-24" />
 
       <ToasterProvider />
-      <Heading
-        title="Trips"
-        subtitle="Where you've been and where you're going"
-      />
+      <Heading title="Properties" subtitle="List of your properties" />
 
       <div
         className="
@@ -58,15 +52,14 @@ export default function TripsClient({ reservations, currentUser }) {
     gap-8
     "
       >
-        {reservations.map((reservation) => (
+        {listings.map((listing) => (
           <ListingsCard
-            key={reservation.id}
-            data={reservation.listing}
-            reservation={reservation}
-            actionId={reservation.id}
+            key={listing}
+            data={listing}
+            actionId={listing.id}
             onAction={onCancel}
-            disabled={deletingId === reservation.id}
-            actionLabel={t("Cancelreservation")}
+            disabled={deletingId === listing.id}
+            actionLabel="Delete property"
             currentUser={currentUser}
           />
         ))}
