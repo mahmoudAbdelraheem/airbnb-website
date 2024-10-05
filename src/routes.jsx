@@ -8,6 +8,7 @@ import PersonalInfo from "./pages/account/PesronalInfo";
 import Trips from "./pages/Trips";
 import Host from "./pages/Host";
 import Reservations from "./pages/Reservations";
+import Properties from "./pages/Properties";
 
 //TODO: add all new routes here
 const routers = createBrowserRouter([
@@ -37,6 +38,10 @@ const routers = createBrowserRouter([
   {
     path: "/trips",
     element: <Trips />,
+  },
+  {
+    path: "/properties",
+    element: <Properties />,
   },
   {
     path: "/host/:id",
