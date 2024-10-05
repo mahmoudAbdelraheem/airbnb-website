@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import Avatar from "../../components/Avatar";
 import getHostById from "../../data/details/getHostById";
 import Loading from "../Loading";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 export default function ListingInfo({
   description,
