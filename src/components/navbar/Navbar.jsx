@@ -28,6 +28,7 @@ function Navbar({ user }) {
             <Logo />
 
             <Search />
+            
 
             <UserMenu user={user} />
           </div>

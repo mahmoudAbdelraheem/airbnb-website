@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Avatar from "../../components/Avatar";
 import getHostById from "../../data/details/getHostById";
 import Loading from "../Loading";
-import { useNavigate } from "react-router-dom";
 
 export default function ListingInfo({
   description,
@@ -14,6 +13,7 @@ export default function ListingInfo({
   id,
   price,
 }) {
+  const { t } = useTranslation();
   const [host, setHost] = useState(null);
   const navigator = useNavigate();
   useEffect(() => {
@@ -36,30 +36,29 @@ export default function ListingInfo({
   return (
     <div className="col-span-4 flex flex-col gap-8">
       <div className="flex flex-col gap-2">
-        <div
-          onClick={() => {
-            navigator(`/host/${id}`);
-          }}
-          className="text-xl 
-        font-semibold flex flex-row items-center gap-2
-         cursor-pointer hover:underline hover:scale-110 transform transition-transform duration-500 ease-in-out"
-        >
+        <div className="text-xl font-semibold flex flex-row items-center gap-2">
           <div>Hosted by {host.name}</div>
-          <Avatar className="" imageSrc={host.image} />
+          <Avatar imageSrc={host.image} />
         </div>
         <div className="flex flex-row items-center gap-4 font-light text-neutral-500">
-          <div>{guestCount} guests</div>
-          <div>{roomCount} rooms</div>
+          <div>
+            {guestCount} {t("guests")}
+          </div>
+          <div>
+            {roomCount} {t("rooms")}
+          </div>
         </div>
         <div className="font-light text-2xl  text-neutral-500">{location}</div>
         <div className="flex flex-row items-center gap-4 text-2xl text-neutral-500">
-          <div>{category}</div>
+          <div>{t(category)}</div>
         </div>
         <hr />
         <div className="flex flex-row items-center ">
-          <div className="text-2xl font-semibold">$ {price} </div>
+          <div className="text-2xl font-semibold">
+            {t("$")} {price}{" "}
+          </div>
           <div className="font-light text-neutral-500 ml-3 text-sm">
-            per night
+            {t("pernight")}{" "}
           </div>
         </div>
         <hr />
