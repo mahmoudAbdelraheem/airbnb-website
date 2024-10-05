@@ -38,7 +38,18 @@ export default function ListingInfo({
   return (
     <div className="col-span-4 flex flex-col gap-8">
       <div className="flex flex-col gap-2">
-        <div className="text-xl font-semibold flex flex-row items-center gap-2">
+        <div
+          onClick={() => navigator(`/host/${host.id}`)}
+          className="text-xl font-semibold flex flex-row items-center gap-2
+        cursor-pointer
+        hover:underline
+        transition
+        duration-200
+        ease-in
+        hover:scale-105
+        
+        "
+        >
           <div>Hosted by {host.name}</div>
           <Avatar imageSrc={host.image} />
         </div>
