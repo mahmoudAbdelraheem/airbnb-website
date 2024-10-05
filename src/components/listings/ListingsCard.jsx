@@ -52,16 +52,16 @@ const ListingsCard = ({
   //   return data.price;
   // }, [reservation, data.price]);
 
-  const reservationDate = useMemo(() => {
-    if (!reservation) {
-      return null;
-    }
+  // const reservationDate = useMemo(() => {
+  //   if (!reservation) {
+  //     return null;
+  //   }
 
-    const start = new Date(reservation.startDate);
-    const end = new Date(reservation.endDate);
+  //   const start = new Date(reservation.startDate);
+  //   const end = new Date(reservation.endDate);
 
-    return `${format(start, "PP")} - ${format(end, "PP")}`;
-  }, [reservation]);
+  //   return `${format(start, "PP")} - ${format(end, "PP")}`;
+  // }, [reservation]);
 
   return (
     <div
