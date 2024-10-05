@@ -107,7 +107,12 @@ function UserMenu({ user }) {
                   }}
                   label={t("myfav")}
                 />
-                <MenuItem onClick={() => {}} label="My reservations" />
+                <MenuItem
+                  onClick={() => {
+                    navigator("/reservations");
+                  }}
+                  label="My reservations"
+                />
                 <MenuItem
                   onClick={() => {
                     navigator("/account");
