@@ -1,8 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+
 // import { useNavigate } from "react-router-dom";
 function UserDataSection({ currentUser, updatedData }) {
+  const { t } = useTranslation();
+
   // const navigator = useNavigate();
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -15,6 +19,8 @@ function UserDataSection({ currentUser, updatedData }) {
       emergencyContact: currentUser?.emergencyContact || "",
     },
   });
+  const saveText = t("Save");
+  const editText = t("Edit");
 
   const [editField, setEditField] = useState(null);
 
@@ -34,13 +40,13 @@ function UserDataSection({ currentUser, updatedData }) {
 
   return (
     <div className="lg:col-span-8">
-      <div className="text-3xl font-semibold mb-6">Personal info</div>
+      <div className="text-3xl font-semibold mb-6">{t("personalinfo")}</div>
 
       <form className="space-y-4">
         {/* Legal Name */}
         <div className="flex justify-between items-center border-b py-4">
           <div>
-            <div className="text-sm text-gray-500">Legal name</div>
+            <div className="text-sm text-gray-500">{t("Legalname")}</div>
             {editField === "displayName" ? (
               <input
                 type="text"
@@ -49,7 +55,7 @@ function UserDataSection({ currentUser, updatedData }) {
               />
             ) : (
               <div className="text-lg">
-                {currentUser?.displayName || "Not provided"}
+                {currentUser?.displayName || t("Notprovided")}
               </div>
             )}
           </div>
@@ -58,14 +64,14 @@ function UserDataSection({ currentUser, updatedData }) {
             className="text-blue-500 hover:underline"
             onClick={() => handleEditClick("displayName")}
           >
-            {editField === "displayName" ? "Save" : "Edit"}
+            {editField === "displayName" ? saveText : editText}
           </button>
         </div>
 
         {/* Preferred Name */}
         <div className="flex justify-between items-center border-b py-4">
           <div>
-            <div className="text-sm text-gray-500">Preferred name</div>
+            <div className="text-sm text-gray-500">{t("Preferredname")}</div>
             {editField === "preferredName" ? (
               <input
                 type="text"
@@ -74,7 +80,7 @@ function UserDataSection({ currentUser, updatedData }) {
               />
             ) : (
               <div className="text-lg">
-                {currentUser?.preferredName || "Not provided"}
+                {currentUser?.preferredName || t("Notprovided")}
               </div>
             )}
           </div>
@@ -83,14 +89,14 @@ function UserDataSection({ currentUser, updatedData }) {
             className="text-blue-500 hover:underline"
             onClick={() => handleEditClick("preferredName")}
           >
-            {editField === "preferredName" ? "Save" : "Edit"}
+            {editField === "preferredName" ? saveText : editText}
           </button>
         </div>
 
         {/* Email Address */}
         <div className="flex justify-between items-center border-b py-4">
           <div>
-            <div className="text-sm text-gray-500">Email address</div>
+            <div className="text-sm text-gray-500">{t("Emailaddress")}</div>
             {editField === "email" ? (
               <input
                 type="email"
@@ -103,7 +109,7 @@ function UserDataSection({ currentUser, updatedData }) {
                   ? `${currentUser.email.substring(0, 1)}***@${
                       currentUser.email.split("@")[1]
                     }`
-                  : "Not provided"}
+                  : t("Notprovided")}
               </div>
             )}
           </div>
@@ -112,14 +118,14 @@ function UserDataSection({ currentUser, updatedData }) {
             className="text-blue-500 hover:underline"
             onClick={() => handleEditClick("email")}
           >
-            {editField === "email" ? "Save" : "Edit"}
+            {editField === "email" ? saveText : editText}
           </button>
         </div>
 
         {/* Phone Numbers */}
         <div className="flex justify-between items-center border-b py-4">
           <div>
-            <div className="text-sm text-gray-500">Phone numbers</div>
+            <div className="text-sm text-gray-500">{t("Phonenumber")}</div>
             {editField === "phoneNumbers" ? (
               <input
                 type="text"
@@ -128,7 +134,7 @@ function UserDataSection({ currentUser, updatedData }) {
               />
             ) : (
               <div className="text-lg">
-                {currentUser?.phoneNumbers || "Not provided"}
+                {currentUser?.phoneNumbers || t("Notprovided")}
               </div>
             )}
           </div>
@@ -137,14 +143,14 @@ function UserDataSection({ currentUser, updatedData }) {
             className="text-blue-500 hover:underline"
             onClick={() => handleEditClick("phoneNumbers")}
           >
-            {editField === "phoneNumbers" ? "Save" : "Edit"}
+            {editField === "phoneNumbers" ? saveText : editText}
           </button>
         </div>
 
         {/* Government ID */}
         <div className="flex justify-between items-center border-b py-4">
           <div>
-            <div className="text-sm text-gray-500">Government ID</div>
+            <div className="text-sm text-gray-500">{t("GovernmentID")}</div>
             {editField === "governmentID" ? (
               <input
                 type="text"
@@ -153,7 +159,7 @@ function UserDataSection({ currentUser, updatedData }) {
               />
             ) : (
               <div className="text-lg">
-                {currentUser?.governmentID || "Not provided"}
+                {currentUser?.governmentID || t("Notprovided")}
               </div>
             )}
           </div>
@@ -162,14 +168,14 @@ function UserDataSection({ currentUser, updatedData }) {
             className="text-blue-500 hover:underline"
             onClick={() => handleEditClick("governmentID")}
           >
-            {editField === "governmentID" ? "Save" : "Edit"}
+            {editField === "governmentID" ? saveText : editText}
           </button>
         </div>
 
         {/* Address */}
         <div className="flex justify-between items-center border-b py-4">
           <div>
-            <div className="text-sm text-gray-500">Address</div>
+            <div className="text-sm text-gray-500">{t("Address")}</div>
             {editField === "address" ? (
               <input
                 type="text"
@@ -178,7 +184,7 @@ function UserDataSection({ currentUser, updatedData }) {
               />
             ) : (
               <div className="text-lg">
-                {currentUser?.address || "Not provided"}
+                {currentUser?.address || t("Notprovided")}
               </div>
             )}
           </div>
@@ -187,14 +193,14 @@ function UserDataSection({ currentUser, updatedData }) {
             className="text-blue-500 hover:underline"
             onClick={() => handleEditClick("address")}
           >
-            {editField === "address" ? "Save" : "Edit"}
+            {editField === "address" ? saveText : editText}
           </button>
         </div>
 
         {/* Emergency Contact */}
         <div className="flex justify-between items-center border-b py-4">
           <div>
-            <div className="text-sm text-gray-500">Emergency contact</div>
+            <div className="text-sm text-gray-500">{t("Emergencycontact")}</div>
             {editField === "emergencyContact" ? (
               <input
                 type="text"
@@ -203,7 +209,7 @@ function UserDataSection({ currentUser, updatedData }) {
               />
             ) : (
               <div className="text-lg">
-                {currentUser?.emergencyContact || "Not provided"}
+                {currentUser?.emergencyContact || t("Notprovided")}
               </div>
             )}
           </div>
@@ -212,7 +218,7 @@ function UserDataSection({ currentUser, updatedData }) {
             className="text-blue-500 hover:underline"
             onClick={() => handleEditClick("emergencyContact")}
           >
-            {editField === "emergencyContact" ? "Save" : "Edit"}
+            {editField === "emergencyContact" ? saveText : editText}
           </button>
         </div>
       </form>

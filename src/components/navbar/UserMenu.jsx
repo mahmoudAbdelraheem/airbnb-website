@@ -7,8 +7,12 @@ import useRegisterModal from "../../hooks/useRegisterModal";
 import useLoginModal from "../../hooks/useLoginModal";
 import { handleSignOut } from "../../data/auth/authSignOut";
 import { useNavigate } from "react-router-dom";
+import DropdownWithIcon from "../DropdownMenu";
+import { useTranslation } from "react-i18next";
 
 function UserMenu({ user }) {
+  const { t } = useTranslation();
+
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [isOpen, setIsOpen] = useState(false);
@@ -37,8 +41,9 @@ function UserMenu({ user }) {
                     cursor-pointer
                 "
         >
-          Airbnb your home
+          {t("airyourhome")}
         </div>
+        <DropdownWithIcon />
 
         <div
           onClick={toggleOpen}
@@ -94,30 +99,32 @@ function UserMenu({ user }) {
                   onClick={() => {
                     navigator("/trips");
                   }}
-                  label="My trips"
+                  label={t("mytrips")}
                 />
                 <MenuItem
                   onClick={() => {
                     navigator("/favorite");
                   }}
-                  label="My favorites"
+                  label={t("myfav")}
                 />
                 <MenuItem
                   onClick={() => {
                     navigator("/reservations");
                   }}
-                  label="My reservations"
+                  label={t("myreservations")}
                 />
                 <MenuItem
                   onClick={() => {
                     navigator("/account");
                   }}
-                  label="My Account"
+                  label={t("myaccount")}
                 />
-                <MenuItem onClick={() => {}} label={"Airbnb my home"} />
+                <MenuItem onClick={() => {}} label={t("airyourhome")} />
                 <MenuItem
-                  onClick={registerModal.onOpen}
-                  label="My properties"
+                  onClick={() => {
+                    navigator("/properties");
+                  }}
+                  label={t("myproperties")}
                 />
                 <hr />
                 <MenuItem
@@ -125,13 +132,16 @@ function UserMenu({ user }) {
                     handleSignOut();
                     navigator("/");
                   }}
-                  label="Logout"
+                  label={t("logout")}
                 />
               </>
             ) : (
               <>
-                <MenuItem onClick={loginModal.onOpen} label="Login" />
-                <MenuItem onClick={registerModal.onOpen} label="Sign up" />
+                <MenuItem onClick={loginModal.onOpen} label={t("login")} />
+                <MenuItem
+                  onClick={registerModal.onOpen}
+                  label={t("register")}
+                />
               </>
             )}
           </div>

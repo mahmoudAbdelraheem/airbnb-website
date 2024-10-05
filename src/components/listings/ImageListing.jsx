@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import HeartButton from "../HeartButton";
 import getCurrentUser from "../../data/auth/getCurrentUser";
+import { useTranslation } from "react-i18next";
 
 export default function ImageListing({ id, imageSrc }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [showAllImages, setShowAllImages] = useState(false);
   const [fullscreenImage, setFullscreenImage] = useState(null);
+  const { t } = useTranslation();
 
   const fetchUser = async () => {
     const data = await getCurrentUser();
@@ -59,7 +61,7 @@ export default function ImageListing({ id, imageSrc }) {
             onClick={toggleShowImages}
             className="text-blue-500 hover:underline"
           >
-            Show more images
+            {t("Showmoreimages")}
           </button>
         )}
         {showAllImages && (
@@ -67,7 +69,7 @@ export default function ImageListing({ id, imageSrc }) {
             onClick={toggleShowImages}
             className="text-blue-500 hover:underline ml-2"
           >
-            Show less images
+            {t("Showlessimages")}
           </button>
         )}
       </div>

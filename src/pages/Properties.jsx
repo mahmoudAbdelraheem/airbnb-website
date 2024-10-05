@@ -2,29 +2,27 @@ import { useEffect, useState } from "react";
 import SimpleNavbar from "../components/navbar/SimpleNavbar";
 import getCurrentUser from "../data/auth/getCurrentUser";
 import EmptyState from "../components/EmptyState";
-import getReservationByUserId from "../data/listings/getReservationByUserId";
-import TripsClient from "../components/TripsClient";
 import Loading from "../components/Loading";
-import { useTranslation } from "react-i18next";
+import getCurrentUserProperties from "../data/properites/getCurrentUserProperites";
+import PropertiesClient from "../components/PropertiesClient";
 
-const Trips = () => {
-  const { t } = useTranslation();
-
+const Properties = () => {
   const [currentUser, setCurrentUser] = useState(null);
-  const [reservations, setReservations] = useState([]);
+  const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchCurrentUserDataAndReservations = async () => {
+  const fetchCurrentUserDataAndProperties = async () => {
     setLoading(true);
     const userData = await getCurrentUser();
     setCurrentUser(userData);
-    const reservationData = await getReservationByUserId(userData.uid);
-    setReservations(reservationData);
+    const propertiesData = await getCurrentUserProperties(userData.uid);
+    setProperties(propertiesData);
+    console.log("current user properties", propertiesData);
     setLoading(false);
   };
 
   useEffect(() => {
-    fetchCurrentUserDataAndReservations();
+    fetchCurrentUserDataAndProperties();
   }, []);
 
   if (loading) {
@@ -48,11 +46,14 @@ const Trips = () => {
     );
   }
 
-  if (reservations.length === 0) {
+  if (properties.length === 0) {
     return (
       <>
         <SimpleNavbar user={currentUser} />
-        <EmptyState title={t("hfound")} subtitle={t("pfound")} />
+        <EmptyState
+          title="No properties found!"
+          subtitle="Looks like you have not listed any properties yet!"
+        />
       </>
     );
   }
@@ -60,9 +61,9 @@ const Trips = () => {
   return (
     <>
       <SimpleNavbar user={currentUser} />
-      <TripsClient reservations={reservations} currentUser={currentUser} />
+      <PropertiesClient listings={properties} currentUser={currentUser} />
     </>
   );
 };
 
-export default Trips;
+export default Properties;

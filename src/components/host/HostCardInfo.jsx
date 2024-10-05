@@ -1,5 +1,9 @@
+import { useTranslation } from "react-i18next";
+
 /* eslint-disable react/prop-types */
 function HostCardInfo({ host }) {
+  const { t } = useTranslation();
+
   return (
     <div className=" bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
       <img
@@ -15,15 +19,15 @@ function HostCardInfo({ host }) {
       <div className="flex items-center gap-4 mt-4">
         <div className="text-center">
           <p className="text-xl font-semibold">{host.reviewsCount || 0}</p>
-          <p className="text-sm text-gray-600">Reviews</p>
+          <p className="text-sm text-gray-600">{t("Reviews")}</p>
         </div>
         <div className="text-center">
           <p className="text-xl font-semibold">{host.rating || "4.9"} ⭐</p>
-          <p className="text-sm text-gray-600">Rating</p>
+          <p className="text-sm text-gray-600">{t("Rating")}</p>
         </div>
         <div className="text-center">
           <p className="text-xl font-semibold">{host.yearsHosting || 0}</p>
-          <p className="text-sm text-gray-600">Years hosting</p>
+          <p className="text-sm text-gray-600">{t("Yearshosting")}</p>
         </div>
       </div>
     </div>

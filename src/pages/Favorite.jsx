@@ -14,6 +14,7 @@ const Favorite = () => {
   const [favList, setFavList] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const fetchFavorites = async () => {
     const fav = await getFavoriteListingsFromFirebase();
     console.log("favorites data list", fav);

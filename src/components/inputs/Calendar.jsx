@@ -1,16 +1,33 @@
 import { DateRange } from "react-date-range";
+import styled from "styled-components";
+import { useTranslation } from "react-i18next";
+import { enGB, ar } from "date-fns/locale";
 
+const CalendarWrapper = styled.div`
+  .rdrMonthAndYearPickers select {
+    background: none;
+  }
+`;
+const languages = {
+  en: enGB,
+  ar: ar,
+};
 const Calendar = ({ value, onChange, disabledDates }) => {
+  const { i18n } = useTranslation();
+
   return (
-    <DateRange
-      rangeColors={["#262626"]}
-      ranges={[value]}
-      direction="vertical"
-      showDateDisplay={false}
-      onChange={onChange}
-      disabledDates={disabledDates}
-      minDdate={new Date()}
-    />
+    <CalendarWrapper>
+      <DateRange
+        rangeColors={["#262626"]}
+        ranges={[value]}
+        direction="vertical"
+        showDateDisplay={false}
+        onChange={onChange}
+        disabledDates={disabledDates}
+        minDdate={new Date()}
+        locale={languages[i18n.language] || enGB}
+      />
+    </CalendarWrapper>
   );
 };
 
