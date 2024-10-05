@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Avatar from "../../components/Avatar";
 import getHostById from "../../data/details/getHostById";
 import Loading from "../Loading";
+import { useNavigate } from "react-router-dom";
 
 export default function ListingInfo({
   description,
@@ -14,7 +15,7 @@ export default function ListingInfo({
   price,
 }) {
   const [host, setHost] = useState(null);
-
+  const navigator = useNavigate();
   useEffect(() => {
     const fetchListing = async () => {
       try {
@@ -35,9 +36,16 @@ export default function ListingInfo({
   return (
     <div className="col-span-4 flex flex-col gap-8">
       <div className="flex flex-col gap-2">
-        <div className="text-xl font-semibold flex flex-row items-center gap-2">
+        <div
+          onClick={() => {
+            navigator(`/host/${id}`);
+          }}
+          className="text-xl 
+        font-semibold flex flex-row items-center gap-2
+         cursor-pointer hover:underline hover:scale-110 transform transition-transform duration-500 ease-in-out"
+        >
           <div>Hosted by {host.name}</div>
-          <Avatar imageSrc={host.image} />
+          <Avatar className="" imageSrc={host.image} />
         </div>
         <div className="flex flex-row items-center gap-4 font-light text-neutral-500">
           <div>{guestCount} guests</div>

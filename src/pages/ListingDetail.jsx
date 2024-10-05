@@ -9,7 +9,6 @@ import Map from "../components/Map";
 import SimpleNavbar from "../components/navbar/SimpleNavbar";
 import getCurrentUser from "../data/auth/getCurrentUser";
 import useLoginModal from "../hooks/useLoginModal";
-// import useRegisterModal from "../hooks/useRegisterModal";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -90,12 +89,13 @@ export default function ListingDetail() {
       dateRange,
       listingId: listing.id,
       userId: currentUser.uid,
+      authorId: listing.userId,
     });
 
     if (result.success) {
       // Success feedback
       toast.success("Listing reserved successfully");
-
+      nav("/trips");
       // Reset date range and stop loading
       setDateRange(initialDateRange);
       nav(0);

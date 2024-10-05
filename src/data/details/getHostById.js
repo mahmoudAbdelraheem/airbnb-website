@@ -8,11 +8,7 @@ const getHostById = async (userId) => {
 
     if (userDoc.exists()) {
       const userData = userDoc.data();
-      return {
-        id: userDoc.id,
-        name: userData.name,
-        image: userData.image,
-      };
+      return userData;
     } else {
       console.log("No such user found!");
       return null;
