@@ -40,10 +40,7 @@ export default function TripsClient({ reservations, currentUser }) {
       <div className="pt-24" />
 
       <ToasterProvider />
-      <Heading
-        title="Trips"
-        subtitle="Where you've been and where you're going"
-      />
+      <Heading title={t("trips")} subtitle={t("whereTo")} />
 
       <div
         className="

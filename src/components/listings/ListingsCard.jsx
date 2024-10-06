@@ -121,7 +121,7 @@ const ListingsCard = ({
           )}
           {reservation && (
             <div className="font-semibold">
-              Total price: {reservation.totalPrice}$
+              {t("totalPrice")}: {reservation.totalPrice}$
             </div>
           )}
         </div>
