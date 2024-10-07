@@ -1,9 +1,48 @@
 import { BiSearch } from "react-icons/bi";
 import { useTranslation } from "react-i18next";
+import useSearchModal from "../../hooks/useSearchModal";
+import { useSearchParams } from "react-router-dom";
+import useCountries from "../../hooks/useCountries";
+import { useMemo } from "react";
+import { differenceInDays } from "date-fns";
 function Search() {
   const { t } = useTranslation();
+  const searchModal = useSearchModal();
+  const [params, setSearchParams] = useSearchParams();
+  const { getByValue } = useCountries();
+  const locationValue = params?.get("locationValue");
+  const startDate = params?.get("startDate");
+  const endDate = params?.get("endDate");
+  const guestCount = params?.get("guestCount");
+  const locationLabel = useMemo(() => {
+    if (locationValue) {
+      return getByValue(locationValue)?.label;
+    }
+    return t("anywhere");
+  }, [getByValue, locationValue]);
+
+  const durationLabel = useMemo(() => {
+    if (startDate && endDate) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      let diff = differenceInDays(end, start);
+      if (diff == 0) {
+        diff = 1;
+      }
+      return `${diff} ${t("Days")}`;
+    }
+    return t("anyweek");
+  }, [startDate, endDate]);
+  const guestLabel = useMemo(() => {
+    if (guestCount) {
+      return `${guestCount} ${t("Guests")}`;
+    }
+    return t("addguests");
+  }, [guestCount]);
+
   return (
     <div
+      onClick={searchModal.onOpen}
       className="
             border-[1px]
             w-full
@@ -31,7 +70,7 @@ function Search() {
             px-6
         "
         >
-          {t("anywhere")}
+          {locationLabel}
         </div>
         <div
           className="
@@ -45,7 +84,7 @@ function Search() {
         text-center
         "
         >
-          {t("anyweek")}
+          {durationLabel}
         </div>
 
         <div
@@ -60,7 +99,7 @@ function Search() {
         gap-3
         "
         >
-          <div className="hidden sm:block">{t("addguests")}</div>
+          <div className="hidden sm:block">{guestLabel}</div>
           <div
             className="
                 p-2
