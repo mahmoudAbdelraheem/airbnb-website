@@ -13,6 +13,7 @@ import ListingsCard from "../components/listings/ListingsCard";
 import Map from "../components/Map";
 import { getListingFromFirebase } from "../data/listings/getListingFromFirebase";
 import Loading from "../components/Loading";
+import Footer from "../components/Footer";
 // import getListings from "../data/listings/getListing";
 // import { insertListings } from "../data/listings/insertListing";
 
@@ -75,6 +76,8 @@ function Home() {
         {/* <Map center={[26.8206, 30.8025]} /> get error */}
         <Map />
       </Container>
+      <Footer />
+
       <div className="h-[100px]"></div>
     </>
   );
