@@ -29,7 +29,10 @@ export default async function getReservationByAuthorId(authorId) {
     const reservationsWithListings = await Promise.all(
       querySnapshot.docs.map(async (docSnapshot) => {
         const reservationData = docSnapshot.data();
-
+        const reserverId = reservationData.userId;
+        const reserverRef = doc(firebaseFirestore, "users", reserverId);
+        const reserverSnapshot = await getDoc(reserverRef);
+        const reserverData = reserverSnapshot.exists();
         // Convert Firestore Timestamps to formatted date strings (e.g., "2024-10-05")
         const startDate = reservationData.startDate
           .toDate()
@@ -57,6 +60,7 @@ export default async function getReservationByAuthorId(authorId) {
           startDate, // formatted startDate
           endDate, // formatted endDate
           listing: listingData, // include listing data
+          reserver: reserverData ? reserverSnapshot.data() : null,
         };
       })
     );

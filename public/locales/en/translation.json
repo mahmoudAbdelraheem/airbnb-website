@@ -48,7 +48,7 @@
   "myfav": "My Favorites",
   "myreservations": "My Reservations",
   "myaccount": "My Account",
-  "myprofile": "My Properties",
+  "myproperties": "My Properties",
   "night": "night",
   "nights": "nights",
   "total": "Total",
@@ -92,5 +92,9 @@
   "pq3": "Airbnb only releases contact information for Hosts and guests after a reservation is confirmed.",
   "totalPrice": "Total Price",
   "trips": "Trips",
-  "whereTo": "Where you've been and where you're going"
+  "whereTo": "Where you've been and where you're going",
+
+  "reservedby" : "Reserved by"
+
+
 }

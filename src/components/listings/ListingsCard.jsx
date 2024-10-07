@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import HeartButton from "../HeartButton";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { format } from "date-fns";
 import Button from "../Button";
 import { useTranslation } from "react-i18next";
 
@@ -43,25 +42,6 @@ const ListingsCard = ({
     },
     [onAction, actionId, disabled]
   );
-
-  // const price = useMemo(() => {
-  //   if (reservation) {
-  //     return reservation.totalPrice;
-  //   }
-
-  //   return data.price;
-  // }, [reservation, data.price]);
-
-  // const reservationDate = useMemo(() => {
-  //   if (!reservation) {
-  //     return null;
-  //   }
-
-  //   const start = new Date(reservation.startDate);
-  //   const end = new Date(reservation.endDate);
-
-  //   return `${format(start, "PP")} - ${format(end, "PP")}`;
-  // }, [reservation]);
 
   return (
     <div
@@ -106,6 +86,16 @@ const ListingsCard = ({
         <div className="font-semibold text-lg">{data.location}</div>
         {!reservation && (
           <div className="font-light text-neutral-500">{t(data.category)}</div>
+        )}
+        {reservation?.reserver && (
+          <div className="flex flex-col">
+            <div className="font-semibold">{t("reservedby")} </div>
+            <div className="font-light text-neutral-500">
+              {reservation.reserver.displayName ||
+                reservation.reserver.name ||
+                reservation.reserver.email}
+            </div>
+          </div>
         )}
         {reservation && (
           <div className="font-light text-neutral-500">
