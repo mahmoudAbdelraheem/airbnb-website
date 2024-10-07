@@ -12,6 +12,7 @@ import EmptyState from "../components/EmptyState";
 import ListingsCard from "../components/listings/ListingsCard";
 import { getListingFromFirebase } from "../data/listings/getListingFromFirebase";
 import Loading from "../components/Loading";
+import SearchModal from "../components/modals/SearchModal";
 
 function Home() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -44,6 +45,7 @@ function Home() {
   return (
     <>
       <ToasterProvider />
+      <SearchModal />
       <RegisterModal />
       <LoginModal />
       <Navbar user={currentUser} />

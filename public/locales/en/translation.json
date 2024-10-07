@@ -98,7 +98,25 @@
   "trips": "Trips",
   "whereTo": "Where you've been and where you're going",
 
-  "reservedby" : "Reserved by"
+  "reservedby" : "Reserved by",
+  "Filters":"Filters",
+  "mq1":"Where do you want to go?",
+  "mqp1":"Find the perfect location",
+  "mq2":"when do you plan to go?",
+  "mqp2":"Make sure everyone is free!",
+  "mq3":"More information",
+  "mqp3":"Find your perfect place!",
+  "Guests":"Guests",
+  "Gq":"How many guests are coming?",
+  "Rooms":"Rooms",
+  "Rq":"How many rooms do you need?",
+  "Bathrooms":"Bathrooms",
+  "Bq":"How many bathrooms do you need?",
+  "Next":"Next",
+  "Back":"Back",
+  "Search":"Search",
+  "Days":"Days",
+  "Guests":"Guests"
 
 
 }
