@@ -11,11 +11,13 @@ import HostCardInfo from "../components/host/HostCardInfo";
 import HostAbout from "../components/host/HostAbout";
 import HostReviews from "../components/host/HostReviews";
 import HostConfirmedInfo from "../components/host/HostConfirmedInfo";
+import { getReviewsByHostId } from "../data/reviews/getReviewsByHostId";
 
 function Host() {
   const { id } = useParams();
   const [currentUser, setCurrentUser] = useState(null);
   const [hostData, setHostData] = useState(null);
+  const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchCurrentUserData = async () => {
@@ -23,10 +25,21 @@ function Host() {
     setCurrentUser(data);
   };
 
+  const fetchReviews = async () => {
+    try {
+      const data = await getReviewsByHostId(id);
+      setReviews(data.reviews);
+    } catch (error) {
+      console.log(error);
+      toast.error("something went wrong");
+    }
+  };
+
   const fetchHostData = async () => {
     try {
       const data = await getHostById(id);
-      console.log("current host data ", data);
+
+      await fetchReviews(id);
       setHostData(data);
     } catch (error) {
       console.log(error);
@@ -76,8 +89,7 @@ function Host() {
             {/* About Section */}
             <HostAbout host={hostData} />
             {/* Reviews Section */}
-            {/* //TODO: adding reviews in firebase */}
-            <HostReviews host={hostData} />
+            <HostReviews host={hostData} reviews={reviews} />
           </div>
         </div>
       </Container>
