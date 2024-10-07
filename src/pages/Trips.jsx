@@ -6,6 +6,7 @@ import getReservationByUserId from "../data/listings/getReservationByUserId";
 import TripsClient from "../components/TripsClient";
 import Loading from "../components/Loading";
 import { useTranslation } from "react-i18next";
+import ReviewModal from "../components/modals/ReviewModal";
 
 const Trips = () => {
   const { t } = useTranslation();
@@ -59,6 +60,8 @@ const Trips = () => {
 
   return (
     <>
+      <ReviewModal />
+
       <SimpleNavbar user={currentUser} />
       <TripsClient reservations={reservations} currentUser={currentUser} />
     </>
