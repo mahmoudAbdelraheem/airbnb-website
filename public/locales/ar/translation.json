@@ -102,5 +102,7 @@
   "ContinuewithGithub": "المتابعة باستخدام Github",
   "totalPrice": "السعر الكلي",
   "trips": "الحجوزات",
-  "whereTo": "اين كنت واين ستذهب"
+  "whereTo": "اين كنت واين ستذهب",
+
+  "reservedby": "حجزت بواسطة"
 }
