@@ -13,6 +13,7 @@ import ListingsCard from "../components/listings/ListingsCard";
 import { getListingFromFirebase } from "../data/listings/getListingFromFirebase";
 import Loading from "../components/Loading";
 import Footer from "../components/Footer";
+import Map from "../components/Map";
 // import getListings from "../data/listings/getListing";
 // import { insertListings } from "../data/listings/insertListing";
 
