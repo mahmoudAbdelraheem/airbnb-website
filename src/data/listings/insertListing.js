@@ -21,8 +21,60 @@
 //     guestCount: 5,
 //     createdAt: new Date().toISOString(),
 //     userId: "user_001",
+//     mapLocation: { lat: 30.0444, lng: 31.2357 }, // Cairo's latitude and longitude
 //   },
-//   // Other listings...
+//   {
+//     title: "Cozy Apartment in Alexandria",
+//     description:
+//       "A cozy and well-furnished apartment near the sea in Alexandria.",
+//     location: "Alexandria, Egypt",
+//     category: "Apartment",
+//     imageSrc: [
+//       "https://example.com/alexandria1.jpg",
+//       "https://example.com/alexandria2.jpg",
+//     ],
+//     price: 100,
+//     roomCount: 2,
+//     bathroomCount: 1,
+//     guestCount: 4,
+//     createdAt: new Date().toISOString(),
+//     userId: "user_002",
+//     mapLocation: { lat: 31.2156, lng: 29.9553 }, // Alexandria's latitude and longitude
+//   },
+//   {
+//     title: "Villa in Giza",
+//     description: "A beautiful villa in Giza near the pyramids.",
+//     location: "Giza, Egypt",
+//     category: "Villa",
+//     imageSrc: [
+//       "https://example.com/giza1.jpg",
+//       "https://example.com/giza2.jpg",
+//     ],
+//     price: 300,
+//     roomCount: 5,
+//     bathroomCount: 3,
+//     guestCount: 10,
+//     createdAt: new Date().toISOString(),
+//     userId: "user_003",
+//     mapLocation: { lat: 30.0131, lng: 31.2089 }, // Giza's latitude and longitude
+//   },
+//   {
+//     title: "Desert Lodge in Siwa",
+//     description: "A peaceful desert lodge in Siwa.",
+//     location: "Siwa, Egypt",
+//     category: "Lodge",
+//     imageSrc: [
+//       "https://example.com/siwa1.jpg",
+//       "https://example.com/siwa2.jpg",
+//     ],
+//     price: 150,
+//     roomCount: 4,
+//     bathroomCount: 2,
+//     guestCount: 6,
+//     createdAt: new Date().toISOString(),
+//     userId: "user_004",
+//     mapLocation: { lat: 29.2045, lng: 25.5196 }, // Siwa's latitude and longitude
+//   },
 // ];
 
 // export const insertListings = async () => {
@@ -42,6 +94,7 @@
 //       const docRef = await addDoc(listingsRef, {
 //         ...listing,
 //         userId: userId, // Add current user's ID to each listing
+//         mapLocation: listing.mapLocation, // Include the map location
 //       });
 
 //       // Update the listing with the Firestore-generated document ID

@@ -10,11 +10,8 @@ import ToasterProvider from "../providers/ToasterProvider";
 import Container from "../components/Container";
 import EmptyState from "../components/EmptyState";
 import ListingsCard from "../components/listings/ListingsCard";
-import Map from "../components/Map";
 import { getListingFromFirebase } from "../data/listings/getListingFromFirebase";
 import Loading from "../components/Loading";
-// import getListings from "../data/listings/getListing";
-// import { insertListings } from "../data/listings/insertListing";
 
 function Home() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -70,11 +67,6 @@ function Home() {
           </Container>
         </div>
       )}
-      {/*//! test map components */}
-      <Container>
-        {/* <Map center={[26.8206, 30.8025]} /> get error */}
-        <Map />
-      </Container>
       <div className="h-[100px]"></div>
     </>
   );
