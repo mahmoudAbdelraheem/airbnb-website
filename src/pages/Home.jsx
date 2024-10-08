@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../data/firebaseConfig";
 
@@ -14,37 +13,52 @@ import { getListingFromFirebase } from "../data/listings/getListingFromFirebase"
 import Loading from "../components/Loading";
 
 import SearchModal from "../components/modals/SearchModal";
-
 import Footer from "../components/Footer";
+import { useSearchParams } from "react-router-dom";
+import { getAvailableListings } from "../data/search/getAvailableListings";
 
 function Home() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState([]);
-  const fetchData = async () => {
-    // const res = await getListings();
-    const listingData = await getListingFromFirebase();
-    console.log("listing data from firebase", listingData);
+  const [searchParams] = useSearchParams();
+  const queryParams = Object.fromEntries([...searchParams]);
 
-    // await insertListings(); // Insert listings into the database just for test
-    setListings(listingData);
+  const fetchData = async () => {
+    // Fetch search results if there are query parameters
+    if (Object.keys(queryParams).length > 0) {
+      const searchResult = await getAvailableListings(queryParams);
+      console.log("listing data from search", searchResult);
+      setListings(searchResult);
+    } else {
+      const listingData = await getListingFromFirebase();
+      console.log("listing data from firebase", listingData);
+      setListings(listingData);
+    }
   };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
       setCurrentUser(user);
-      console.log("current user data from home", user);
       setLoading(false);
     });
 
-    fetchData();
+    if (!loading) {
+      fetchData();
+    }
 
-    // Cleanup the listener on unmount
     return () => unsubscribe();
-  }, []);
+  }, [loading]); // Add loading to dependencies
 
   if (loading) {
-    return <Loading />;
+    return (
+      <>
+        <Navbar user={currentUser} />
+        <Loading />
+      </>
+    );
   }
+
   return (
     <>
       <ToasterProvider />
@@ -52,30 +66,26 @@ function Home() {
       <RegisterModal />
       <LoginModal />
       <Navbar user={currentUser} />
-      {listings.length == 0 ? (
+      {listings.length === 0 ? (
         <div className="flex justify-center items-center h-screen">
           <EmptyState showReset={true} />
         </div>
       ) : (
         <div className="py-[120px] ">
           <Container>
-            <div className="pt-24  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-              {listings &&
-                listings.map((listing) => (
-                  <ListingsCard
-                    key={listing.id}
-                    data={listing}
-                    currentUser={currentUser}
-                  />
-                ))}
+            <div className="pt-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+              {listings.map((listing) => (
+                <ListingsCard
+                  key={listing.id}
+                  data={listing}
+                  currentUser={currentUser}
+                />
+              ))}
             </div>
           </Container>
         </div>
       )}
-
       <Footer />
-
-      <div className="h-[100px]"></div>
     </>
   );
 }
