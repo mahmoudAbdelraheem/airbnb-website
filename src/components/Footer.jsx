@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Container from "./Container";
 
 const Footer = () => {
@@ -9,12 +9,14 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative bg-gray-100 p-4">
+    <footer className="relative bg-gray-200 p-4">
       <Container>
         <div
-          className={`absolute bottom-full left-0 w-full overflow-hidden transition-all duration-300 ease-in-out bg-white ${
-            isExpanded ? "h-48" : "h-0"
-          }`}
+          className={`
+            absolute bottom-full left-0 w-full 
+            overflow-hidden transition-all duration-300 ease-in-out bg-gray-200 ${
+              isExpanded ? "h-48" : "h-0"
+            }`}
           style={{ maxHeight: isExpanded ? "20vh" : "0" }}
         >
           <ul className="list-none p-4 space-y-2">

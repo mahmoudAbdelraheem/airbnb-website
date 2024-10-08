@@ -5,7 +5,10 @@ function Logo() {
   const navigator = useNavigate();
   return (
     <img
-      onClick={() => navigator("/")}
+      onClick={() => {
+        navigator("/");
+        navigator(0);
+      }}
       alt="logo"
       className="hidden md:block cursor-pointer"
       height={100}
