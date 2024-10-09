@@ -18,11 +18,13 @@ import ToasterProvider from "../providers/ToasterProvider";
 import LoginModal from "../components/modals/LoginModal";
 import { createNewReservation } from "../data/details/createNewReservation";
 import Footer from "../components/Footer";
+
 const initialDateRange = {
   startDate: new Date(),
   endDate: new Date(),
   key: "selection",
 };
+
 export default function ListingDetail() {
   const { id } = useParams();
   const [listing, setListing] = useState(null);
@@ -30,7 +32,6 @@ export default function ListingDetail() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const loginModel = useLoginModal();
-  // const registerModel = useRegisterModal();
   const nav = useNavigate();
 
   const fetchCurrentUserData = async () => {
@@ -42,7 +43,6 @@ export default function ListingDetail() {
     try {
       const res = await getListingById(id);
       console.log("listing fetch data", res);
-
       setListing(res);
     } catch (error) {
       alert("Error: ", error);
@@ -77,35 +77,36 @@ export default function ListingDetail() {
     return dates;
   }, [reservations]);
 
+  // const onCreateReservation = useCallback(async () => {
+  //   if (!currentUser) {
+  //     return loginModel.onOpen();
+  //   }
+
+  //   setLoading(true);
+
+  //   // Call the Firebase function
+  //   const result = await createNewReservation({
+  //     totalPrice,
+  //     dateRange,
+  //     listingId: listing.id,
+  //     userId: currentUser.uid,
+  //     authorId: listing.userId,
+  //   })
+
   const onCreateReservation = useCallback(async () => {
     if (!currentUser) {
       return loginModel.onOpen();
     }
 
-    setLoading(true);
-
-    // Call the Firebase function
-    const result = await createNewReservation({
-      totalPrice,
-      dateRange,
-      listingId: listing.id,
-      userId: currentUser.uid,
-      authorId: listing.userId,
+    nav("/payment", {
+      state: {
+        totalPrice,
+        dateRange,
+        listingId: listing.id,
+        userId: currentUser.uid,
+        authorId: listing.userId,
+      },
     });
-
-    if (result.success) {
-      // Success feedback
-      toast.success("Listing reserved successfully");
-      nav("/trips");
-      // Reset date range and stop loading
-      setDateRange(initialDateRange);
-      nav(0);
-    } else {
-      // Handle errors
-      toast.error(result.message);
-    }
-
-    setLoading(false);
   }, [totalPrice, dateRange, listing?.id, nav, currentUser, loginModel]);
 
   useEffect(() => {

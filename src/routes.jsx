@@ -9,6 +9,7 @@ import Trips from "./pages/Trips";
 import Host from "./pages/Host";
 import Reservations from "./pages/Reservations";
 import Properties from "./pages/Properties";
+import Payment from "./components/Payment";
 
 //TODO: add all new routes here
 const routers = createBrowserRouter([
@@ -50,6 +51,10 @@ const routers = createBrowserRouter([
   {
     path: "/reservations",
     element: <Reservations />,
+  },
+  {
+    path: "/payment",
+    element: <Payment />,
   },
 ]);
 export default routers;
