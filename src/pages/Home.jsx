@@ -14,7 +14,7 @@ import Loading from "../components/Loading";
 
 import SearchModal from "../components/modals/SearchModal";
 import Footer from "../components/Footer";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { getAvailableListings } from "../data/search/getAvailableListings";
 
 function Home() {
@@ -22,7 +22,10 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState([]);
   const [searchParams] = useSearchParams();
+  // The below so we can read the URL in the homepage
+  const [filteredItems, setFilteredItems] = useState([]);
   const queryParams = Object.fromEntries([...searchParams]);
+  const location = useLocation();
 
   const fetchData = async () => {
     // Fetch search results if there are query parameters
@@ -50,6 +53,17 @@ function Home() {
     return () => unsubscribe();
   }, [loading]); // Add loading to dependencies
 
+  useEffect(() => {
+    if (queryParams.category) {
+      const filtered = listings.filter(
+        (listing) => listing.category === queryParams.category
+      );
+      setFilteredItems(filtered);
+    } else {
+      setFilteredItems(listings);
+    }
+  }, [queryParams, listings]);
+
   if (loading) {
     return (
       <>
@@ -74,7 +88,7 @@ function Home() {
         <div className="py-[120px] ">
           <Container>
             <div className="pt-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-              {listings.map((listing) => (
+              {filteredItems.map((listing) => (
                 <ListingsCard
                   key={listing.id}
                   data={listing}
