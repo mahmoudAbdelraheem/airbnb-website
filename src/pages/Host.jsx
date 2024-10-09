@@ -12,6 +12,7 @@ import HostAbout from "../components/host/HostAbout";
 import HostReviews from "../components/host/HostReviews";
 import HostConfirmedInfo from "../components/host/HostConfirmedInfo";
 import { getReviewsByHostId } from "../data/reviews/getReviewsByHostId";
+import Footer from "../components/Footer";
 
 function Host() {
   const { id } = useParams();
@@ -92,6 +93,7 @@ function Host() {
             <HostReviews host={hostData} reviews={reviews} />
           </div>
         </div>
+        <Footer />
       </Container>
     </>
   );

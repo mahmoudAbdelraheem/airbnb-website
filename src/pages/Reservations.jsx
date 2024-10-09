@@ -5,6 +5,7 @@ import getCurrentUser from "../data/auth/getCurrentUser";
 import Loading from "../components/Loading";
 import getReservationByAuthorId from "../data/reservations/getReservationsByAuthorId";
 import ReservationsClient from "../components/reservations/ReservationsClient";
+import Footer from "../components/Footer";
 
 function Reservations() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -28,6 +29,7 @@ function Reservations() {
       <>
         <SimpleNavbar user={currentUser} />
         <Loading />
+        <Footer />
       </>
     );
   }
@@ -40,6 +42,7 @@ function Reservations() {
           title="No reservations found"
           subtitle="Looks like you have no reservations on your properties."
         />
+        <Footer />
       </>
     );
   }
@@ -52,6 +55,7 @@ function Reservations() {
           title="Unauthorized access!"
           subtitle="Please login first!"
         />
+        <Footer />
       </>
     );
   }
@@ -62,6 +66,7 @@ function Reservations() {
         reservations={reservations}
         currentUser={currentUser}
       />
+      <Footer />
     </>
   );
 }

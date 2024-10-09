@@ -5,6 +5,7 @@ import EmptyState from "../components/EmptyState";
 import Loading from "../components/Loading";
 import getCurrentUserProperties from "../data/properites/getCurrentUserProperites";
 import PropertiesClient from "../components/PropertiesClient";
+import Footer from "../components/Footer";
 
 const Properties = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -30,6 +31,7 @@ const Properties = () => {
       <>
         <SimpleNavbar user={currentUser} />
         <Loading />;
+        <Footer />
       </>
     );
   }
@@ -42,6 +44,7 @@ const Properties = () => {
           title="Unauthorized access!"
           subtitle="Please login first!"
         />
+        <Footer />
       </>
     );
   }
@@ -54,6 +57,7 @@ const Properties = () => {
           title="No properties found!"
           subtitle="Looks like you have not listed any properties yet!"
         />
+        <Footer />
       </>
     );
   }
@@ -62,6 +66,7 @@ const Properties = () => {
     <>
       <SimpleNavbar user={currentUser} />
       <PropertiesClient listings={properties} currentUser={currentUser} />
+      <Footer />
     </>
   );
 };

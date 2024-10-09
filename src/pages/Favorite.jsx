@@ -9,6 +9,7 @@ import ToasterProvider from "../providers/ToasterProvider";
 import RegisterModal from "../components/modals/RegisterModal";
 import LoginModal from "../components/modals/LoginModal";
 import SimpleNavbar from "../components/navbar/SimpleNavbar";
+import Footer from "../components/Footer";
 
 const Favorite = () => {
   const [favList, setFavList] = useState([]);
@@ -57,6 +58,7 @@ const Favorite = () => {
           <FavoritesClient listings={favList} currentUser={currentUser} />
         </div>
       )}
+      <Footer />
     </>
   );
 };

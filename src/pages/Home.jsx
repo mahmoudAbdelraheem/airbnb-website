@@ -16,6 +16,7 @@ import SearchModal from "../components/modals/SearchModal";
 import Footer from "../components/Footer";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { getAvailableListings } from "../data/search/getAvailableListings";
+import { list } from "postcss";
 
 function Home() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -58,7 +59,11 @@ function Home() {
       const filtered = listings.filter(
         (listing) => listing.category === queryParams.category
       );
-      setFilteredItems(filtered);
+      if (filtered.length === 0) {
+        setFilteredItems(listings);
+      } else {
+        setFilteredItems(filtered);
+      }
     } else {
       setFilteredItems(listings);
     }

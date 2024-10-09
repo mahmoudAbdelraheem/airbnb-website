@@ -83,8 +83,8 @@
   "About": "حول",
   "Reviews": "تقيمات",
   "ReviewTitle": "قيم حجزك",
-  "ReviewSubtitle" :"من فضلك, شارك معنا تقييمك وتعليقاتك",
-  "Content":"محتوى",
+  "ReviewSubtitle": "من فضلك, شارك معنا تقييمك وتعليقاتك",
+  "Content": "محتوى",
   "Submit": "إرسال",
   "Rating": "التقييم",
   "Yearshosting": "سنوات الاستضافة",
@@ -125,5 +125,11 @@
   "Next": "التالي",
   "Back": "رجوع",
   "Search": "بحث",
-   "Days": "أيام"
+  "Days": "أيام",
+  "helpCenter": "مركز المساعدة",
+  "cancellationOptions": "خيارات الإلغاء",
+  "safetyInformation": "معلومات السلامة",
+  "Terms": "البنود",
+  "yourPrivacy": "خيارات الخصوصية الخاصة بك",
+  "supportResources": "الدعم والموارد"
 }

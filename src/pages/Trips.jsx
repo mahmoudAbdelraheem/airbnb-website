@@ -7,6 +7,7 @@ import TripsClient from "../components/TripsClient";
 import Loading from "../components/Loading";
 import { useTranslation } from "react-i18next";
 import ReviewModal from "../components/modals/ReviewModal";
+import Footer from "../components/Footer";
 
 const Trips = () => {
   const { t } = useTranslation();
@@ -33,6 +34,7 @@ const Trips = () => {
       <>
         <SimpleNavbar user={currentUser} />
         <Loading />;
+        <Footer />
       </>
     );
   }
@@ -45,6 +47,7 @@ const Trips = () => {
           title="Unauthorized access!"
           subtitle="Please login first!"
         />
+        <Footer />
       </>
     );
   }
@@ -54,6 +57,7 @@ const Trips = () => {
       <>
         <SimpleNavbar user={currentUser} />
         <EmptyState title={t("hfound")} subtitle={t("pfound")} />
+        <Footer />
       </>
     );
   }
@@ -61,9 +65,9 @@ const Trips = () => {
   return (
     <>
       <ReviewModal />
-
       <SimpleNavbar user={currentUser} />
       <TripsClient reservations={reservations} currentUser={currentUser} />
+      <Footer />
     </>
   );
 };

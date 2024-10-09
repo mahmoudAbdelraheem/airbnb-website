@@ -17,6 +17,7 @@ import getReservationByListingId from "../data/listings/getReservationByListingI
 import ToasterProvider from "../providers/ToasterProvider";
 import LoginModal from "../components/modals/LoginModal";
 import { createNewReservation } from "../data/details/createNewReservation";
+import Footer from "../components/Footer";
 const initialDateRange = {
   startDate: new Date(),
   endDate: new Date(),
@@ -165,6 +166,7 @@ export default function ListingDetail() {
           </div>
         </div>
         <Map center={[listing.mapLocation._lat, listing.mapLocation._long]} />
+        <Footer />
       </Container>
     </>
   );

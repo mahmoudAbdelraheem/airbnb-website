@@ -1,5 +1,11 @@
 import { useState } from "react";
 import Container from "./Container";
+import {
+  MdKeyboardArrowDown,
+  MdKeyboardArrowUp,
+  MdPrivacyTip,
+} from "react-icons/md";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -8,8 +14,10 @@ const Footer = () => {
     setIsExpanded(!isExpanded);
   };
 
+  const { t } = useTranslation();
+
   return (
-    <footer className="relative bg-gray-200 p-4">
+    <footer className="bg-gray-200 p-4 fixed bottom-0 left-0 w-full z-50">
       <Container>
         <div
           className={`
@@ -25,7 +33,7 @@ const Footer = () => {
                 href="#"
                 className="text-gray-700 hover:text-gray-900 transition-colors"
               >
-                Help Center
+                {t("helpCenter")}
               </a>
             </li>
             <li>
@@ -41,7 +49,7 @@ const Footer = () => {
                 href="#"
                 className="text-gray-700 hover:text-gray-900 transition-colors"
               >
-                Cancellation Options
+                {t("cancellationOptions")}
               </a>
             </li>
             <li>
@@ -49,20 +57,54 @@ const Footer = () => {
                 href="#"
                 className="text-gray-700 hover:text-gray-900 transition-colors"
               >
-                Safety Information
+                {t("safetyInformation")}
               </a>
             </li>
           </ul>
         </div>
 
         <div className="flex justify-between items-center px-4">
-          <p>© 2024 Airbnb. All rights reserved.</p>
-          <button
-            className="underline text-gray-600 hover:text-gray-900 focus:outline-none"
-            onClick={toggleExpand}
-          >
-            Support & Resources
-          </button>
+          <div className="flex row gap-3">
+            <p>© 2024 Airbnb, Inc.</p>
+            <p>·</p>
+            <a
+              href="https://www.airbnb.com/help/article/2908"
+              className="hover:underline"
+            >
+              {t("Terms")}
+            </a>
+            <p>·</p>
+            <a
+              href="https://www.airbnb.com/help/sale-share-opt-out#article-content"
+              className="hover:underline flex row gap-2 items-center"
+            >
+              {t("yourPrivacy")} <MdPrivacyTip size={18} />
+            </a>
+          </div>
+          <div className="flex row gap-2 items-center">
+            {!isExpanded && (
+              <>
+                <button
+                  className="underline text-gray-600 hover:text-gray-900 focus:outline-none"
+                  onClick={toggleExpand}
+                >
+                  {t("supportResources")}
+                </button>
+                <MdKeyboardArrowUp size={24} />
+              </>
+            )}
+            {isExpanded && (
+              <>
+                <button
+                  className="underline text-gray-600 hover:text-gray-900 focus:outline-none"
+                  onClick={toggleExpand}
+                >
+                  {t("supportResources")}
+                </button>
+                <MdKeyboardArrowDown size={24} />
+              </>
+            )}
+          </div>
         </div>
       </Container>
     </footer>
