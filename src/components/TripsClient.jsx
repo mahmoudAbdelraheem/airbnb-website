@@ -54,7 +54,7 @@ export default function TripsClient({ reservations, currentUser }) {
       <Heading title={t("trips")} subtitle={t("whereTo")} />
       <div
         className="
-        mt-10
+        my-[70px]
         grid
         grid-cols-1
         sm:grid-cols-2

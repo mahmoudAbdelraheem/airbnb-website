@@ -4,6 +4,7 @@ import { createNewReservation } from "../data/details/createNewReservation";
 import toast from "react-hot-toast";
 import loadPayPalScript from "../hooks/loadPayPalScript";
 import { PayPalButtons } from "@paypal/react-paypal-js";
+import ToasterProvider from "../providers/ToasterProvider";
 
 export default function Payment() {
   const location = useLocation();
@@ -50,6 +51,7 @@ export default function Payment() {
 
   return (
     <div>
+      <ToasterProvider />
       <PayPalButtons
         createOrder={(data, actions) => {
           return actions.order.create({
