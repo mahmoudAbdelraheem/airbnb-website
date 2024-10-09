@@ -1,11 +1,12 @@
 import { BiSearch } from "react-icons/bi";
 import { useTranslation } from "react-i18next";
 import useSearchModal from "../../hooks/useSearchModal";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import useCountries from "../../hooks/useCountries";
 import { useMemo } from "react";
 import { differenceInDays } from "date-fns";
 function Search() {
+  const navigator = useNavigate();
   const { t } = useTranslation();
   const searchModal = useSearchModal();
   const [params, setSearchParams] = useSearchParams();
@@ -42,7 +43,10 @@ function Search() {
 
   return (
     <div
-      onClick={searchModal.onOpen}
+      onClick={() => {
+        navigator("/");
+        searchModal.onOpen();
+      }}
       className="
             border-[1px]
             w-full

@@ -14,31 +14,20 @@ import Loading from "../components/Loading";
 
 import SearchModal from "../components/modals/SearchModal";
 import Footer from "../components/Footer";
-import { useLocation, useSearchParams } from "react-router-dom";
-import { getAvailableListings } from "../data/search/getAvailableListings";
-import { list } from "postcss";
+import { useSearchParams } from "react-router-dom";
 
 function Home() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState([]);
   const [searchParams] = useSearchParams();
-  // The below so we can read the URL in the homepage
   const [filteredItems, setFilteredItems] = useState([]);
   const queryParams = Object.fromEntries([...searchParams]);
-  const location = useLocation();
 
   const fetchData = async () => {
-    // Fetch search results if there are query parameters
-    if (Object.keys(queryParams).length > 0) {
-      const searchResult = await getAvailableListings(queryParams);
-      console.log("listing data from search", searchResult);
-      setListings(searchResult);
-    } else {
-      const listingData = await getListingFromFirebase();
-      console.log("listing data from firebase", listingData);
-      setListings(listingData);
-    }
+    const listingData = await getListingFromFirebase();
+    console.log("listing data from firebase", listingData);
+    setListings(listingData);
   };
 
   useEffect(() => {

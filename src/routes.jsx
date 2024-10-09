@@ -10,6 +10,7 @@ import Host from "./pages/Host";
 import Reservations from "./pages/Reservations";
 import Properties from "./pages/Properties";
 import Payment from "./components/Payment";
+import SearchResult from "./pages/SearchResult";
 
 //TODO: add all new routes here
 const routers = createBrowserRouter([
@@ -55,6 +56,10 @@ const routers = createBrowserRouter([
   {
     path: "/payment",
     element: <Payment />,
+  },
+  {
+    path: "/search",
+    element: <SearchResult />,
   },
 ]);
 export default routers;
