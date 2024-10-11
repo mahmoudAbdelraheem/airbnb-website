@@ -24,7 +24,7 @@ const Calendar = ({ value, onChange, disabledDates }) => {
         showDateDisplay={false}
         onChange={onChange}
         disabledDates={disabledDates}
-        minDdate={new Date()}
+        minDate={new Date()} // This will disable dates before today
         locale={languages[i18n.language] || enGB}
       />
     </CalendarWrapper>

@@ -121,5 +121,7 @@
   "safetyInformation": "Safety Information",
   "Terms": "Terms",
   "yourPrivacy": "Your Privacy Choices",
-  "supportResources": "Support & Resources"
+  "supportResources": "Support & Resources",
+  ">":">",
+  "<":"<"
 }
