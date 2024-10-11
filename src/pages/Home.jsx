@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../data/firebaseConfig";
-
 import LoginModal from "../components/modals/LoginModal";
 import RegisterModal from "../components/modals/RegisterModal";
 import Navbar from "../components/navbar/Navbar";
@@ -11,7 +10,6 @@ import EmptyState from "../components/EmptyState";
 import ListingsCard from "../components/listings/ListingsCard";
 import { getListingFromFirebase } from "../data/listings/getListingFromFirebase";
 import Loading from "../components/Loading";
-
 import SearchModal from "../components/modals/SearchModal";
 import Footer from "../components/Footer";
 import { useSearchParams } from "react-router-dom";
@@ -33,26 +31,18 @@ function Home() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
       setCurrentUser(user);
+      fetchData();
       setLoading(false);
     });
 
-    if (!loading) {
-      fetchData();
-    }
-
     return () => unsubscribe();
-  }, [loading]); // Add loading to dependencies
-
+  }, []);
   useEffect(() => {
     if (queryParams.category) {
       const filtered = listings.filter(
         (listing) => listing.category === queryParams.category
       );
-      if (filtered.length === 0) {
-        setFilteredItems(listings);
-      } else {
-        setFilteredItems(filtered);
-      }
+      setFilteredItems(filtered.length > 0 ? filtered : listings);
     } else {
       setFilteredItems(listings);
     }
@@ -79,7 +69,7 @@ function Home() {
           <EmptyState showReset={true} />
         </div>
       ) : (
-        <div className="py-[120px] ">
+        <div className="py-[120px]">
           <Container>
             <div className="pt-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
               {filteredItems.map((listing) => (
