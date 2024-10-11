@@ -131,5 +131,7 @@
   "safetyInformation": "معلومات السلامة",
   "Terms": "البنود",
   "yourPrivacy": "خيارات الخصوصية الخاصة بك",
-  "supportResources": "الدعم والموارد"
+  "supportResources": "الدعم والموارد",
+  "PaymentSuccessful": "تم الدفع بنجاح",
+  "ConfirmYourPayment": "تاكيد عملية الدفع"
 }

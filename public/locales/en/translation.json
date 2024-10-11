@@ -121,5 +121,8 @@
   "safetyInformation": "Safety Information",
   "Terms": "Terms",
   "yourPrivacy": "Your Privacy Choices",
-  "supportResources": "Support & Resources"
+  "supportResources": "Support & Resources",
+  "PaymentSuccessful": "Payment successful!",
+  "ConfirmYourPayment": "Confirm Your Payment",
+  "Logintoyouraccount": "Log in to your account"
 }

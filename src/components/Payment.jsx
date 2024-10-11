@@ -16,17 +16,19 @@ export default function Payment() {
   const location = useLocation();
   const loginModel = useLoginModal();
   const nav = useNavigate();
-
+  console.log("teeeest", location, location.state);
+  useEffect(() => {
+    if (location.state === null) {
+      nav("/");
+    }
+    fetchCurrentUserData();
+  }, [nav, location]);
   const { totalPrice, dateRange, listingId, userId, authorId } = location.state;
 
   const fetchCurrentUserData = async () => {
     const data = await getCurrentUser();
     setCurrentUser(data);
   };
-
-  useEffect(() => {
-    fetchCurrentUserData();
-  }, []);
 
   // The below to load PayPal script first
   //   useEffect(() => {
@@ -41,7 +43,7 @@ export default function Payment() {
   //     };
 
   //     loadScript();
-  //   }, []);
+  //   }, []);4
 
   const handlePaymentSuccess = async (details) => {
     const result = await createNewReservation({
@@ -61,10 +63,6 @@ export default function Payment() {
       toast.error("Failed");
     }
   };
-
-  if (location.state.totalPrice === null) {
-    nav("/");
-  }
 
   return (
     <div>
