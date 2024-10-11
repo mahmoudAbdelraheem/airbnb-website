@@ -1,5 +1,5 @@
 {
-  "$": "EG",
+  "$": "$  ",
   "Gotoprofile": "انتقل إلى الملف الشخصي",
   "Reserve": "احجز",
   "Villa": "فيلا",
@@ -133,5 +133,8 @@
   "yourPrivacy": "خيارات الخصوصية الخاصة بك",
   "supportResources": "الدعم والموارد",
   "PaymentSuccessful": "تم الدفع بنجاح",
-  "ConfirmYourPayment": "تاكيد عملية الدفع"
+  "ConfirmYourPayment": "تاكيد عملية الدفع",
+  "Loading...": "...جاري التحميل",
+  "PaymentFailed": "فشل في عملية الدفع",
+  "ReservationFailed": "فشل في عملية الحجز"
 }
