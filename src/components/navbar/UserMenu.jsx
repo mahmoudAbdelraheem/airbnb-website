@@ -49,6 +49,7 @@ function UserMenu({ user }) {
             </div>
           </>
         )}
+
         <DropdownWithIcon />
 
         <div
