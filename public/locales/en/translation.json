@@ -122,6 +122,15 @@
   "Terms": "Terms",
   "yourPrivacy": "Your Privacy Choices",
   "supportResources": "Support & Resources",
+
   ">":">",
-  "<":"<"
+  "<":"<",
+  "PaymentSuccessful": "Payment successful!",
+  "ConfirmYourPayment": "Confirm Your Payment",
+  "Logintoyouraccount": "Log in to your account",
+  "ContinuewithGithub": "Continue with Github",
+  "ContinuewithGoogle": "Continue with Google",
+  "Loading...": "Loading...",
+  "PaymentFailed": "Payment Failed",
+  "ReservationFailed": "Reservation failed"
 }

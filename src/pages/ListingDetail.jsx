@@ -167,8 +167,8 @@ export default function ListingDetail() {
           </div>
         </div>
         <Map center={[listing.mapLocation._lat, listing.mapLocation._long]} />
-        <Footer />
       </Container>
+      <Footer />
     </>
   );
 }

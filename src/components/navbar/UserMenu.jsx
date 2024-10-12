@@ -25,10 +25,14 @@ function UserMenu({ user }) {
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        <div
-          // TODO: add click event
-          onClick={() => {}}
-          className="
+        {user && (
+          <>
+            <div
+              // TODO: add click event
+              onClick={() => {
+                window.location.href = "http://localhost:4200/";
+              }}
+              className="
                     hidden
                     md:block
                     text-sm
@@ -40,9 +44,12 @@ function UserMenu({ user }) {
                     transition
                     cursor-pointer
                 "
-        >
-          {t("airyourhome")}
-        </div>
+            >
+              {t("airyourhome")}
+            </div>
+          </>
+        )}
+
         <DropdownWithIcon />
 
         <div

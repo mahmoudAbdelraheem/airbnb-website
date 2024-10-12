@@ -17,14 +17,12 @@ const Footer = () => {
   const { t } = useTranslation();
 
   return (
-    <footer className="bg-gray-200 p-4 fixed bottom-0 left-0 w-full z-50">
+    <footer className="bg-gray-200 p-4 sticky bottom-0 left-0 w-full z-50">
       <Container>
         <div
-          className={`
-            absolute bottom-full left-0 w-full 
-            overflow-hidden transition-all duration-300 ease-in-out bg-gray-200 ${
-              isExpanded ? "h-48" : "h-0"
-            }`}
+          className={`absolute bottom-full left-0 w-full overflow-hidden transition-all duration-300 ease-in-out bg-gray-200 ${
+            isExpanded ? "h-48" : "h-0"
+          }`}
           style={{ maxHeight: isExpanded ? "20vh" : "0" }}
         >
           <ul className="list-none p-4 space-y-2">
