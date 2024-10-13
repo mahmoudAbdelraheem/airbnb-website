@@ -31,6 +31,7 @@ function Home() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
       setCurrentUser(user);
+      console.log("user", user);
       fetchData();
       setLoading(false);
     });

@@ -19,7 +19,6 @@ export const getReviewsByHostId = async (hostId) => {
       } else {
         createdAt = "Unknown";
       }
-
       return {
         id: doc.id,
         ...data,
@@ -27,7 +26,11 @@ export const getReviewsByHostId = async (hostId) => {
       };
     });
 
-    return { success: true, reviews };
+    // Calculate the average rating
+    const totalRating = reviews.reduce((sum, review) => sum + review.rate, 0);
+    const averageRating =
+      reviews.length > 0 ? (totalRating / reviews.length).toFixed(1) : 0;
+    return { success: true, reviews, averageRating };
   } catch (error) {
     console.error("Error getting reviews by hostId: ", error);
     throw error;

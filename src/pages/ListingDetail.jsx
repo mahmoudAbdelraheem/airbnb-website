@@ -10,15 +10,13 @@ import SimpleNavbar from "../components/navbar/SimpleNavbar";
 import getCurrentUser from "../data/auth/getCurrentUser";
 import useLoginModal from "../hooks/useLoginModal";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import ListingReservation from "../components/listings/ListingReservation";
 import getReservationByListingId from "../data/listings/getReservationByListingId";
 import ToasterProvider from "../providers/ToasterProvider";
 import LoginModal from "../components/modals/LoginModal";
-import { createNewReservation } from "../data/details/createNewReservation";
 import Footer from "../components/Footer";
-
+import cookies from "js-cookie";
 const initialDateRange = {
   startDate: new Date(),
   endDate: new Date(),
@@ -26,6 +24,7 @@ const initialDateRange = {
 };
 
 export default function ListingDetail() {
+  const currentLang = cookies.get("i18next") || "en";
   const { id } = useParams();
   const [listing, setListing] = useState(null);
   const [reservations, setReservations] = useState([]);
@@ -77,22 +76,6 @@ export default function ListingDetail() {
     return dates;
   }, [reservations]);
 
-  // const onCreateReservation = useCallback(async () => {
-  //   if (!currentUser) {
-  //     return loginModel.onOpen();
-  //   }
-
-  //   setLoading(true);
-
-  //   // Call the Firebase function
-  //   const result = await createNewReservation({
-  //     totalPrice,
-  //     dateRange,
-  //     listingId: listing.id,
-  //     userId: currentUser.uid,
-  //     authorId: listing.userId,
-  //   })
-
   const onCreateReservation = useCallback(async () => {
     if (!currentUser) {
       return loginModel.onOpen();
@@ -137,15 +120,23 @@ export default function ListingDetail() {
         <div className="max-w-screen-lg mx-auto">
           <div className="flex flex-col gap-6">
             <ListingHead
-              title={listing.title}
+              title={currentLang === "en" ? listing.title : listing.titleAr}
               imageSrc={listing.imageSrc}
-              location={listing.location}
+              location={
+                currentLang === "en" ? listing.location : listing.locationAr
+              }
               id={listing.id}
             />
             <div className="grid grid-cols-1 md:grid-cols-7 md:gap-10 mt-6">
               <ListingInfo
-                description={listing.description}
-                location={listing.location}
+                description={
+                  currentLang === "en"
+                    ? listing.description
+                    : listing.descriptionAr
+                }
+                location={
+                  currentLang === "en" ? listing.location : listing.locationAr
+                }
                 guestCount={listing.guestCount}
                 roomCount={listing.roomCount}
                 category={listing.category}

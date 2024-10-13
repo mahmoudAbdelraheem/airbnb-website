@@ -10,10 +10,13 @@ import useReviewModal from "../../hooks/useReviewModal";
 import Button from "../Button";
 import { addNewReview } from "../../data/reviews/addNewReview";
 import { useNavigate } from "react-router-dom";
+import ReviewRating from "../ReviewRating";
 function ReviewModal() {
   const reviewModal = useReviewModal();
   const [isLoading, setIsLoading] = useState(false);
   const navigator = useNavigate();
+  const [rating, setRating] = useState(0);
+
   const { t } = useTranslation();
 
   const {
@@ -33,10 +36,12 @@ function ReviewModal() {
 
     try {
       const reviewData = {
+        rate: rating,
         ...data,
         ...reviewModal.reviewerData,
         createdAt: new Date().toISOString(),
       };
+      console.log(reviewData);
       // close modal
       reviewModal.onClose();
       await addNewReview(reviewData);
@@ -52,6 +57,11 @@ function ReviewModal() {
     }
   };
 
+  const ratingChanged = (newRating) => {
+    setRating(newRating);
+    console.log(`New rating: ${newRating}`);
+  };
+
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading title={t("ReviewTitle")} subtitle={t("ReviewSubtitle")} />
@@ -63,6 +73,14 @@ function ReviewModal() {
         errors={errors}
         required
       />
+      <div className="w-full flex justify-center align-center">
+        <ReviewRating
+          ratingChanged={ratingChanged}
+          iconSize={35}
+          value={rating}
+        />
+        <span className="text-2xl mt-2 ml-5"> {rating}</span>
+      </div>
     </div>
   );
 
