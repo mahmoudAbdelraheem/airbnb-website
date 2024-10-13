@@ -9,12 +9,14 @@ import { handleSignOut } from "../../data/auth/authSignOut";
 import { useNavigate } from "react-router-dom";
 import DropdownWithIcon from "../DropdownMenu";
 import { useTranslation } from "react-i18next";
+import useRentModal from "../../hooks/useRentModal";
 
 function UserMenu({ user }) {
   const { t } = useTranslation();
 
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const rentModal = useRentModal();
   const [isOpen, setIsOpen] = useState(false);
   const navigator = useNavigate();
 
@@ -29,9 +31,7 @@ function UserMenu({ user }) {
           <>
             <div
               // TODO: add click event
-              onClick={() => {
-                window.location.href = "http://localhost:4200/";
-              }}
+              onClick={rentModal.onOpen}
               className="
                     hidden
                     md:block
@@ -126,7 +126,7 @@ function UserMenu({ user }) {
                   }}
                   label={t("myaccount")}
                 />
-                <MenuItem onClick={() => {}} label={t("airyourhome")} />
+                <MenuItem onClick={rentModal.onOpen} label={t("airyourhome")} />
                 <MenuItem
                   onClick={() => {
                     navigator("/properties");

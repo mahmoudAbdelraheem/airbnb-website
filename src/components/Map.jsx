@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import MapUpdater from "./MapUpdater";
 
 // Fix the leaflet icon issues with default markers
 delete L.Icon.Default.prototype._getIconUrl;
@@ -30,6 +31,7 @@ function Map({ center }) {
       {center && Array.isArray(center) && center.length === 2 && (
         <Marker position={center} interactive className="bg-red-500" />
       )}
+      <MapUpdater center={center} />
     </MapContainer>
   );
 }

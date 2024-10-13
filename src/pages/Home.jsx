@@ -13,6 +13,7 @@ import Loading from "../components/Loading";
 import SearchModal from "../components/modals/SearchModal";
 import Footer from "../components/Footer";
 import { useSearchParams } from "react-router-dom";
+import RentModal from "../components/modals/RentModal";
 
 function Home() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -63,6 +64,7 @@ function Home() {
       <ToasterProvider />
       <SearchModal />
       <RegisterModal />
+      <RentModal />
       <LoginModal />
       <Navbar user={currentUser} />
       {listings.length === 0 ? (
