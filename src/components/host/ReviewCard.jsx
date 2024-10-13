@@ -1,3 +1,5 @@
+import ReviewRating from "../ReviewRating";
+
 /* eslint-disable react/prop-types */
 function ReviewCard({ review }) {
   return (
@@ -7,11 +9,16 @@ function ReviewCard({ review }) {
         <img
           src={review.reviwerImage || "https://via.placeholder.com/50"}
           alt="User"
-          className="w-8 h-8 rounded-full"
+          className="w-12 h-12 rounded-full"
         />
         <div>
-          <p className="text-sm font-medium">{review.reviwerName}</p>
-          <p className="text-xs text-gray-500">{review.createdAt}</p>
+          <div>
+            <p className="text-sm font-medium">{review.reviwerName}</p>
+            <p className="text-xs text-gray-500">{review.createdAt}</p>
+          </div>
+          <div className="flex justify-end">
+            <ReviewRating value={review.rate} iconSize={20} />
+          </div>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../Button";
 import { useTranslation } from "react-i18next";
 import useReviewModal from "../../hooks/useReviewModal";
+import cookies from "js-cookie";
 
 const ListingsCard = ({
   data,
@@ -19,6 +20,7 @@ const ListingsCard = ({
   secondaryActionId = "",
 }) => {
   const { t } = useTranslation();
+  const currentLang = cookies.get("i18next") || "en";
   const [currentIndex, setCurrentIndex] = useState(0);
   const nav = useNavigate();
   const reviewModal = useReviewModal();
@@ -107,7 +109,9 @@ const ListingsCard = ({
 
         {/* Text Content */}
         <div className="px-4 py-2">
-          <div className="font-semibold text-lg">{data.location}</div>
+          <div className="font-semibold text-lg">
+            {currentLang === "en" ? data.location : data.locationAr}
+          </div>
           {!reservation && (
             <div className="font-light text-neutral-500">
               {t(data.category)}

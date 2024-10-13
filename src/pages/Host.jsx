@@ -19,6 +19,7 @@ function Host() {
   const [currentUser, setCurrentUser] = useState(null);
   const [hostData, setHostData] = useState(null);
   const [reviews, setReviews] = useState([]);
+  const [avarageRating, setAvarageRating] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchCurrentUserData = async () => {
@@ -30,6 +31,7 @@ function Host() {
     try {
       const data = await getReviewsByHostId(id);
       setReviews(data.reviews);
+      setAvarageRating(data.averageRating);
     } catch (error) {
       console.log(error);
       toast.error("something went wrong");
@@ -80,7 +82,11 @@ function Host() {
             {" "}
             {/* Added this div to wrap both */}
             {/* Host Card */}
-            <HostCardInfo host={hostData} />
+            <HostCardInfo
+              host={hostData}
+              avarageRating={avarageRating}
+              reviewsCount={reviews.length}
+            />
             {/* Confirmed Information */}
             <HostConfirmedInfo host={hostData} />
           </div>

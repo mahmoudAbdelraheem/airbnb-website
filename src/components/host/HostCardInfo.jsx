@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 /* eslint-disable react/prop-types */
-function HostCardInfo({ host }) {
+function HostCardInfo({ host, avarageRating, reviewsCount }) {
   const { t } = useTranslation();
 
   return (
@@ -18,17 +18,17 @@ function HostCardInfo({ host }) {
 
       <div className="flex items-center gap-4 mt-4">
         <div className="text-center">
-          <p className="text-xl font-semibold">{host.reviewsCount || 0}</p>
+          <p className="text-xl font-semibold">{reviewsCount || 0}</p>
           <p className="text-sm text-gray-600">{t("Reviews")}</p>
         </div>
         <div className="text-center">
-          <p className="text-xl font-semibold">{host.rating || "4.9"} ⭐</p>
+          <p className="text-xl font-semibold">{avarageRating || 0} ⭐</p>
           <p className="text-sm text-gray-600">{t("Rating")}</p>
         </div>
-        <div className="text-center">
-          <p className="text-xl font-semibold">{host.yearsHosting || 0}</p>
+        {/* <div className="text-center">
+          <p className="text-xl font-semibold">{host.createdAt || 0}</p>
           <p className="text-sm text-gray-600">{t("Yearshosting")}</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
