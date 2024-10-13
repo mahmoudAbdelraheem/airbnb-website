@@ -2,13 +2,14 @@ import Select from "react-select";
 import useCountries from "../../hooks/useCountries";
 import { useTranslation } from "react-i18next";
 
-const CountrySelectValue = {
-  flag: "",
-  label: "",
-  latlng: [],
-  region: "",
-  value: "",
-};
+// const CountrySelectValue = {
+//   flag: "",
+//   label: "",
+//   latlng: [],
+//   region: "",
+//   value: "",
+// };
+
 const CountrySelect = ({ value, onChange }) => {
   const { getAll } = useCountries();
   const { t } = useTranslation();

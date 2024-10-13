@@ -15,7 +15,7 @@ const Counter = ({ title, subtitle, value, onChange }) => {
     <div className="flex flex-row items-center justify-between">
       <div className="flex flex-col">
         <div className="font-medium">{title}</div>
-        <div className="font-light text-neutral-600">{subtitle}</div>
+        <div className="font-light text-gray-600">{subtitle}</div>
       </div>
       <div className="flex flex-row items-center gap-4">
         <div
@@ -29,7 +29,7 @@ const Counter = ({ title, subtitle, value, onChange }) => {
           onClick={onAdd}
           className="w-10 h-10 rounded-full border-[1px] border-neutral-400 flex items-center justify-center cursor-pointer hover:opacity-80 transition"
         >
-            <AiOutlinePlus />
+          <AiOutlinePlus />
         </div>
       </div>
     </div>
