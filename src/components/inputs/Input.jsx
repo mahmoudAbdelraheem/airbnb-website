@@ -1,30 +1,31 @@
+/* eslint-disable react/prop-types */
 import { BiDollar } from "react-icons/bi";
 
 function Input({
-    id,
-    label,
-    type,
-    disabled,
-    formatPrice,
-    required,
-    register, //for react hook form
-    errors,
+  id,
+  label,
+  type,
+  disabled,
+  formatPrice,
+  required,
+  register, //for react hook form
+  errors,
 }) {
-    return (
-      <div className="w-full relative">
-        {formatPrice && (
-          <BiDollar
-            size={24}
-            className="
+  return (
+    <div className="w-full relative">
+      {formatPrice && (
+        <BiDollar
+          size={24}
+          className="
                         text-neutral-700
                         absolute
                         top-5
                         left-2
                     "
-          />
-        )}
+        />
+      )}
 
-        <input 
+      <input
         id={id}
         disabled={disabled}
         {...register(id, { required })}
@@ -47,8 +48,8 @@ function Input({
                 ${errors[id] ? "border-rose-500" : "border-neutral-300"}
                 ${errors[id] ? "focus:border-rose-500" : "focus:border-black"}
             `}
-        />
-        <lable
+      />
+      <lable
         className={`
             absolute
             text-md
@@ -64,11 +65,12 @@ function Input({
             peer-focus:scale-75
             peer-focus:-translate-y-4 
             ${errors[id] ? "text-rose-500" : "text-zinc-400"}
-        `}>
-            {label}
-        </lable>
-      </div>
-    );
+        `}
+      >
+        {label}
+      </lable>
+    </div>
+  );
 }
 
 export default Input;
