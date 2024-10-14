@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Modal from "./Modal";
 import { useTranslation } from "react-i18next";
 import useRentModal from "../../hooks/useRentModal";
@@ -25,6 +25,8 @@ import CountrySelect from "../inputs/CountrySelect";
 import Map from "../Map";
 import Counter from "../inputs/Counter";
 import ImageUpload from "../inputs/ImageUpload";
+import getCurrentUser from "../../data/auth/getCurrentUser";
+// import uploadImagesToStorageAndGetUrls from "../../data/listings/uploadImagesToStorageAndGetUrls";
 // import { m } from "framer-motion";
 
 export default function RentModal() {
@@ -47,6 +49,16 @@ export default function RentModal() {
   };
   const { t } = useTranslation();
   const rentModal = useRentModal();
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      const data = await getCurrentUser();
+      setCurrentUser(data);
+    };
+    fetchCurrentUser();
+  }, []);
+
   const STEPS = {
     CATEGORY: 0,
     LOCATION: 1,
@@ -71,7 +83,7 @@ export default function RentModal() {
       guestCount: 1,
       roomCount: 1,
       bathroomCount: 1,
-      imageSrc: "",
+      imagesSrc: [],
       price: 1,
       title: "",
       description: "",
@@ -83,6 +95,7 @@ export default function RentModal() {
   const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
+  const imagesSrc = watch("imagesSrc");
   const setCustomValue = (id, value) => {
     setValue(id, value, {
       shouldDirty: true,
@@ -93,6 +106,7 @@ export default function RentModal() {
 
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [images, setImages] = useState([]);
 
   // Fetch categories from Firebase and map icon names to components
   const fetchCategories = async () => {
@@ -112,6 +126,18 @@ export default function RentModal() {
   useEffect(() => {
     fetchCategories();
   }, []);
+
+  // const handleUpload = async () => {
+  //   setLoading(true);
+  //   const imageFirebaseUrl = await uploadImagesToStorageAndGetUrls(
+  //     images,
+  //     currentUser.uid
+  //   );
+
+  //   console.log("image Firebase Urls after upload", imageFirebaseUrl);
+
+  //   setLoading(false);
+  // };
 
   const onBack = () => {
     setStep((value) => value - 1);
@@ -219,7 +245,16 @@ export default function RentModal() {
             title={"Add a photo of your place"}
             subtitle={"Show guests what your place looks like!"}
           />
-          <ImageUpload />
+          <ImageUpload
+            images={images}
+            setImages={setImages}
+            uid={currentUser.uid}
+            disabled={loading}
+            onChange={(value) => {
+              console.log("onchnage images value is =", value);
+              return setCustomValue("imagesSrc", value);
+            }}
+          />
         </div>
       </>
     );
