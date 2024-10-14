@@ -6,6 +6,7 @@ import {
   MdPrivacyTip,
 } from "react-icons/md";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 
 const Footer = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -14,10 +15,19 @@ const Footer = () => {
     setIsExpanded(!isExpanded);
   };
 
+  const location = useLocation();
+  const isPayment = location.pathname === "/payment";
+
   const { t } = useTranslation();
 
   return (
-    <footer className="bg-gray-200 p-4 sticky bottom-0 left-0 w-full ">
+    <footer
+      className={
+        isPayment
+          ? "bg-gray-200 p-4 sticky bottom-0 left-0 w-full z-[999]"
+          : "bg-gray-200 p-4 sticky bottom-0 left-0 w-full"
+      }
+    >
       <Container>
         <div
           className={`absolute bottom-full left-0 w-full overflow-hidden transition-all duration-300 ease-in-out bg-gray-200 ${
