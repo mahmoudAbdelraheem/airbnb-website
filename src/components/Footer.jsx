@@ -17,7 +17,7 @@ const Footer = () => {
   const { t } = useTranslation();
 
   return (
-    <footer className="bg-gray-200 p-4 sticky bottom-0 left-0 w-full z-50">
+    <footer className="bg-gray-200 p-4 sticky bottom-0 left-0 w-full ">
       <Container>
         <div
           className={`absolute bottom-full left-0 w-full overflow-hidden transition-all duration-300 ease-in-out bg-gray-200 ${
