@@ -143,6 +143,15 @@ export default function RentModal() {
       return onNext();
     }
     setLoading(true);
+    if (data.category === "" || data.imageSrc.length === 0) {
+      toast.error(
+        "All data is required! make sure that you select category and upload images"
+      );
+      setLoading(false);
+
+      return;
+    }
+
     try {
       const listingData = {
         ...data,
