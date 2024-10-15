@@ -41,7 +41,6 @@ export default function ListingDetail() {
   const fetchListing = async () => {
     try {
       const res = await getListingById(id);
-      console.log("listing fetch data", res);
       setListing(res);
     } catch (error) {
       alert("Error: ", error);
@@ -50,7 +49,6 @@ export default function ListingDetail() {
 
   const fetchReservations = async () => {
     const data = await getReservationByListingId(id);
-    console.log("reservations fetch data", data);
     setReservations(data);
   };
 
@@ -157,7 +155,8 @@ export default function ListingDetail() {
             </div>
           </div>
         </div>
-        <Map center={[listing.mapLocation._lat, listing.mapLocation._long]} />
+        <Map center={[listing.mapLocation[0], listing.mapLocation[1]]} />
+        <div className="h-24" />
       </Container>
       <Footer />
     </>

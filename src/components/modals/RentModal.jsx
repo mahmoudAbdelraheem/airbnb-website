@@ -29,6 +29,7 @@ import getCurrentUser from "../../data/auth/getCurrentUser";
 import Input from "../inputs/Input";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { insertListing } from "../../data/listings/insertListing";
 
 export default function RentModal() {
   const iconMap = {
@@ -143,10 +144,22 @@ export default function RentModal() {
     }
     setLoading(true);
     try {
-      toast.success("Listing created successfully");
-      console.log("listing data is = ", data);
+      const listingData = {
+        ...data,
+        userId: currentUser.uid,
+        region: location.region,
+        location: location.label,
+        mapLocation: location.latlng,
+        locationValue: location.value,
+      };
+      console.log("listing data is = ", listingData);
+      const result = await insertListing(listingData);
+      toast.success(result);
+      toast.success("please wait until approved from admin.");
+
       reset();
       setStep(STEPS.CATEGORY);
+      setImages([]);
       rentModal.onClose();
       navigate("/");
     } catch (error) {
