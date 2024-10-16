@@ -2,9 +2,8 @@ import { firebaseFirestore } from "../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 
 const getCategoriesFromFirebase = async () => {
-  const categoriesCollectionRef = collection(firebaseFirestore, "categories");
-
   try {
+    const categoriesCollectionRef = collection(firebaseFirestore, "categories");
     const querySnapshot = await getDocs(categoriesCollectionRef);
 
     const categories = querySnapshot.docs.map((doc) => ({

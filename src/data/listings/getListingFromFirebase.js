@@ -1,17 +1,26 @@
 import { firebaseFirestore } from "../firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 export const getListingFromFirebase = async () => {
   try {
     const listingsRef = collection(firebaseFirestore, "listings");
-    const listingsSnapshot = await getDocs(listingsRef);
-    const listingsList = listingsSnapshot.docs.map((doc) => ({
+
+    // Create a query to filter listings where 'approved' is true
+    const approvedListingsQuery = query(
+      listingsRef,
+      where("approved", "==", true)
+    );
+
+    const listingsSnapshot = await getDocs(approvedListingsQuery);
+
+    const approvedListings = listingsSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
-    return listingsList;
+
+    return approvedListings;
   } catch (error) {
-    console.error("Error fetching listings: ", error);
+    console.error("Error fetching approved listings: ", error);
     return [];
   }
 };
