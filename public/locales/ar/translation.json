@@ -107,7 +107,7 @@
   "totalPrice": "السعر الكلي",
   "trips": "الحجوزات",
   "whereTo": "اين كنت واين ستذهب",
-
+  "Create": "أضف",
   "reservedby": "حجزت بواسطة",
   "Filters": "التصفية",
   "mq1": "أين تريد أن تذهب؟",
@@ -132,12 +132,13 @@
   "Terms": "البنود",
   "yourPrivacy": "خيارات الخصوصية الخاصة بك",
   "supportResources": "الدعم والموارد",
-  ">":"<",
-  "<":">",
+  ">": "<",
+  "<": ">",
   "PaymentSuccessful": "تم الدفع بنجاح",
   "ConfirmYourPayment": "تاكيد عملية الدفع",
   "Loading...": "...جاري التحميل",
   "PaymentFailed": "فشل في عملية الدفع",
-  "ReservationFailed": "فشل في عملية الحجز"
-
+  "ReservationFailed": "فشل في عملية الحجز",
+  "DescribePlace": "أي مما يلي يصف مكانك بشكل أفضل؟",
+  "PickCategory": "اختر الفئة"
 }

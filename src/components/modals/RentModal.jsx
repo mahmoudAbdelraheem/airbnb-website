@@ -180,10 +180,10 @@ export default function RentModal() {
 
   const actionLabel = useMemo(() => {
     if (step === STEPS.PRICE) {
-      return "Create";
+      return t("Create");
     }
 
-    return "Next";
+    return t("Next");
   }, [step]);
 
   const secondaryActionLabel = useMemo(() => {
@@ -191,7 +191,7 @@ export default function RentModal() {
       return undefined;
     }
 
-    return "Back";
+    return t("Back");
   }, [step]);
 
   const handleLocationSelect = (latLng) => {
@@ -202,17 +202,14 @@ export default function RentModal() {
   let bodyContent = (
     <>
       <div className="flex flex-col gap-8">
-        <Heading
-          title="Which of these best describes your place?"
-          subtitle="Pick a category"
-        />
+        <Heading title={t("DescribePlace")} subtitle={t("PickCategory")} />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
           {categories.map((item) => (
             <div key={item.label} className="col-span-1">
               <CategoryInput
                 onClick={(category) => setCustomValue("category", category)}
                 selected={category === item.label}
-                label={item.label}
+                label={t(item.label)}
                 icon={item.icon}
               />
             </div>

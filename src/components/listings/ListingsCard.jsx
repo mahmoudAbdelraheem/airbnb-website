@@ -78,7 +78,7 @@ const ListingsCard = ({
           <img
             src={data.imageSrc[currentIndex]}
             alt={`Image ${currentIndex}`}
-            className="object-cover w-full h-full group-hover:scale-110 transition"
+            className="object-cover w-full h-full group-hover:scale-110 transition rounded-lg"
           />
           <div className="absolute top-3 right-3">
             <HeartButton listingId={data.id} currentUser={currentUser} />
