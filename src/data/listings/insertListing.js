@@ -6,6 +6,7 @@ export const insertListing = async (listing) => {
 
     const docRef = await addDoc(listingsRef, {
       ...listing,
+      price: Number(listing.price),
       createdAt: new Date().toISOString(),
       approved: false,
     });
