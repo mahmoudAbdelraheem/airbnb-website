@@ -1,18 +1,18 @@
-import {
-  GiBarn,
-  GiBoatFishing,
-  GiCactus,
-  GiCastle,
-  GiCaveEntrance,
-  GiForestCamp,
-  GiIsland,
-  GiWindmill,
-} from "react-icons/gi";
-import { MdOutlineVilla } from "react-icons/md";
-import { TbBeach, TbMountain, TbPool } from "react-icons/tb";
-import { FaSkiing } from "react-icons/fa";
-import { BsSnow } from "react-icons/bs";
-import { IoDiamond } from "react-icons/io5";
+// import {
+//   GiBarn,
+//   GiBoatFishing,
+//   GiCactus,
+//   GiCastle,
+//   GiCaveEntrance,
+//   GiForestCamp,
+//   GiIsland,
+//   GiWindmill,
+// } from "react-icons/gi";
+// import { MdOutlineVilla } from "react-icons/md";
+// import { TbBeach, TbMountain, TbPool } from "react-icons/tb";
+// import { FaSkiing } from "react-icons/fa";
+// import { BsSnow } from "react-icons/bs";
+// import { IoDiamond } from "react-icons/io5";
 import Container from "../Container";
 import CategoryBox from "./CategoryBox";
 import { useLocation, useSearchParams } from "react-router-dom";
@@ -20,24 +20,24 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import getCategoriesFromFirebase from "../../data/categories/getCategoriesFromFirebase";
 
-// Mapping of icon names to the actual icon components
-const iconMap = {
-  TbBeach: TbBeach,
-  GiWindmill: GiWindmill,
-  MdOutlineVilla: MdOutlineVilla,
-  TbMountain: TbMountain,
-  TbPool: TbPool,
-  GiIsland: GiIsland,
-  GiBoatFishing: GiBoatFishing,
-  FaSkiing: FaSkiing,
-  GiCastle: GiCastle,
-  GiForestCamp: GiForestCamp,
-  BsSnow: BsSnow,
-  GiCaveEntrance: GiCaveEntrance,
-  GiCactus: GiCactus,
-  GiBarn: GiBarn,
-  IoDiamond: IoDiamond,
-};
+// // Mapping of icon names to the actual icon components
+// const iconMap = {
+//   TbBeach: TbBeach,
+//   GiWindmill: GiWindmill,
+//   MdOutlineVilla: MdOutlineVilla,
+//   TbMountain: TbMountain,
+//   TbPool: TbPool,
+//   GiIsland: GiIsland,
+//   GiBoatFishing: GiBoatFishing,
+//   FaSkiing: FaSkiing,
+//   GiCastle: GiCastle,
+//   GiForestCamp: GiForestCamp,
+//   BsSnow: BsSnow,
+//   GiCaveEntrance: GiCaveEntrance,
+//   GiCactus: GiCactus,
+//   GiBarn: GiBarn,
+//   IoDiamond: IoDiamond,
+// };
 
 export default function Categories() {
   const [params] = useSearchParams();
@@ -57,7 +57,7 @@ export default function Categories() {
     // Map the icon string to the actual icon component
     const updatedCategories = categories.map((category) => ({
       ...category,
-      icon: iconMap[category.icon], // Map the icon name to the component
+      // icon: iconMap[category.icon], // Map the icon name to the component
     }));
 
     setCategories(updatedCategories);
@@ -84,7 +84,7 @@ export default function Categories() {
             key={item.label}
             label={t(item.label)}
             selected={category === item.label}
-            icon={item.icon}
+            imageUrl={item.image}
           />
         ))}
       </div>

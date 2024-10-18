@@ -1,11 +1,6 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 
-export default function CategoryInput({
-  icon: Icon,
-  label,
-  selected,
-  onClick,
-}) {
+export default function CategoryInput({ label, selected, onClick, imageUrl }) {
   return (
     <div
       onClick={() => onClick(label)}
@@ -22,7 +17,7 @@ export default function CategoryInput({
     ${selected ? "border-black" : "border-neutral-200"}
     `}
     >
-      <Icon size={24} />
+      <img src={imageUrl} alt={label} className="w-12 h-12 object-cover" />
       <div className="font-semibold">{label}</div>
     </div>
   );

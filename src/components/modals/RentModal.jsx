@@ -210,7 +210,8 @@ export default function RentModal() {
                 onClick={(category) => setCustomValue("category", category)}
                 selected={category === item.label}
                 label={t(item.label)}
-                icon={item.icon}
+                // icon={item.icon}
+                imageUrl={item.image}
               />
             </div>
           ))}
