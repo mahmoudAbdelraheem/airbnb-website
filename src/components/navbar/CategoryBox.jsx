@@ -3,15 +3,12 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import qs from "query-string";
 
 // eslint-disable-next-line react/prop-types
-export default function CategoryBox({ icon: Icon, label, selected }) {
+export default function CategoryBox({ label, selected, imageUrl }) {
   const navigate = useNavigate();
   const [params] = useSearchParams();
 
   const handleClick = useCallback(() => {
-    // Define an empty query
     let currentQuery = {};
-
-    // Look for the current params and parse them to string
     if (params) {
       currentQuery = qs.parse(params.toString());
     }
@@ -21,12 +18,10 @@ export default function CategoryBox({ icon: Icon, label, selected }) {
       category: label,
     };
 
-    // If the clicked category is already selected, remove it
     if (currentQuery.category === label) {
       delete updatedQuery.category;
     }
 
-    // Build the new URL with updated query parameters
     const url = qs.stringifyUrl(
       {
         url: "/",
@@ -35,18 +30,33 @@ export default function CategoryBox({ icon: Icon, label, selected }) {
       { skipNull: true }
     );
 
-    // Navigate to the new URL
     navigate(url);
   }, [label, params, navigate]);
 
   return (
     <div
       onClick={handleClick}
-      className={`flex flex-col items-center justify-center gap-2 p-3 border-b-2 hover:text-neutral-800 transition cursor-pointer ${
+      className={`relative flex flex-col items-center justify-center gap-2 p-3 border-b-2 hover:text-neutral-800 transition cursor-pointer ${
         selected ? "border-b-neutral-800" : "border-transparent"
       } ${selected ? "text-neutral-800" : "text-neutral-500"}`}
     >
-      <Icon size={26} />
+      {/* Image container with overlay */}
+      <div className="relative w-10 h-10">
+        {/* Image */}
+        <img
+          src={imageUrl}
+          alt={label}
+          className="w-full h-full object-cover"
+        />
+
+        {/* Overlay */}
+        <div
+          className={`absolute inset-0 hover:opacity-0 bg-gray-100 rounded-s ${
+            selected ? "opacity-0" : "opacity-40"
+          } transition-opacity`}
+        />
+      </div>
+
       <div className="font-medium text-sm">{label}</div>
     </div>
   );
