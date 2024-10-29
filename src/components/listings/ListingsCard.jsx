@@ -114,7 +114,9 @@ const ListingsCard = ({
           </div>
           {!reservation && (
             <div className="font-light text-neutral-500">
-              {t(data.category)}
+              {currentLang === "en"
+                ? data.category.label
+                : data.category.labelAr}
             </div>
           )}
           {reservation?.reserver && (

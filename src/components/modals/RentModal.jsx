@@ -3,21 +3,6 @@ import Modal from "./Modal";
 import { useTranslation } from "react-i18next";
 import useRentModal from "../../hooks/useRentModal";
 import Heading from "../Heading";
-import {
-  GiBarn,
-  GiBoatFishing,
-  GiCactus,
-  GiCastle,
-  GiCaveEntrance,
-  GiForestCamp,
-  GiIsland,
-  GiWindmill,
-} from "react-icons/gi";
-import { MdOutlineVilla } from "react-icons/md";
-import { TbBeach, TbMountain, TbPool } from "react-icons/tb";
-import { FaSkiing } from "react-icons/fa";
-import { BsSnow } from "react-icons/bs";
-import { IoDiamond } from "react-icons/io5";
 import getCategoriesFromFirebase from "../../data/categories/getCategoriesFromFirebase";
 import CategoryInput from "../inputs/CategoryInput";
 import { useForm } from "react-hook-form";
@@ -30,26 +15,11 @@ import Input from "../inputs/Input";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { insertListing } from "../../data/listings/insertListing";
+import cookies from "js-cookie";
 
 export default function RentModal() {
-  const iconMap = {
-    TbBeach: TbBeach,
-    GiWindmill: GiWindmill,
-    MdOutlineVilla: MdOutlineVilla,
-    TbMountain: TbMountain,
-    TbPool: TbPool,
-    GiIsland: GiIsland,
-    GiBoatFishing: GiBoatFishing,
-    FaSkiing: FaSkiing,
-    GiCastle: GiCastle,
-    GiForestCamp: GiForestCamp,
-    BsSnow: BsSnow,
-    GiCaveEntrance: GiCaveEntrance,
-    GiCactus: GiCactus,
-    GiBarn: GiBarn,
-    IoDiamond: IoDiamond,
-  };
   const { t } = useTranslation();
+  const currentLang = cookies.get("i18next") || "en";
   const rentModal = useRentModal();
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
@@ -81,7 +51,7 @@ export default function RentModal() {
     reset,
   } = useForm({
     defaultValues: {
-      category: "",
+      categoryId: "",
       location: null,
       guestCount: 1,
       roomCount: 1,
@@ -93,7 +63,7 @@ export default function RentModal() {
     },
   });
 
-  const category = watch("category");
+  const categoryId = watch("categoryId");
   const location = watch("location");
   const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
@@ -119,7 +89,6 @@ export default function RentModal() {
     // Map the icon string to the actual icon component
     const updatedCategories = categories.map((category) => ({
       ...category,
-      icon: iconMap[category.icon], // Map the icon name to the component
     }));
 
     setCategories(updatedCategories);
@@ -200,24 +169,24 @@ export default function RentModal() {
   };
 
   let bodyContent = (
-    <>
-      <div className="flex flex-col gap-8">
-        <Heading title={t("DescribePlace")} subtitle={t("PickCategory")} />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
-          {categories.map((item) => (
-            <div key={item.label} className="col-span-1">
-              <CategoryInput
-                onClick={(category) => setCustomValue("category", category)}
-                selected={category === item.label}
-                label={t(item.label)}
-                // icon={item.icon}
-                imageUrl={item.image}
-              />
-            </div>
-          ))}
-        </div>
+    <div className="flex flex-col gap-8">
+      <Heading title={t("DescribePlace")} subtitle={t("PickCategory")} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
+        {categories.map((item) => (
+          <div key={item.id} className="col-span-1">
+            <CategoryInput
+              onClick={() => {
+                console.log("categories id", item.id);
+                return setCustomValue("categoryId", item.id);
+              }} // Setting categoryId instead of the entire object
+              selected={categoryId === item.id}
+              label={currentLang === "en" ? item.label : item.labelAr}
+              imageUrl={item.image}
+            />
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 
   if (step === STEPS.LOCATION) {
