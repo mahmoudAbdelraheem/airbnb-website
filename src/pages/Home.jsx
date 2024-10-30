@@ -42,7 +42,7 @@ function Home() {
   useEffect(() => {
     if (queryParams.category) {
       const filtered = listings.filter(
-        (listing) => listing.category === queryParams.category
+        (listing) => listing.categoryId === queryParams.category
       );
       setFilteredItems(filtered.length > 0 ? filtered : listings);
     } else {
