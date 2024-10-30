@@ -1,9 +1,16 @@
+/* eslint-disable react/prop-types */
 import { useCallback } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import qs from "query-string";
 import cookies from "js-cookie";
-// eslint-disable-next-line react/prop-types
-export default function CategoryBox({ label, labelAr, selected, imageUrl }) {
+
+export default function CategoryBox({
+  id,
+  label,
+  labelAr,
+  selected,
+  imageUrl,
+}) {
   const currentLang = cookies.get("i18next") || "en";
   const navigate = useNavigate();
   const [params] = useSearchParams();
@@ -16,10 +23,10 @@ export default function CategoryBox({ label, labelAr, selected, imageUrl }) {
 
     const updatedQuery = {
       ...currentQuery,
-      category: label,
+      category: id,
     };
 
-    if (currentQuery.category === label) {
+    if (currentQuery.category === id) {
       delete updatedQuery.category;
     }
 
@@ -32,7 +39,7 @@ export default function CategoryBox({ label, labelAr, selected, imageUrl }) {
     );
 
     navigate(url);
-  }, [label, params, navigate]);
+  }, [id, params, navigate]);
 
   return (
     <div
