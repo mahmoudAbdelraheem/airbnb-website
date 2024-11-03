@@ -8,11 +8,12 @@ import ListingsCard from "./listings/ListingsCard";
 import { toast } from "react-hot-toast";
 import ToasterProvider from "../providers/ToasterProvider";
 import { deleteListingById } from "../data/properites/deleteListingById";
+import useRentModal from "../hooks/useRentModal";
 
 export default function PropertiesClient({ listings, currentUser }) {
   const navigate = useNavigate();
   const [deletingId, setDeletingId] = useState("");
-
+  const rentModal = useRentModal();
   const onCancel = useCallback(
     async (id) => {
       try {
@@ -30,6 +31,14 @@ export default function PropertiesClient({ listings, currentUser }) {
       }
     },
     [navigate] // Change to [navigate]
+  );
+  const onEdit = useCallback(
+    (listing) => {
+      console.log("******************************");
+      console.log(listing);
+      rentModal.onOpen(listing);
+    },
+    [rentModal]
   );
 
   return (
@@ -53,15 +62,26 @@ export default function PropertiesClient({ listings, currentUser }) {
     "
       >
         {listings.map((listing) => (
-          <ListingsCard
-            key={listing}
-            data={listing}
-            actionId={listing.id}
-            onAction={onCancel}
-            disabled={deletingId === listing.id}
-            actionLabel="Delete property"
-            currentUser={currentUser}
-          />
+          <div
+            className={
+              !listing.approved
+                ? "border-2 border-red-600 p-1"
+                : "border-2 border-green-400 p-1"
+            }
+            key={listing.id}
+          >
+            <ListingsCard
+              key={listing}
+              data={listing}
+              actionId={listing.id}
+              onAction={onCancel}
+              disabled={deletingId === listing.id}
+              actionLabel="Delete property"
+              secondaryActionLabel="Edit property"
+              onSecondaryAction={() => onEdit(listing)}
+              currentUser={currentUser}
+            />
+          </div>
         ))}
       </div>
     </Container>

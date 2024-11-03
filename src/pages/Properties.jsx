@@ -6,6 +6,7 @@ import Loading from "../components/Loading";
 import getCurrentUserProperties from "../data/properites/getCurrentUserProperites";
 import PropertiesClient from "../components/PropertiesClient";
 import Footer from "../components/Footer";
+import RentModal from "../components/modals/RentModal";
 
 const Properties = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -65,6 +66,7 @@ const Properties = () => {
   return (
     <>
       <SimpleNavbar user={currentUser} />
+      <RentModal />
       <PropertiesClient listings={properties} currentUser={currentUser} />
       <Footer />
     </>

@@ -17,6 +17,8 @@ import ToasterProvider from "../providers/ToasterProvider";
 import LoginModal from "../components/modals/LoginModal";
 import Footer from "../components/Footer";
 import cookies from "js-cookie";
+import RentModal from "../components/modals/RentModal";
+
 const initialDateRange = {
   startDate: new Date(),
   endDate: new Date(),
@@ -112,6 +114,7 @@ export default function ListingDetail() {
     <>
       <ToasterProvider />
       <LoginModal />
+      <RentModal />
       <SimpleNavbar user={currentUser} />
       <div className="h-[15vh]" />
       <Container>

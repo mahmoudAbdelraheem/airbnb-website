@@ -13,6 +13,8 @@ import HostReviews from "../components/host/HostReviews";
 import HostConfirmedInfo from "../components/host/HostConfirmedInfo";
 import { getReviewsByHostId } from "../data/reviews/getReviewsByHostId";
 import Footer from "../components/Footer";
+import RentModal from "../components/modals/RentModal";
+
 
 function Host() {
   const { id } = useParams();
@@ -72,6 +74,7 @@ function Host() {
   return (
     <>
       <ToasterProvider />
+      <RentModal />
       <SimpleNavbar user={currentUser} />
       <div className="h-[15vh]" />
 

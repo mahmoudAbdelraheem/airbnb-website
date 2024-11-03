@@ -6,6 +6,7 @@ import Loading from "../components/Loading";
 import getReservationByAuthorId from "../data/reservations/getReservationsByAuthorId";
 import ReservationsClient from "../components/reservations/ReservationsClient";
 import Footer from "../components/Footer";
+import RentModal from "../components/modals/RentModal";
 
 function Reservations() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -62,6 +63,7 @@ function Reservations() {
   return (
     <>
       <SimpleNavbar user={currentUser} />
+      <RentModal />
       <ReservationsClient
         reservations={reservations}
         currentUser={currentUser}

@@ -14,7 +14,10 @@ import getCurrentUser from "../../data/auth/getCurrentUser";
 import Input from "../inputs/Input";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { insertListing } from "../../data/listings/insertListing";
+import {
+  insertListing,
+  updateListing,
+} from "../../data/listings/insertListing";
 import cookies from "js-cookie";
 
 export default function RentModal() {
@@ -23,6 +26,7 @@ export default function RentModal() {
   const rentModal = useRentModal();
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
+  const [isEditMode, setIsEditMode] = useState(false);
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -62,7 +66,39 @@ export default function RentModal() {
       description: "",
     },
   });
+  const initializeFormWithListing = (listing) => {
+    setIsEditMode(true);
+    setValue("categoryId", listing.categoryId);
 
+    setValue("location", {
+      label: listing.location,
+      value: listing.locationValue,
+      latlng: listing.mapLocation,
+      region: listing.region,
+      locationAr: listing.locationAr,
+    });
+    setValue("guestCount", listing.guestCount);
+    setValue("roomCount", listing.roomCount);
+    setValue("bathroomCount", listing.bathroomCount);
+    setValue("imageSrc", listing.imageSrc);
+    setValue("price", listing.price);
+    setValue("title", listing.title);
+    setValue("titleAr", listing.titleAr);
+    setValue("description", listing.description);
+    setValue("descriptionAr", listing.descriptionAr);
+    setImages(listing.imageSrc);
+  };
+  useEffect(() => {
+    if (rentModal.isOpen && rentModal.listingToEdit) {
+      initializeFormWithListing(rentModal.listingToEdit);
+    } else if (!rentModal.isOpen) {
+      // Reset form when modal closes
+      reset();
+      setStep(STEPS.CATEGORY);
+      setImages([]);
+      setIsEditMode(false);
+    }
+  }, [rentModal.isOpen, rentModal.listingToEdit]);
   const categoryId = watch("categoryId");
   const location = watch("location");
   const guestCount = watch("guestCount");
@@ -131,7 +167,12 @@ export default function RentModal() {
         locationValue: location.value,
       };
       console.log("listing data is = ", listingData);
-      const result = await insertListing(listingData);
+      let result = null;
+      if (isEditMode) {
+        result = await updateListing(rentModal.listingToEdit.id, listingData);
+      } else {
+        result = await insertListing(listingData);
+      }
       toast.success(result);
       toast.success("please wait until approved from admin.");
 
@@ -204,6 +245,7 @@ export default function RentModal() {
           <Input
             id="locationAr"
             label="Location In Arabic  EX( مصر , القاهرة )"
+            value={location.locationAr || ""}
             disabled={loading}
             register={register}
             errors={errors}
@@ -254,6 +296,7 @@ export default function RentModal() {
   }
 
   if (step === STEPS.IMAGES) {
+    console.log(images);
     bodyContent = (
       <>
         <div className="flex flex-col gap-8">

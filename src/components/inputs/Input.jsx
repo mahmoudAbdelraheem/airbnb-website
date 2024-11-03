@@ -10,6 +10,7 @@ function Input({
   required,
   register, //for react hook form
   errors,
+  value,
 }) {
   return (
     <div className="w-full relative">
@@ -31,6 +32,7 @@ function Input({
         {...register(id, { required })}
         placeholder=" "
         type={type}
+        defaultValue={value}
         className={`
                 peer
                 w-full

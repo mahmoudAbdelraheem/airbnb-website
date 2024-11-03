@@ -54,15 +54,24 @@ const ListingsCard = ({
     (e) => {
       e.stopPropagation();
       // data that will be passed to review modal to add review in firebase
-      const reviwerData = {
-        reviwerId: currentUser?.uid,
-        reviwerImage: currentUser?.photoURL,
-        reviwerName:
-          currentUser?.name || currentUser?.displayName || "Anonymous",
-        listingId: reservation.listing.id,
-        hostId: reservation.listing.userId,
-      };
-      reviewModal.onOpen(reviwerData);
+      if (disabled) {
+        return;
+      }
+      console.log("Triggering secondary action with data:", data);
+
+      if (!reservation || reservation == undefined) onSecondaryAction();
+
+      if (reviewModal.isOpen) {
+        const reviwerData = {
+          reviwerId: currentUser?.uid,
+          reviwerImage: currentUser?.photoURL,
+          reviwerName:
+            currentUser?.name || currentUser?.displayName || "Anonymous",
+          listingId: reservation.listing.id,
+          hostId: reservation.listing.userId,
+        };
+        reviewModal.onOpen(reviwerData);
+      }
     },
     [onSecondaryAction, secondaryActionId, disabled]
   );

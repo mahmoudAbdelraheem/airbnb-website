@@ -9,7 +9,8 @@ import Container from "../components/Container";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/Footer";
 import SearchModal from "../components/modals/SearchModal";
-
+import RentModal from "../components/modals/RentModal";
+  
 function SearchResult() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -46,6 +47,7 @@ function SearchResult() {
   return (
     <>
       <SearchModal />
+      <RentModal />
 
       <Navbar user={currentUser} />
       {listings.length === 0 ? (
