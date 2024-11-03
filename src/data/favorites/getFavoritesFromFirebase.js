@@ -1,5 +1,5 @@
 import { doc, getDoc } from "firebase/firestore";
-import { firebaseFirestore } from "../firebaseConfig"; // Ensure this points to your Firestore instance
+import { firebaseFirestore } from "../firebaseConfig";
 import getCurrentUser from "../auth/getCurrentUser";
 
 export default async function getFavoriteListingsFromFirebase() {
@@ -15,7 +15,7 @@ export default async function getFavoriteListingsFromFirebase() {
         const userData = userDoc.data();
         const favoritesIds = userData.favoritesIds || [];
 
-        // Step 3: Fetch all favorite listings
+        // Step 3: Fetch all favorite listings along with their categories
         if (favoritesIds.length > 0) {
           const favoriteListings = await Promise.all(
             favoritesIds.map(async (listingId) => {
@@ -25,7 +25,36 @@ export default async function getFavoriteListingsFromFirebase() {
                 listingId
               );
               const listingDoc = await getDoc(listingDocRef);
-              return listingDoc.exists() ? listingDoc.data() : null; // Return the listing data if it exists
+
+              if (listingDoc.exists()) {
+                const listingData = listingDoc.data();
+
+                // Fetch the category data based on categoryId
+                if (listingData.categoryId) {
+                  const categoryRef = doc(
+                    firebaseFirestore,
+                    "categories",
+                    listingData.categoryId
+                  );
+                  const categoryDoc = await getDoc(categoryRef);
+
+                  if (categoryDoc.exists()) {
+                    listingData.category = categoryDoc.data();
+                  } else {
+                    console.log(
+                      `No category found for categoryId: ${listingData.categoryId}`
+                    );
+                    listingData.category = null;
+                  }
+                } else {
+                  console.log("No categoryId found in listing.");
+                  listingData.category = null;
+                }
+
+                return listingData;
+              } else {
+                return null; // Handle case where listing doesn't exist
+              }
             })
           );
 

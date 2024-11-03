@@ -1,9 +1,9 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { firebaseFirestore } from "../firebaseConfig";
 
 export const createNewReservation = async ({
   totalPrice,
-  dateRange, // this is an object containing (start and end data)
+  dateRange, // this is an object containing start and end dates
   listingId,
   userId,
   authorId,
@@ -14,12 +14,12 @@ export const createNewReservation = async ({
     // Create a new document in the "reservations" collection
     await addDoc(reservationsRef, {
       totalPrice,
-      startDate: dateRange.startDate,
-      endDate: dateRange.endDate,
+      startDate: Timestamp.fromDate(new Date(dateRange.startDate)), // Ensure startDate is a Timestamp
+      endDate: Timestamp.fromDate(new Date(dateRange.endDate)), // Ensure endDate is a Timestamp
       listingId,
       userId,
       authorId,
-      createdAt: new Date().toISOString(),
+      createdAt: Timestamp.fromDate(new Date()), // Store as Firestore Timestamp
     });
 
     return { success: true };
