@@ -88,10 +88,18 @@ export default function RentModal() {
     setValue("descriptionAr", listing.descriptionAr);
     setImages(listing.imageSrc);
   };
+  const isValidListing = (listing) => {
+    return (
+      listing &&
+      typeof listing === "object" &&
+      !listing._reactName &&
+      !listing.nativeEvent
+    );
+  };
   useEffect(() => {
-    if (rentModal.isOpen && rentModal.listingToEdit) {
+    if (rentModal.isOpen && isValidListing(rentModal.listingToEdit)) {
       initializeFormWithListing(rentModal.listingToEdit);
-    } else if (!rentModal.isOpen) {
+    } else {
       // Reset form when modal closes
       reset();
       setStep(STEPS.CATEGORY);
@@ -245,7 +253,7 @@ export default function RentModal() {
           <Input
             id="locationAr"
             label="Location In Arabic  EX( مصر , القاهرة )"
-            value={location.locationAr || ""}
+            value={location != null ? location.locationAr : ""}
             disabled={loading}
             register={register}
             errors={errors}
