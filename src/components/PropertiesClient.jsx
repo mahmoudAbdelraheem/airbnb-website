@@ -65,8 +65,8 @@ export default function PropertiesClient({ listings, currentUser }) {
           <div
             className={
               !listing.approved
-                ? "border-2 border-red-600 p-1"
-                : "border-2 border-green-400 p-1"
+                ? "border-2 rounded-xl border-red-600 p-1"
+                : "border-2 rounded-xl border-green-400 p-1"
             }
             key={listing.id}
           >

@@ -1,4 +1,4 @@
-import { collection, addDoc, updateDoc,doc,getDoc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc, getDoc } from "firebase/firestore";
 import { firebaseFirestore } from "../firebaseConfig";
 export const insertListing = async (listing) => {
   try {
@@ -37,6 +37,7 @@ export const updateListing = async (listingId, listing) => {
     // Prepare the update data
     const updateData = {
       ...listing,
+      approved: false,
       price: Number(listing.price),
       updatedAt: new Date().toISOString(),
     };
@@ -45,7 +46,6 @@ export const updateListing = async (listingId, listing) => {
 
     console.log(`Listing updated successfully: ${listingId}`);
     return "Your Listing has been updated successfully.";
-
   } catch (error) {
     console.error("Error updating listing:", error);
     if (error.message === "Listing not found") {
