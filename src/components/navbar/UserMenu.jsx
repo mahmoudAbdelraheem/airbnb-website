@@ -91,6 +91,7 @@ function UserMenu({ user }) {
                 right-0
                 top-12
                 text-sm
+                z-50
             "
         >
           <div

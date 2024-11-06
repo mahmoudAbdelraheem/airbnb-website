@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useLocation } from "react-router-dom";
 import Container from "../Container";
-import Logo from "./Logo";
 import UserMenu from "./UserMenu";
+import SimpleLogo from "./SimpleLogo";
 
 function SimpleNavbar({ user }) {
   const location = useLocation();
@@ -33,7 +33,7 @@ function SimpleNavbar({ user }) {
                 md:gap-0
             "
           >
-            <Logo />
+            <SimpleLogo />
 
             <UserMenu user={user} />
           </div>
