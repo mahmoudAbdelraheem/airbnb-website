@@ -10,7 +10,7 @@ function Avatar({ imageSrc }) {
             w-8
             h-8
             "
-      src={imageSrc || placeholder}
+      src={imageSrc === null ? placeholder : imageSrc}
     />
   );
 }

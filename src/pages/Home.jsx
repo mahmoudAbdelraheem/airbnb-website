@@ -25,14 +25,12 @@ function Home() {
 
   const fetchData = async () => {
     const listingData = await getListingFromFirebase();
-    console.log("listing data from firebase", listingData);
     setListings(listingData);
   };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
       setCurrentUser(user);
-      console.log("user", user);
       fetchData();
       setLoading(false);
     });

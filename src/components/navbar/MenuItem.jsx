@@ -1,9 +1,9 @@
 // eslint-disable-next-line react/prop-types
-function MenuItem({onClick, label}) {
-    return (
-      <div
-        onClick={onClick}
-        className="
+function MenuItem({ onClick, label }) {
+  return (
+    <div
+      onClick={onClick}
+      className="
             px-4
             py-3
             hover:bg-neutral-100
@@ -11,10 +11,10 @@ function MenuItem({onClick, label}) {
             font-semibold
             cursor-pointer
         "
-      >
-        {label}
-      </div>
-    );
+    >
+      {label}
+    </div>
+  );
 }
 
 export default MenuItem;

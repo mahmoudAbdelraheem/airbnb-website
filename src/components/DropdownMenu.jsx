@@ -44,7 +44,7 @@ const DropdownWithIcon = () => {
   }, [currentLanguage]);
 
   return (
-    <div className="relative inline-block text-left" ref={dropdownRef}>
+    <div className="relative inline-block text-left z-50" ref={dropdownRef}>
       {/* Dropdown Button */}
       <button
         onClick={toggleDropdown}
