@@ -10,7 +10,7 @@ import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/Footer";
 import SearchModal from "../components/modals/SearchModal";
 import RentModal from "../components/modals/RentModal";
-  
+
 function SearchResult() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -24,7 +24,6 @@ function SearchResult() {
     setCurrentUser(userData);
     if (Object.keys(queryParams).length > 0) {
       const searchResult = await getAvailableListings(queryParams);
-      console.log("listing data from search", searchResult);
       setListings(searchResult);
     }
 
