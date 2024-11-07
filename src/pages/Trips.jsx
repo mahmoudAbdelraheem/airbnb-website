@@ -11,7 +11,6 @@ import Footer from "../components/Footer";
 
 const Trips = () => {
   const { t } = useTranslation();
-
   const [currentUser, setCurrentUser] = useState(null);
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -33,7 +32,7 @@ const Trips = () => {
     return (
       <>
         <SimpleNavbar user={currentUser} />
-        <Loading />;
+        <Loading />
         <Footer />
       </>
     );
