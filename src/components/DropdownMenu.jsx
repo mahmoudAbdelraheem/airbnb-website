@@ -39,6 +39,7 @@ const DropdownWithIcon = () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
+
   useEffect(() => {
     document.body.dir = currentLanguage.dir || "ltr";
   }, [currentLanguage]);
@@ -68,9 +69,11 @@ const DropdownWithIcon = () => {
                 role="menuitem"
                 key={language.code}
                 onClick={() => {
-                  i18next.changeLanguage(language.code);
+                  i18next.changeLanguage(language.code).then(() => {
+                    window.location.reload(); // Refresh the page
+                  });
                 }}
-                disabled={language.code == currentLanguage.code}
+                disabled={language.code === currentLanguage.code}
               >
                 {language.name}
               </button>
