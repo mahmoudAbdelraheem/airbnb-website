@@ -17,7 +17,6 @@ const ListingsCard = ({
   disabled,
   onSecondaryAction,
   secondaryActionLabel,
-  secondaryActionId = "",
 }) => {
   const { t } = useTranslation();
   const currentLang = cookies.get("i18next") || "en";
@@ -26,12 +25,12 @@ const ListingsCard = ({
   const reviewModal = useReviewModal();
 
   const handleNextClick = (e) => {
-    e.stopPropagation(); // Prevent navigation on click
+    e.stopPropagation();
     setCurrentIndex((prevIndex) => (prevIndex + 1) % data.imageSrc.length);
   };
 
   const handlePrevClick = (e) => {
-    e.stopPropagation(); // Prevent navigation on click
+    e.stopPropagation();
     setCurrentIndex(
       (prevIndex) =>
         (prevIndex - 1 + data.imageSrc.length) % data.imageSrc.length
@@ -41,10 +40,7 @@ const ListingsCard = ({
   const handleCancel = useCallback(
     (e) => {
       e.stopPropagation();
-      if (disabled) {
-        return;
-      }
-
+      if (disabled) return;
       onAction?.(actionId);
     },
     [onAction, actionId, disabled]
@@ -53,27 +49,22 @@ const ListingsCard = ({
   const handleSecondaryAction = useCallback(
     (e) => {
       e.stopPropagation();
-      // data that will be passed to review modal to add review in firebase
-      if (disabled) {
-        return;
-      }
-      console.log("Triggering secondary action with data:", data);
+      if (disabled) return;
 
-      if (!reservation || reservation == undefined) onSecondaryAction();
+      // Prepare data for the review modal
+      const reviewerData = {
+        reviewerId: currentUser?.uid,
+        reviewerImage: currentUser?.photoURL,
+        reviewerName:
+          currentUser?.name || currentUser?.displayName || "Anonymous",
+        listingId: reservation?.listing?.id,
+        hostId: reservation?.listing?.userId,
+      };
 
-      if (reviewModal.isOpen) {
-        const reviwerData = {
-          reviwerId: currentUser?.uid,
-          reviwerImage: currentUser?.photoURL,
-          reviwerName:
-            currentUser?.name || currentUser?.displayName || "Anonymous",
-          listingId: reservation.listing.id,
-          hostId: reservation.listing.userId,
-        };
-        reviewModal.onOpen(reviwerData);
-      }
+      // Open the review modal with the reviewer data
+      reviewModal.onOpen(reviewerData);
     },
-    [onSecondaryAction, secondaryActionId, disabled]
+    [reviewModal, currentUser, reservation, disabled]
   );
 
   return (
@@ -82,7 +73,6 @@ const ListingsCard = ({
       className="col-span-1 cursor-pointer group"
     >
       <div className="flex flex-col gap-2 w-full">
-        {/* Adjust image container height for mobile responsiveness */}
         <div className="relative w-full h-64 sm:h-80 md:h-96 lg:h-64">
           <img
             src={data.imageSrc[currentIndex]}
@@ -94,13 +84,13 @@ const ListingsCard = ({
           </div>
           <button
             onClick={handlePrevClick}
-            className="h-8 w-8 absolute top-1/2 left-2 transform flex justify-center items-center -translate-y-1/2 bg-white text-black p-2 rounded-full hover:bg-gray-300"
+            className="h-8 w-8 absolute top-1/2 left-2 transform -translate-y-1/2 bg-white text-black p-2 rounded-full hover:bg-gray-300"
           >
             {t("<")}
           </button>
           <button
             onClick={handleNextClick}
-            className="h-8 w-8 absolute top-1/2 right-2 flex justify-center items-center transform -translate-y-1/2 bg-white text-black p-2 rounded-full hover:bg-gray-300"
+            className="h-8 w-8 absolute top-1/2 right-2 transform -translate-y-1/2 bg-white text-black p-2 rounded-full hover:bg-gray-300"
           >
             {t(">")}
           </button>
@@ -116,7 +106,6 @@ const ListingsCard = ({
           </div>
         </div>
 
-        {/* Text Content */}
         <div className="px-4 py-2">
           <div className="font-semibold text-lg">
             {currentLang === "en" ? data.location : data.locationAr}
@@ -156,7 +145,6 @@ const ListingsCard = ({
               </div>
             )}
           </div>
-          {/* Action buttons */}
           {onAction && actionLabel && (
             <Button
               disabled={disabled}
